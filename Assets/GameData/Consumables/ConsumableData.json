@@ -1,0 +1,12 @@
+{
+	"consumables":[
+		{
+			"ItemName": "Test Heal",
+			"ImageSource": "TestHeal",
+			"HealthChange": 200,
+			"Regeneration": 0,
+			"RegenerationDurationInSeconds": 0,
+			"TimeToConsumeInSeconds": 2
+		}
+	]
+}

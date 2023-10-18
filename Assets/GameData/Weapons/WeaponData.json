@@ -1,0 +1,76 @@
+{
+	"weapons":[
+		{
+			"ItemName": "Test Weapon",
+			"MagazineSize": 20,
+			"DamageDealtPerBullet": 2,
+			"SpareAmmo": 60,
+			"WeaponCategory": "Sniper_Rifle",
+			"ImageSource": "TestWeapon",
+			"Rarity": 1
+		},
+		{
+			"ItemName": "AK47",
+			"MagazineSize": 37,
+			"DamageDealtPerBullet": 3,
+			"SpareAmmo": 74,
+			"WeaponCategory": "AssaultRifle",
+			"ImageSource": "AK47",
+			"Rarity": 2
+		},
+		{
+			"ItemName": "AR15",
+			"MagazineSize": 25,
+			"DamageDealtPerBullet": 3,
+			"SpareAmmo": 50,
+			"WeaponCategory": "AssaultRifle",
+			"ImageSource": "AR15",
+			"Rarity": 3
+		},
+		{
+			"ItemName": "FAMAS G2",
+			"MagazineSize": 30,
+			"DamageDealtPerBullet": 3,
+			"SpareAmmo": 50,
+			"WeaponCategory": "AssaultRifle",
+			"ImageSource": "FAMAS",
+			"Rarity": 1
+		},
+		{
+			"ItemName": "AUG",
+			"MagazineSize": 42,
+			"DamageDealtPerBullet": 3,
+			"SpareAmmo": 50,
+			"WeaponCategory": "AssaultRifle",
+			"ImageSource": "AUG",
+			"Rarity": 3
+		},
+		{
+			"ItemName": "Astra Model 900",
+			"MagazineSize": 10,
+			"DamageDealtPerBullet": 3,
+			"SpareAmmo": 20,
+			"WeaponCategory": "Pistol",
+			"ImageSource": "Astra900",
+			"Rarity": 1
+		},
+		{
+			"ItemName": "SCAR-L",
+			"MagazineSize": 30,
+			"DamageDealtPerBullet": 3,
+			"SpareAmmo": 60,
+			"WeaponCategory": "AssaultRifle",
+			"ImageSource": "SCAR-L",
+			"Rarity": 2
+		},
+		{
+			"ItemName": "SCAR-H",
+			"MagazineSize": 20,
+			"DamageDealtPerBullet": 6,
+			"SpareAmmo": 60,
+			"WeaponCategory": "AssaultRifle",
+			"ImageSource": "SCAR-H",
+			"Rarity": 4
+		}
+	]
+}
