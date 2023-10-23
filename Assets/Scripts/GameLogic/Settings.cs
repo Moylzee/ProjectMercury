@@ -19,7 +19,6 @@ public class SettingsData
         if (weaponSlot1 == null)
         {
             // Setting default
-            Debug.Log("GetKey WPS 1: set to default key!");
             weaponSlot1 = "1";
         }
 
@@ -32,7 +31,6 @@ public class SettingsData
         if (weaponSlot2 == null)
         {
             // Setting default
-            Debug.Log("GetKey WPS 2: set to default key!");
             weaponSlot1 = "2";
         }
 
@@ -45,7 +43,6 @@ public class SettingsData
         if (itemSlot1 == null)
         {
             // Setting default
-            Debug.Log("GetKey IS1 : set to default key!");
             itemSlot1 = "1";
         }
 
@@ -58,7 +55,6 @@ public class SettingsData
         if (itemSlot2 == null)
         {
             // Setting default
-            Debug.Log("GetKey IS2 : set to default key!");
             itemSlot2 = "1";
         }
 
@@ -71,7 +67,6 @@ public class SettingsData
         if (itemSlot3 == null)
         {
             // Setting default
-            Debug.Log("GetKey IS3 : set to default key!");
             itemSlot3 = "1";
         }
 
@@ -82,7 +77,6 @@ public class SettingsData
     {
         if (interactKey == null)
         {
-            Debug.Log("GetKey IK : set to default key!");
             interactKey = "e";
         }
 
@@ -104,12 +98,8 @@ public static class Settings
         string filePath = File.ReadAllText("Assets/GameData/GameSettings/Keyboard.json");
         if(filePath == null || filePath.Equals(""))
         {
-            Debug.Log("Wtf");
+            Debug.LogError("Error reading Settings file");
             return;
-        }
-        else
-        {
-            Debug.Log(filePath);
         }
         data = JsonUtility.FromJson<SettingsData>(filePath);
 
@@ -121,7 +111,7 @@ public static class Settings
     {
         if (data == null)
         {
-            Debug.Log("data is null");
+            Debug.LogError("data is null");
         }
         return data;
     }

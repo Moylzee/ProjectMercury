@@ -91,7 +91,6 @@ public class PlayerObject : GameEntity
             Weapon weapon = (Weapon)Inventory.GetSlot("4").GetItemInSlot();
             if (weapon == null)
             {
-                Debug.Log("No weapon in slot 4");
                 Inventory.UnequipWeapon();
                 return;
             }
@@ -105,7 +104,6 @@ public class PlayerObject : GameEntity
             Weapon weapon = (Weapon)Inventory.GetSlot("5").GetItemInSlot();
             if (weapon == null)
             {
-                Debug.Log("No weapon in slot 5");
                 Inventory.UnequipWeapon();
                 return;
             }
@@ -176,7 +174,6 @@ public class PlayerObject : GameEntity
             Item item = ItemNearby.GetComponent<WeaponObjectBehaviour>().item;
             if (!item.IsOnGround())
             {
-                Debug.Log("Item is somehow not on ground");
                 return;
             }
 
@@ -209,7 +206,6 @@ public class PlayerObject : GameEntity
             Item item = ItemNearby.GetComponent<ConsumableItemObjectBehaviour>().item;
             if (!item.IsOnGround())
             {
-                Debug.Log("Item is somehow not on ground");
                 return;
             }
 

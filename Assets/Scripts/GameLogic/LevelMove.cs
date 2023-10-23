@@ -9,7 +9,6 @@ public class LevelMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Trigger");
         if (other.CompareTag("Player"))
         {
             Debug.Log("Switching Scene to " + sceneIndex);

@@ -14,8 +14,6 @@ public class EnemyHealth : MonoBehaviour
     {
         currHealth -= damage;
 
-        Debug.LogWarning("Enemey health is now >> " + currHealth);
-
         if (currHealth <= 0)
         {
             Destroy(gameObject);

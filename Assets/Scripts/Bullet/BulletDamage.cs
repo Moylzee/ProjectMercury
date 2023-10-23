@@ -32,11 +32,9 @@ public class BulletDamage : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
-            Debug.Log("Bullet hit Enemy");
             var healthComponent = enemy.GetComponent<EnemyHealth>();
             if (healthComponent != null)
             {
-                Debug.Log("Damaged Enemey by " + damage);
                 healthComponent.DamageEnemy(damage);
             }
         }

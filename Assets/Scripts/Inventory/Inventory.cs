@@ -37,7 +37,6 @@ public class Inventory : MonoBehaviour
     {
         if (!Items.Contains(item))
         {
-            Debug.Log("Inventory doesn't contain item: " + item.GetItemName());
             return;
         }
         Items.Remove(item);
@@ -48,19 +47,10 @@ public class Inventory : MonoBehaviour
 
         if (Items.Count <= 0)
         {
-            Debug.Log("Inventory is empty");
             return null;
         }
 
         return Items[index];
-    }
-
-    public void debug_ItemsInInvetory()
-    {
-        foreach (Item item in Items)
-        {
-            Debug.Log("Item name: " + item.GetItemName());
-        }
     }
 
 }
@@ -143,7 +133,6 @@ public class PlayerInventory : Inventory
     {
         if (InventorySlotList.Count <= 0)
         {
-            Debug.Log("Inventory Slot list is empty");
             return null;
         }
 
