@@ -9,6 +9,7 @@ public class PlayerObject : GameEntity
 {
 
     public GameObject InventoryPrefab;
+    public GameObject weaponDetailsPrefab;
     public GameObject InteractPrompt;
     public float RANGE_OF_PICKUP = 12f;
 
@@ -28,9 +29,10 @@ public class PlayerObject : GameEntity
     void Start()
     {
 
-        Inventory = new PlayerInventory(InventoryPrefab);
+        Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
         InteractPrompt = GameObject.FindWithTag("InteractKey_Hint");
         InteractPrompt.GetComponent<Text>().text = Settings.GetData().GetKey_InteractKey().ToUpper();
+
 
         ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
 

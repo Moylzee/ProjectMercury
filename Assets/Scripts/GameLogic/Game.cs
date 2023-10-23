@@ -19,8 +19,8 @@ public class Game : MonoBehaviour
 
         Weapon weaponData = WeaponLoader.GetWeapon("AK47");
         Weapon weaponData2 = WeaponLoader.GetWeapon("AR15");
-        Weapon weaponData3 = WeaponLoader.GetWeapon("FAMAS G2");
-        Weapon weaponData4 = WeaponLoader.GetWeapon("AUG");
+        Weapon weaponData3 = WeaponLoader.GetWeapon("Thompson");
+        Weapon weaponData4 = WeaponLoader.GetWeapon("CheyTac M200");
 
         weapon1.ReadWeapon(weaponData);
         weapon2.ReadWeapon(weaponData2);

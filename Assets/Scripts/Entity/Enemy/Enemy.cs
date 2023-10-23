@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
+    private CircleCollider2D collider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +17,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet")){
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
     }
 }

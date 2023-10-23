@@ -62,24 +62,37 @@ public class PlayerShootingBehaviour : MonoBehaviour
         else
         {
             Debug.Log("Need to reload");
-
             uint SpareAmmo = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetSpareAmmo();
             ushort MagSize = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetMagazineSize();
+            StartCoroutine(ReloadDelay(SpareAmmo, MagSize));
 
-            if (SpareAmmo > 0)
+           
+
+        }
+
+
+        Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
+    }
+
+    private IEnumerator ReloadDelay(uint SpareAmmo, ushort MagSize)
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (SpareAmmo > 0)
+        {
+            if (SpareAmmo >= MagSize)
             {
-                if(SpareAmmo >= MagSize)
-                {
-                    Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag(MagSize);
-                    Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetSpareAmmo(SpareAmmo - MagSize);
-                    return;
-                }
-
-                Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)SpareAmmo);
+                Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag(MagSize);
+                Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetSpareAmmo(SpareAmmo - MagSize);
+            }
+            else
+            {
+                Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)MagSize);
                 Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetSpareAmmo(0);
             }
 
         }
+
     }
 
 }

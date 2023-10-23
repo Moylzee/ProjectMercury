@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -16,6 +17,10 @@ public class Inventory : MonoBehaviour
         Items = new List<Item>();
     }
 
+    void Update()
+    {
+        
+    }
 
     public void AddItem(Item item)
     {
@@ -63,19 +68,26 @@ public class Inventory : MonoBehaviour
 
 public class PlayerInventory : Inventory
 {
-
     public Weapon EquippedWeapon = null;
     public List<GameObject> InventorySlotList = new();
     public Dictionary<string, SlotItem> Slots = new();
-    public PlayerInventory(GameObject InventoryPrefab)
+
+
+    private GameObject WeaponDetails;
+
+    public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)
     {
         GameObject InventoryObject = Instantiate(InventoryPrefab);
+        WeaponDetails = Instantiate(WeaponDetailsPrefab);
         InventoryObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
+        WeaponDetails.transform.SetParent(GameObject.Find("Canvas").transform, false);
         InventorySlotList.Add(GameObject.FindWithTag("Slot1"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot2"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot3"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot4"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot5"));
+
+        WeaponDetails.SetActive(false);
 
         LoadDictionary();
     }
@@ -86,8 +98,21 @@ public class PlayerInventory : Inventory
         return EquippedWeapon;
     }
 
+
+   public void UpdateDetails()
+    {
+        if(getEquippedWeapon() == null)
+        {
+            return;
+        }
+        string ammo = getEquippedWeapon().GetBulletsInMag() + " / " + getEquippedWeapon().GetSpareAmmo();
+        WeaponDetails.transform.Find("Ammo").GetComponent<TextMeshProUGUI>().text = ammo;
+        WeaponDetails.transform.Find("Weapon").GetComponent<TextMeshProUGUI>().text = getEquippedWeapon().GetItemName();
+    }
+
     public void EquipWeapon(Weapon weapon)
     {
+
         if (weapon == null)
         {
             return;
@@ -98,12 +123,19 @@ public class PlayerInventory : Inventory
             this.UnequipWeapon();
         }
 
+        WeaponDetails.SetActive(true);
+
+
+
         this.EquippedWeapon = weapon;
+        UpdateDetails();
     }
 
     public void UnequipWeapon()
     {
         this.EquippedWeapon = null;
+
+        WeaponDetails.SetActive(false);
     }
 
 
