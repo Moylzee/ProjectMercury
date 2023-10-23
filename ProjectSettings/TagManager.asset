@@ -19,6 +19,7 @@ TagManager:
   - InteractKey_Hint
   - Lootbox
   - LootboxParent
+  - WeaponDetails
   layers:
   - Default
   - TransparentFX

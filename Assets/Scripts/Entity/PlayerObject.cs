@@ -12,7 +12,7 @@ public class PlayerObject : GameEntity
     public GameObject InteractPrompt;
     public float RANGE_OF_PICKUP = 12f;
 
-    public PlayerInvetory Inventory { get; set; }
+    public PlayerInventory Inventory { get; set; }
 
     public Vector2 InteractHint_Offset = new Vector2(-3f, 5f);
 
@@ -21,34 +21,23 @@ public class PlayerObject : GameEntity
     public GameObject BoxNearby;
     public bool BOX_OPEN = false;
 
+    private PlayerShootingBehaviour ShootingBehaviour;
 
 
     // Player entry point
     void Start()
     {
-        Inventory = new PlayerInvetory(InventoryPrefab);
-        InteractPrompt = GameObject.FindWithTag("InteractKey_Hint");
 
-        if (InteractPrompt != null)
-        {
-            Text textComponent = InteractPrompt.GetComponent<Text>();
-            if (textComponent != null)
-            {
-                textComponent.text = Settings.GetData().GetKey_InteractKey().ToUpper();
-            }
-            else
-            {
-                Debug.LogError("Text component not found on InteractPrompt object.");
-            }
-        }
-        else
-        {
-            Debug.LogError("InteractPrompt object not found with the 'InteractKey_Hint' tag.");
-        }
+        Inventory = new PlayerInventory(InventoryPrefab);
+        InteractPrompt = GameObject.FindWithTag("InteractKey_Hint");
+        InteractPrompt.GetComponent<Text>().text = Settings.GetData().GetKey_InteractKey().ToUpper();
+
+        ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
+
     }
 
 
-    public PlayerInvetory GetPlayerInventory()
+    public PlayerInventory GetPlayerInventory()
     {
         return Inventory;
     }
@@ -71,12 +60,21 @@ public class PlayerObject : GameEntity
         {
             if (Inventory.IsHoveringOverSlot() != null || BOX_OPEN == true)
             {
+                // unable to shoot atm
                 return;
             }
 
             if (Inventory.getEquippedWeapon() != null)
             {
-                Debug.Log("Pew pew pew");
+                ShootingBehaviour.Shoot();
+            }
+        }
+
+        if(Input.GetMouseButtonUp(0))
+        {
+            if (Inventory.getEquippedWeapon() != null)
+            {
+                ShootingBehaviour.StopShoot();
             }
         }
     }

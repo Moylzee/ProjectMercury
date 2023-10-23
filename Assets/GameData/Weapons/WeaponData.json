@@ -1,40 +1,34 @@
 {
 	"weapons":[
 		{
-			"ItemName": "Test Weapon",
-			"MagazineSize": 20,
-			"DamageDealtPerBullet": 2,
-			"SpareAmmo": 60,
-			"WeaponCategory": "Sniper_Rifle",
-			"ImageSource": "TestWeapon",
-			"Rarity": 1
-		},
-		{
 			"ItemName": "AK47",
-			"MagazineSize": 37,
+			"MagazineSize": 30,
 			"DamageDealtPerBullet": 3,
-			"SpareAmmo": 74,
+			"SpareAmmo": 60,
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "AK47",
-			"Rarity": 2
+			"Rarity": 2,
+			"FireRate": 10
 		},
 		{
 			"ItemName": "AR15",
-			"MagazineSize": 25,
-			"DamageDealtPerBullet": 3,
-			"SpareAmmo": 50,
+			"MagazineSize": 30,
+			"DamageDealtPerBullet": 4,
+			"SpareAmmo": 60,
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "AR15",
-			"Rarity": 3
+			"Rarity": 3,
+			"FireRate": 4.5
 		},
 		{
 			"ItemName": "FAMAS G2",
 			"MagazineSize": 30,
-			"DamageDealtPerBullet": 3,
-			"SpareAmmo": 50,
+			"DamageDealtPerBullet": 2,
+			"SpareAmmo": 60,
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "FAMAS",
-			"Rarity": 1
+			"Rarity": 3,
+			"FireRate": 90
 		},
 		{
 			"ItemName": "AUG",
@@ -43,34 +37,58 @@
 			"SpareAmmo": 50,
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "AUG",
-			"Rarity": 3
+			"Rarity": 3,
+			"FireRate": 65
 		},
 		{
 			"ItemName": "Astra Model 900",
 			"MagazineSize": 10,
-			"DamageDealtPerBullet": 3,
+			"DamageDealtPerBullet": 1,
 			"SpareAmmo": 20,
 			"WeaponCategory": "Pistol",
 			"ImageSource": "Astra900",
-			"Rarity": 1
+			"Rarity": 1,
+			"FireRate": 0.1
 		},
 		{
 			"ItemName": "SCAR-L",
 			"MagazineSize": 30,
-			"DamageDealtPerBullet": 3,
+			"DamageDealtPerBullet": 4,
 			"SpareAmmo": 60,
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "SCAR-L",
-			"Rarity": 2
+			"Rarity": 3,
+			"FireRate": 65
 		},
 		{
 			"ItemName": "SCAR-H",
 			"MagazineSize": 20,
 			"DamageDealtPerBullet": 6,
-			"SpareAmmo": 60,
+			"SpareAmmo": 40,
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "SCAR-H",
-			"Rarity": 4
+			"Rarity": 4,
+			"FireRate": 55
+		},
+		{
+			"ItemName": "CheyTac M200",
+			"MagazineSize": 7,
+			"DamageDealtPerBullet": 25,
+			"SpareAmmo": 14,
+			"WeaponCategory": "SniperRifle",
+			"ImageSource": "M200",
+			"Rarity": 4,
+			"FireRate": 0.1
+		},
+		{
+			"ItemName": "Thompson",
+			"MagazineSize": 50,
+			"DamageDealtPerBullet": 4,
+			"SpareAmmo": 100,
+			"WeaponCategory": "SMG",
+			"ImageSource": "thompson",
+			"Rarity": 3,
+			"FireRate": 60
 		}
 	]
 }

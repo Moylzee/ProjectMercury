@@ -61,13 +61,13 @@ public class Inventory : MonoBehaviour
 }
 
 
-public class PlayerInvetory : Inventory
+public class PlayerInventory : Inventory
 {
 
     public Weapon EquippedWeapon = null;
     public List<GameObject> InventorySlotList = new();
     public Dictionary<string, SlotItem> Slots = new();
-    public PlayerInvetory(GameObject InventoryPrefab)
+    public PlayerInventory(GameObject InventoryPrefab)
     {
         GameObject InventoryObject = Instantiate(InventoryPrefab);
         InventoryObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
