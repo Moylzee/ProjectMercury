@@ -22,9 +22,11 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Bullet")){
+        if(collision.gameObject.CompareTag("Bullet"))
+        {
             Destroy(collision.gameObject);
-            Destroy(gameObject);
+            GetComponent<EnemyHealth>().DamageEnemy(collision.gameObject.GetComponent<BulletDamage>().GetDamage());
         }
     }
+
 }

@@ -55,7 +55,8 @@ public class PlayerShootingBehaviour : MonoBehaviour
         ushort BulletsInMag = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetBulletsInMag();
         if(BulletsInMag > 0)
         {
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            GameObject b = Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            b.GetComponent<BulletDamage>().SetDamage((int)Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetDamageDealtPerBullet());
             Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)(BulletsInMag - 1));
 
         }

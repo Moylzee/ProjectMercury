@@ -17,6 +17,16 @@ public class BulletDamage : MonoBehaviour
 
     }
 
+    public void SetDamage(int dmg)
+    {
+        damage = dmg;
+    }
+
+    public int GetDamage()
+    {
+        return this.damage;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -26,6 +36,7 @@ public class BulletDamage : MonoBehaviour
             var healthComponent = enemy.GetComponent<EnemyHealth>();
             if (healthComponent != null)
             {
+                Debug.Log("Damaged Enemey by " + damage);
                 healthComponent.DamageEnemy(damage);
             }
         }
