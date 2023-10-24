@@ -43,7 +43,7 @@ public class SettingsData
         if (itemSlot1 == null)
         {
             // Setting default
-            itemSlot1 = "1";
+            itemSlot1 = "3";
         }
 
         return itemSlot1;
@@ -55,7 +55,7 @@ public class SettingsData
         if (itemSlot2 == null)
         {
             // Setting default
-            itemSlot2 = "1";
+            itemSlot2 = "4";
         }
 
         return itemSlot2;
@@ -67,7 +67,7 @@ public class SettingsData
         if (itemSlot3 == null)
         {
             // Setting default
-            itemSlot3 = "1";
+            itemSlot3 = "5";
         }
 
         return itemSlot3;

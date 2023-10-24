@@ -53,7 +53,7 @@ public class Game : MonoBehaviour
 
 
         ConsumableItem item = new();
-        ConsumableItem itemData = ConsumableItemLoader.GetItem("Test Heal");
+        ConsumableItem itemData = ConsumableItemLoader.GetItem("Syrinage");
         item.Clone(itemData);
 
         item.SetOnGround(true);

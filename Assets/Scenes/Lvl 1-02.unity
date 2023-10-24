@@ -10867,6 +10867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InventoryPrefab: {fileID: 7257033293732290580, guid: 1f3d81d1170cae84085b186b0c2a57e8, type: 3}
+  weaponDetailsPrefab: {fileID: 3388876485237543266, guid: 77752fbdb13bd19448de8344d5649809, type: 3}
   InteractPrompt: {fileID: 1646990526}
   RANGE_OF_PICKUP: 12
   InteractHint_Offset: {x: -3, y: 5}

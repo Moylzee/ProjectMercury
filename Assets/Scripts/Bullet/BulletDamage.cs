@@ -21,7 +21,7 @@ public class BulletDamage : MonoBehaviour
     {
         damage = dmg;
     }
-
+    
     public int GetDamage()
     {
         return this.damage;

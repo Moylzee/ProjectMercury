@@ -51,6 +51,37 @@ public class PlayerStamina : MonoBehaviour
         }
     }
 
+
+    // Method to increase stamina by n
+    public void IncreaseStamina(int stamina)
+    {
+        this.currStamina += stamina;
+        if (currStamina > maxStamina)
+        {
+            currStamina = maxStamina;
+        }
+    }
+
+    // Method that starts coroutine to increase stamina by n over s seconds
+    public void IncreaseStaminaOverTime(int stamina, float seconds)
+    {
+        StartCoroutine(IncreaseStaminaOverTimeCoroutine(stamina, seconds));
+    }
+
+    private IEnumerator IncreaseStaminaOverTimeCoroutine(int stamina, float seconds)
+    {
+        float timePassed = 0f;
+        float interval = 0.5f;
+
+        while (timePassed < seconds)
+        {
+            IncreaseStamina(stamina);
+            yield return new WaitForSeconds(interval);
+
+            timePassed += interval;
+        }
+    }
+
     // Setter 
     public void SetPlayer(PlayerMovement playerMovement) { player = playerMovement; }
 }

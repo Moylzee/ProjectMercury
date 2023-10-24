@@ -100,44 +100,35 @@ public class LootboxInteraction : MonoBehaviour
         var Item3 = container.Find("Slot3").Find("Item3").GetComponent<SlotItem>();
         var Item4 = container.Find("Slot4").Find("Item4").GetComponent<SlotItem>();
 
-        Weapon weapon = new();
-        Weapon random = WeaponLoader.GetRandomWeapon_Bias();
-        if (random != null)
-        {
-            weapon.ReadWeapon(random);
-            GameObject go = WeaponLoader.CreateWeaponObject(new Vector2(-1000, -1000), weapon);
-            Item1.InsertItemInSlot(weapon);
-            Destroy(go);
-        }
+        SlotItem[] ItemList = { Item1, Item2, Item3, Item4 };
 
-        Weapon weapon2 = new();
-        random = WeaponLoader.GetRandomWeapon_Bias();
-        if (random != null)
-        {
-            weapon2.ReadWeapon(random);
-            GameObject go = WeaponLoader.CreateWeaponObject(new Vector2(-1000, -1000), weapon2);
-            Item2.InsertItemInSlot(weapon2);
-            Destroy(go);
-        }
 
-        Weapon weapon3 = new();
-        random = WeaponLoader.GetRandomWeapon_Bias();
-        if (random != null)
+        foreach (SlotItem slot in ItemList)
         {
-            weapon3.ReadWeapon(random);
-            GameObject go = WeaponLoader.CreateWeaponObject(new Vector2(-1000, -1000), weapon3);
-            Item3.InsertItemInSlot(weapon3);
-            Destroy(go);
-        }
-
-        Weapon weapon4 = new();
-        random = WeaponLoader.GetRandomWeapon_Bias();
-        if (random != null)
-        {
-            weapon4.ReadWeapon(random);
-            GameObject go = WeaponLoader.CreateWeaponObject(new Vector2(-1000, -1000), weapon4);
-            Item4.InsertItemInSlot(weapon4);
-            Destroy(go);
+            if (Random.Range(0, 1f) > 0.5f)
+            {
+                Weapon weapon = new();
+                Weapon random = WeaponLoader.GetRandomWeapon_Bias();
+                if (random != null)
+                {
+                    weapon.ReadWeapon(random);
+                    GameObject go = WeaponLoader.CreateWeaponObject(new Vector2(-1000, -1000), weapon);
+                    slot.InsertItemInSlot(weapon);
+                    Destroy(go);
+                }
+            }
+            else
+            {
+                ConsumableItem item = new();
+                ConsumableItem random = ConsumableItemLoader.GetRandomItem_Bias();
+                if (random != null)
+                {
+                    item.Clone(random);
+                    GameObject go = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+                    slot.InsertItemInSlot(item);
+                    Destroy(go);
+                }
+            }
         }
 
 

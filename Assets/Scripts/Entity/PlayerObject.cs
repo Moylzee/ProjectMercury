@@ -116,14 +116,48 @@ public class PlayerObject : GameEntity
         if (Input.GetKeyDown(Settings.GetData().GetKey_ItemSlot1()))
         {
             // Use slot 1 Consumable
+            ConsumableItem item = (ConsumableItem)Inventory.GetSlot("1").GetItemInSlot();
+            if (item == null)
+            {
+                return;
+            }
+
+            // We have to create the game object of said Item
+            var ItemObject = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+            ItemObject.GetComponent<ConsumableItemObjectBehaviour>().UseEffect();
+            Destroy(ItemObject);
+            Inventory.GetSlot("1").RemoveItemFromSlot();
+
         }
         else if (Input.GetKeyDown(Settings.GetData().GetKey_ItemSlot2()))
         {
             // Use slot 2 Consumable
+            ConsumableItem item = (ConsumableItem)Inventory.GetSlot("2").GetItemInSlot();
+            if (item == null)
+            {
+                return;
+            }
+
+            // We have to create the game object of said Item
+            var ItemObject = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+            ItemObject.GetComponent<ConsumableItemObjectBehaviour>().UseEffect();
+            Destroy(ItemObject);
+            Inventory.GetSlot("2").RemoveItemFromSlot();
         }
         else if (Input.GetKeyDown(Settings.GetData().GetKey_ItemSlot3()))
         {
             // Use slot 3 Consumable
+            ConsumableItem item = (ConsumableItem)Inventory.GetSlot("3").GetItemInSlot();
+            if (item == null)
+            {
+                return;
+            }
+
+            // We have to create the game object of said Item
+            var ItemObject = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+            ItemObject.GetComponent<ConsumableItemObjectBehaviour>().UseEffect();
+            Destroy(ItemObject);
+            Inventory.GetSlot("3").RemoveItemFromSlot();
         }
 
 
