@@ -21,7 +21,6 @@ public class Health : MonoBehaviour
 
         if (currHealth <= 0)
         {
-            Debug.Log("Dead");
             EndGameManager.GameOver();
         }
     }
@@ -33,8 +32,27 @@ public class Health : MonoBehaviour
 
         if (currHealth > maxHealth)
         {
-            Debug.Log("fully healed");
             currHealth = maxHealth;
+        }
+    }
+
+    // Starts a coroutine that heals the player by health for s seconds
+    public void HealPlayerOverTime(int health, float seconds)
+    {
+        StartCoroutine(HealOverTimeCoroutine(health, seconds));
+    }
+
+    private IEnumerator HealOverTimeCoroutine(int health, float seconds)
+    {
+        float timePassed = 0f;
+        float healInterval = 0.5f;
+
+        while (timePassed < seconds)
+        {
+            HealPlayer(health);
+            yield return new WaitForSeconds(healInterval);
+
+            timePassed += healInterval;
         }
     }
 }

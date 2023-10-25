@@ -88,6 +88,12 @@ public static class WeaponLoader
     // Retrieves Weapon from dictionary
     public static Weapon GetWeapon(string itemName)
     {
+        if (weaponDictionary.Count == 0)
+        {
+            Debug.LogError("Weapon dictionary is empty");
+            return null;
+        }
+
         if (weaponDictionary.TryGetValue(itemName, out Weapon weapon))
         {
             return weapon;
@@ -98,4 +104,26 @@ public static class WeaponLoader
             return null;
         }
     }
+
+    public static Weapon GetRandomWeapon()
+    {
+        int RandomIndex = Random.Range(0, weaponList.weapons.Length);
+        return weaponList.weapons[RandomIndex];
+    }
+
+    public static Weapon GetRandomWeapon_Bias()
+    {
+        int RandomRange = Random.Range(0, weaponList.weapons.Length);
+        // Formula for Spawn chance in lootboxes
+        // R > N / Rarity * M, where R is a random number, N is a float between 0.1 and 0.9, M is a multiplier
+        // The higher the M the lower the chances of something spawning
+        // R > 0.6f / Rarity * 4.2
+        if (Random.Range(0f, 1f) > 0.6f / (float)weaponList.weapons[RandomRange].GetItemRarity() * 4.2f)
+        {
+            return weaponList.weapons[RandomRange];
+        }
+
+        return null;
+    }
+
 }

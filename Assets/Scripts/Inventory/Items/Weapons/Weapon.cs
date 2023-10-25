@@ -20,6 +20,8 @@ public class Weapon : Item
 
     private ushort BulletsInMag;
 
+    public uint FireRate;
+
 
     public Weapon()
     {
@@ -35,11 +37,22 @@ public class Weapon : Item
         SetWeaponCategory(weaponData.GetWeaponCategory());
         SetDamageDealtPerBullet(weaponData.GetDamageDealtPerBullet());
         SetMagazineSize(weaponData.GetMagazineSize());
-
+        SetFireRate(weaponData.GetFireRate());
         SetBulletsInMag(weaponData.GetMagazineSize());
     }
 
     // Getters and Setters
+
+
+    public void SetFireRate(uint fireRate)
+    {
+        this.FireRate = fireRate;
+    }
+
+    public uint GetFireRate()
+    {
+        return this.FireRate;
+    }
 
     public void SetBulletsInMag(ushort mag)
     {

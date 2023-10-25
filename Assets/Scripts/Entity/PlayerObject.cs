@@ -9,10 +9,11 @@ public class PlayerObject : GameEntity
 {
 
     public GameObject InventoryPrefab;
+    public GameObject weaponDetailsPrefab;
     public GameObject InteractPrompt;
     public float RANGE_OF_PICKUP = 12f;
 
-    public PlayerInvetory Inventory { get; set; }
+    public PlayerInventory Inventory { get; set; }
 
     public Vector2 InteractHint_Offset = new Vector2(-3f, 5f);
 
@@ -21,34 +22,24 @@ public class PlayerObject : GameEntity
     public GameObject BoxNearby;
     public bool BOX_OPEN = false;
 
+    private PlayerShootingBehaviour ShootingBehaviour;
 
 
     // Player entry point
     void Start()
     {
-        Inventory = new PlayerInvetory(InventoryPrefab);
-        InteractPrompt = GameObject.FindWithTag("InteractKey_Hint");
 
-        if (InteractPrompt != null)
-        {
-            Text textComponent = InteractPrompt.GetComponent<Text>();
-            if (textComponent != null)
-            {
-                textComponent.text = Settings.GetData().GetKey_InteractKey().ToUpper();
-            }
-            else
-            {
-                Debug.LogError("Text component not found on InteractPrompt object.");
-            }
-        }
-        else
-        {
-            Debug.LogError("InteractPrompt object not found with the 'InteractKey_Hint' tag.");
-        }
+        Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
+        InteractPrompt = GameObject.FindWithTag("InteractKey_Hint");
+        InteractPrompt.GetComponent<Text>().text = Settings.GetData().GetKey_InteractKey().ToUpper();
+
+
+        ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
+
     }
 
 
-    public PlayerInvetory GetPlayerInventory()
+    public PlayerInventory GetPlayerInventory()
     {
         return Inventory;
     }
@@ -71,12 +62,21 @@ public class PlayerObject : GameEntity
         {
             if (Inventory.IsHoveringOverSlot() != null || BOX_OPEN == true)
             {
+                // unable to shoot atm
                 return;
             }
 
             if (Inventory.getEquippedWeapon() != null)
             {
-                Debug.Log("Pew pew pew");
+                ShootingBehaviour.Shoot();
+            }
+        }
+
+        if(Input.GetMouseButtonUp(0))
+        {
+            if (Inventory.getEquippedWeapon() != null)
+            {
+                ShootingBehaviour.StopShoot();
             }
         }
     }
@@ -91,7 +91,6 @@ public class PlayerObject : GameEntity
             Weapon weapon = (Weapon)Inventory.GetSlot("4").GetItemInSlot();
             if (weapon == null)
             {
-                Debug.Log("No weapon in slot 4");
                 Inventory.UnequipWeapon();
                 return;
             }
@@ -105,7 +104,6 @@ public class PlayerObject : GameEntity
             Weapon weapon = (Weapon)Inventory.GetSlot("5").GetItemInSlot();
             if (weapon == null)
             {
-                Debug.Log("No weapon in slot 5");
                 Inventory.UnequipWeapon();
                 return;
             }
@@ -118,14 +116,48 @@ public class PlayerObject : GameEntity
         if (Input.GetKeyDown(Settings.GetData().GetKey_ItemSlot1()))
         {
             // Use slot 1 Consumable
+            ConsumableItem item = (ConsumableItem)Inventory.GetSlot("1").GetItemInSlot();
+            if (item == null)
+            {
+                return;
+            }
+
+            // We have to create the game object of said Item
+            var ItemObject = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+            ItemObject.GetComponent<ConsumableItemObjectBehaviour>().UseEffect();
+            Destroy(ItemObject);
+            Inventory.GetSlot("1").RemoveItemFromSlot();
+
         }
         else if (Input.GetKeyDown(Settings.GetData().GetKey_ItemSlot2()))
         {
             // Use slot 2 Consumable
+            ConsumableItem item = (ConsumableItem)Inventory.GetSlot("2").GetItemInSlot();
+            if (item == null)
+            {
+                return;
+            }
+
+            // We have to create the game object of said Item
+            var ItemObject = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+            ItemObject.GetComponent<ConsumableItemObjectBehaviour>().UseEffect();
+            Destroy(ItemObject);
+            Inventory.GetSlot("2").RemoveItemFromSlot();
         }
         else if (Input.GetKeyDown(Settings.GetData().GetKey_ItemSlot3()))
         {
             // Use slot 3 Consumable
+            ConsumableItem item = (ConsumableItem)Inventory.GetSlot("3").GetItemInSlot();
+            if (item == null)
+            {
+                return;
+            }
+
+            // We have to create the game object of said Item
+            var ItemObject = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+            ItemObject.GetComponent<ConsumableItemObjectBehaviour>().UseEffect();
+            Destroy(ItemObject);
+            Inventory.GetSlot("3").RemoveItemFromSlot();
         }
 
 
@@ -176,7 +208,6 @@ public class PlayerObject : GameEntity
             Item item = ItemNearby.GetComponent<WeaponObjectBehaviour>().item;
             if (!item.IsOnGround())
             {
-                Debug.Log("Item is somehow not on ground");
                 return;
             }
 
@@ -209,7 +240,6 @@ public class PlayerObject : GameEntity
             Item item = ItemNearby.GetComponent<ConsumableItemObjectBehaviour>().item;
             if (!item.IsOnGround())
             {
-                Debug.Log("Item is somehow not on ground");
                 return;
             }
 

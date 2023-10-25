@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -16,6 +17,10 @@ public class Inventory : MonoBehaviour
         Items = new List<Item>();
     }
 
+    void Update()
+    {
+        
+    }
 
     public void AddItem(Item item)
     {
@@ -32,7 +37,6 @@ public class Inventory : MonoBehaviour
     {
         if (!Items.Contains(item))
         {
-            Debug.Log("Inventory doesn't contain item: " + item.GetItemName());
             return;
         }
         Items.Remove(item);
@@ -43,39 +47,37 @@ public class Inventory : MonoBehaviour
 
         if (Items.Count <= 0)
         {
-            Debug.Log("Inventory is empty");
             return null;
         }
 
         return Items[index];
     }
 
-    public void debug_ItemsInInvetory()
-    {
-        foreach (Item item in Items)
-        {
-            Debug.Log("Item name: " + item.GetItemName());
-        }
-    }
-
 }
 
 
-public class PlayerInvetory : Inventory
+public class PlayerInventory : Inventory
 {
-
     public Weapon EquippedWeapon = null;
     public List<GameObject> InventorySlotList = new();
     public Dictionary<string, SlotItem> Slots = new();
-    public PlayerInvetory(GameObject InventoryPrefab)
+
+
+    private GameObject WeaponDetails;
+
+    public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)
     {
         GameObject InventoryObject = Instantiate(InventoryPrefab);
+        WeaponDetails = Instantiate(WeaponDetailsPrefab);
         InventoryObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
+        WeaponDetails.transform.SetParent(GameObject.Find("Canvas").transform, false);
         InventorySlotList.Add(GameObject.FindWithTag("Slot1"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot2"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot3"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot4"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot5"));
+
+        WeaponDetails.SetActive(false);
 
         LoadDictionary();
     }
@@ -86,8 +88,21 @@ public class PlayerInvetory : Inventory
         return EquippedWeapon;
     }
 
+
+   public void UpdateDetails()
+    {
+        if(getEquippedWeapon() == null)
+        {
+            return;
+        }
+        string ammo = getEquippedWeapon().GetBulletsInMag() + " / " + getEquippedWeapon().GetSpareAmmo();
+        WeaponDetails.transform.Find("Ammo").GetComponent<TextMeshProUGUI>().text = ammo;
+        WeaponDetails.transform.Find("Weapon").GetComponent<TextMeshProUGUI>().text = getEquippedWeapon().GetItemName();
+    }
+
     public void EquipWeapon(Weapon weapon)
     {
+
         if (weapon == null)
         {
             return;
@@ -98,12 +113,19 @@ public class PlayerInvetory : Inventory
             this.UnequipWeapon();
         }
 
+        WeaponDetails.SetActive(true);
+
+
+
         this.EquippedWeapon = weapon;
+        UpdateDetails();
     }
 
     public void UnequipWeapon()
     {
         this.EquippedWeapon = null;
+
+        WeaponDetails.SetActive(false);
     }
 
 
@@ -111,7 +133,6 @@ public class PlayerInvetory : Inventory
     {
         if (InventorySlotList.Count <= 0)
         {
-            Debug.Log("Inventory Slot list is empty");
             return null;
         }
 

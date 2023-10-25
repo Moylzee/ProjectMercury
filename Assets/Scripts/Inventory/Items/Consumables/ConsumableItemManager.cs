@@ -87,4 +87,25 @@ public static class ConsumableItemLoader
         }
     }
 
+    public static ConsumableItem GetRandomItem()
+    {
+        int RandomIndex = Random.Range(0, consumableList.consumables.Length);
+        return consumableList.consumables[RandomIndex];
+    }
+
+    public static ConsumableItem GetRandomItem_Bias()
+    {
+        int RandomRange = Random.Range(0, consumableList.consumables.Length);
+        // Formula for Spawn chance in lootboxes
+        // R > N / Rarity * M, where R is a random number, N is a float between 0.1 and 0.9, M is a multiplier
+        // The higher the M the lower the chances of something spawning
+        // R > 0.6f / Rarity * 4.2
+        if (Random.Range(0f, 1f) > 0.5f)
+        {
+            return consumableList.consumables[RandomRange];
+        }
+
+        return null;
+    }
+
 }

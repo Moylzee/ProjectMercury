@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* Class used to handle the player movement 
@@ -44,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && canDash && playerStamina.currStamina > 0)
         {
             StartCoroutine(Dash());
-            playerStamina.ReduceStamina();
+            playerStamina.IncreaseStamina(-10);
         }
     }
 

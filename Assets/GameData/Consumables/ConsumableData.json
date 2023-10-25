@@ -4,9 +4,20 @@
 			"ItemName": "Test Heal",
 			"ImageSource": "TestHeal",
 			"HealthChange": 200,
-			"Regeneration": 0,
-			"RegenerationDurationInSeconds": 0,
 			"TimeToConsumeInSeconds": 2
+		},
+		{
+			"ItemName": "Syrinage",
+			"ImageSource": "HealthSyrinage",
+			"Regeneration": 2,
+			"RegenerationDurationInSeconds": 5
+		},
+		{
+			"ItemName": "Energy Drink",
+			"ImageSource": "EnergyDrink",
+			"StaminaChange": 15,
+			"StaminaRegeneration": -1,
+			"StaminaRegenerationDurationInSeconds": 5
 		}
 	]
 }

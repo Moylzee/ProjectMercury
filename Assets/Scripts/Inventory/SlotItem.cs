@@ -59,11 +59,15 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
             return;
         }
 
+        // Set the Color of button
+        Color btnColor = buttonImage.color;
+        btnColor.a = 255;
+        buttonImage.color = btnColor;
+
         itemInSlot = item; // Assign weapon to slot
 
         buttonImage.sprite = item.GetSpriteRenderer().sprite;
         slotButton.onClick.AddListener(() => func());
-        buttonImage.color = ColorLoader.HexToColor("#fff");
 
 
     }
@@ -80,7 +84,10 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
 
         itemInSlot = null; // remove item from slot
         slotButton.onClick.RemoveAllListeners();
-        buttonImage.color = ColorLoader.HexToColor("#5A5653");
+        // Set the Color of button
+        Color btnColor = buttonImage.color;
+        btnColor.a = 0;
+        buttonImage.color = btnColor;
     }
 
     public Item GetItemInSlot()

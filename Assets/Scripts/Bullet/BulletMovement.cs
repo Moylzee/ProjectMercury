@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
@@ -19,6 +18,9 @@ public class BulletMovement : MonoBehaviour
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
         float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot);
+
+        // Destory bullet after n seconds
+        Destroy(gameObject, 4);
     }
 
     void Update()

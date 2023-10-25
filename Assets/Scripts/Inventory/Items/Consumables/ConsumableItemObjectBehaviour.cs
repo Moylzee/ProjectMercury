@@ -50,5 +50,28 @@ public class ConsumableItemObjectBehaviour : ItemObjectBehaviour<ConsumableItem>
         }
     }
 
+    /**
+     * Method to apply item effects to the player
+     * Affects both health and stamina
+     */
+    public void UseEffect()
+    {
+        var Player = GameObject.FindWithTag("Player");
+        var PlayerHealth = Player.GetComponent<Health>();
+        var PlayerStamina = Player.GetComponent<PlayerStamina>();
 
+        PlayerHealth.HealPlayer((int)item.GetHealthChange());
+        PlayerStamina.IncreaseStamina((int)item.GetStaminaChange());
+
+        if (Mathf.Abs(item.GetRegeneration()) > 0)
+        {
+            PlayerHealth.HealPlayerOverTime((int)item.GetRegeneration(), item.GetRegenerationDurationInSeconds());
+        }
+
+        if (Mathf.Abs(item.GetStaminaRegeneration()) > 0)
+        {
+            PlayerStamina.IncreaseStaminaOverTime((int)item.GetStaminaRegeneration(), item.GetStaminaRegenerationDurationInSeconds());
+        }
+
+    }
 }

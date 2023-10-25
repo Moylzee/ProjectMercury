@@ -9,6 +9,9 @@ public class LootboxInteraction : MonoBehaviour
 
     private GameObject Player;
 
+
+    private bool Opened = false;
+
     private RarityClass Rarity; // 0 - 1, How good is a given box
 
     private GameObject InventorySlots;
@@ -25,7 +28,6 @@ public class LootboxInteraction : MonoBehaviour
 
         Rarity = RaritySelection(); // Rarity of the lootbox
 
-        LoadInventorySlots();
     }
 
     void Update()
@@ -67,6 +69,12 @@ public class LootboxInteraction : MonoBehaviour
 
     public void OpenBox()
     {
+        if(!Opened)
+        {
+            LoadInventorySlots();
+            Opened = true;
+        }
+
         BoxInventory.SetActive(true);
     }
 
@@ -82,22 +90,45 @@ public class LootboxInteraction : MonoBehaviour
         Transform container = BoxInventory.transform.Find("ItemsBackpanel");
         if (container == null)
         {
-            Debug.LogError("Fuck 1");
+            Debug.LogError("Lootbox Inventory is empty");
             return;
         }
 
-        Transform Slot1 = container.Find("Slot1");
-        var Item1 = Slot1.Find("Item1").GetComponent<SlotItem>();
+        ;
+        var Item1 = container.Find("Slot1").Find("Item1").GetComponent<SlotItem>();
+        var Item2 = container.Find("Slot2").Find("Item2").GetComponent<SlotItem>();
+        var Item3 = container.Find("Slot3").Find("Item3").GetComponent<SlotItem>();
+        var Item4 = container.Find("Slot4").Find("Item4").GetComponent<SlotItem>();
 
-        if (Item1 == null)
-        {
-            Debug.LogError("WHY..>");
-            return;
-        }
+        SlotItem[] ItemList = { Item1, Item2, Item3, Item4 };
 
-        if (Item1.IsHoveringOverSlot())
+
+        foreach (SlotItem slot in ItemList)
         {
-            Debug.Log("omg this worked first time");
+            if (Random.Range(0, 1f) > 0.5f)
+            {
+                Weapon weapon = new();
+                Weapon random = WeaponLoader.GetRandomWeapon_Bias();
+                if (random != null)
+                {
+                    weapon.ReadWeapon(random);
+                    GameObject go = WeaponLoader.CreateWeaponObject(new Vector2(-1000, -1000), weapon);
+                    slot.InsertItemInSlot(weapon);
+                    Destroy(go);
+                }
+            }
+            else
+            {
+                ConsumableItem item = new();
+                ConsumableItem random = ConsumableItemLoader.GetRandomItem_Bias();
+                if (random != null)
+                {
+                    item.Clone(random);
+                    GameObject go = ConsumableItemLoader.CreateConsumableItem(new Vector2(-1000, -1000), item);
+                    slot.InsertItemInSlot(item);
+                    Destroy(go);
+                }
+            }
         }
 
 

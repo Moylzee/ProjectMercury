@@ -19,8 +19,8 @@ public class Game : MonoBehaviour
 
         Weapon weaponData = WeaponLoader.GetWeapon("AK47");
         Weapon weaponData2 = WeaponLoader.GetWeapon("AR15");
-        Weapon weaponData3 = WeaponLoader.GetWeapon("FAMAS G2");
-        Weapon weaponData4 = WeaponLoader.GetWeapon("AUG");
+        Weapon weaponData3 = WeaponLoader.GetWeapon("Thompson");
+        Weapon weaponData4 = WeaponLoader.GetWeapon("CheyTac M200");
 
         weapon1.ReadWeapon(weaponData);
         weapon2.ReadWeapon(weaponData2);
@@ -53,11 +53,19 @@ public class Game : MonoBehaviour
 
 
         ConsumableItem item = new();
-        ConsumableItem itemData = ConsumableItemLoader.GetItem("Test Heal");
+        ConsumableItem itemData = ConsumableItemLoader.GetItem("Syrinage");
         item.Clone(itemData);
 
         item.SetOnGround(true);
 
         ConsumableItemLoader.CreateConsumableItem(new Vector2(-140, -50), item);
+
+
+        ConsumableItem item2 = new();
+        item2.Clone(ConsumableItemLoader.GetItem("Energy Drink"));
+
+        item2.SetOnGround(true);
+
+        ConsumableItemLoader.CreateConsumableItem(new Vector2(-150, -30), item2);
     }
 }
