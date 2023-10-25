@@ -25556,6 +25556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 3186342113084037228, guid: 0b3ef0a12bab87943bd2ea891d137bfe, type: 3}
   tilemap: {fileID: 1277737315}
+  Player: {fileID: 723496105}
 --- !u!1 &1421740942
 GameObject:
   m_ObjectHideFlags: 0
