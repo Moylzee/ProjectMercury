@@ -7,14 +7,13 @@ public class PlayerShootingBehaviour : MonoBehaviour
 {
     private Vector3 mousePos;
     public GameObject bullet;
-    private float bulletLifeSpan = 4f;
     public Transform bulletTransform;
     public float fireRate;
 
-    private Weapon CurrentWeapon;
     private Weapon ReloadWeapon;
 
     private GameObject Player;
+    private Coroutine reloadCoroutine;
 
     private void Start()
     {
@@ -55,56 +54,87 @@ public class PlayerShootingBehaviour : MonoBehaviour
      */
     void ShootBullet()
     {
-        CurrentWeapon = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon();
+        if (Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().IsReloading)
+        {
+            // TODO: Let the player know that they can't shoot whilst reloading
+            return;
+        }
+
         ushort BulletsInMag = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetBulletsInMag();
         if(BulletsInMag > 0)
         {
             GameObject b = Instantiate(bullet, bulletTransform.position, Quaternion.identity);
             b.GetComponent<BulletDamage>().SetDamage((int)Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetDamageDealtPerBullet());
             Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)(BulletsInMag - 1));
-
-        }
-        else
-        {
-            Reload();
+            Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
             return;
+
         }
 
-
-        Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
+        // TODO: let the player know that a reload is required
+        return;
     }
 
 
     public void Reload()
     {
-        uint SpareAmmo = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetSpareAmmo();
-        ushort MagSize = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetMagazineSize();
+
+        // TODO: let the player know that they are recording
         ReloadWeapon = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon();
-        StartCoroutine(ReloadDelay(SpareAmmo, MagSize));
-        Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
+        uint SpareAmmo = ReloadWeapon.GetSpareAmmo();
+        ushort MagSize = ReloadWeapon.GetMagazineSize();
+        ushort AmmoLeftInMag = ReloadWeapon.GetBulletsInMag();
+
+        // Weapon magazine is full; Cannot reload
+        if (ReloadWeapon.GetBulletsInMag() >= ReloadWeapon.GetMagazineSize())
+        {
+            return;
+        }
+
+        reloadCoroutine = StartCoroutine(ReloadDelay(SpareAmmo, MagSize, AmmoLeftInMag));
+    }
+
+    /*
+     * If reloading gets interrupted stop reloading weapon 
+     */
+    public void StopReloading()
+    {
+        if(reloadCoroutine == null)
+        {
+            return;
+        }
+        StopCoroutine(reloadCoroutine);
     }
 
     /**
      * Reload delay method
      */
-    private IEnumerator ReloadDelay(uint SpareAmmo, ushort MagSize)
+    private IEnumerator ReloadDelay(uint SpareAmmo, ushort MagSize, ushort AmmoLeftInMag)
     {
-        yield return new WaitForSeconds(2f);
-
-        if (SpareAmmo > 0)
+        // if no spare ammo exit
+        if(SpareAmmo <= 0)
         {
-            if (SpareAmmo >= MagSize)
-            {
-                ReloadWeapon.SetBulletsInMag(MagSize);
-                ReloadWeapon.SetSpareAmmo(SpareAmmo - MagSize);
-            }
-            else
-            {
-                ReloadWeapon.SetBulletsInMag((ushort)MagSize);
-                ReloadWeapon.SetSpareAmmo(0);
-            }
+            yield return 0;
         }
+
+        yield return new WaitForSeconds(1f); // wait for reload duration
+
+        // If there is more spare ammo in reserve than necessary
+        if (SpareAmmo >= MagSize - AmmoLeftInMag)
+        {
+            ReloadWeapon.SetBulletsInMag(MagSize);
+            ReloadWeapon.SetSpareAmmo((uint)(SpareAmmo - (MagSize - AmmoLeftInMag)));
+        }
+        // When the player can't reload a full mag
+        else if (SpareAmmo < MagSize - AmmoLeftInMag)
+        {
+            ReloadWeapon.SetBulletsInMag((ushort)(AmmoLeftInMag + SpareAmmo));
+            ReloadWeapon.SetSpareAmmo(0);
+        }
+
+        // update the details for the weapon
         Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
+
     }
 
 }

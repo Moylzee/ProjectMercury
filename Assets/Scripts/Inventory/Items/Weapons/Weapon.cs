@@ -22,6 +22,7 @@ public class Weapon : Item
 
     public uint FireRate;
 
+    public bool IsReloading = false;
 
     public Weapon()
     {
