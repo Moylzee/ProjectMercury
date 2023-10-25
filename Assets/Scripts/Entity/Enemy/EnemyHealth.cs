@@ -6,6 +6,9 @@ public class EnemyHealth : MonoBehaviour
 {
     public int currHealth = 0;
     public int maxHealth = 30;
+
+    public List<GameObject> spawnList = new();
+
     void Start()
     {
         currHealth = maxHealth;
@@ -16,8 +19,9 @@ public class EnemyHealth : MonoBehaviour
 
         if (currHealth <= 0)
         {
+            spawnList.Remove(gameObject);
             Destroy(gameObject);
-            Debug.Log("Dead");
+
         }
     }
 }

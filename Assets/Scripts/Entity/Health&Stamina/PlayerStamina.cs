@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerStamina : MonoBehaviour
 {
     public int currStamina = 0;
-    public int maxStamina = 3;
+    public int maxStamina = 30;
     private float staminaRegenRate = 30f;
     private float timeSinceLastRegen = 0f;
     private PlayerMovement player;
@@ -30,7 +30,7 @@ public class PlayerStamina : MonoBehaviour
             if (timeSinceLastRegen >= staminaRegenRate)
             {
                 timeSinceLastRegen = 0f;
-                IncreaseStamina(); // Increase stamina
+                IncreaseStamina(10); // Increase stamina
             }
         }
     }
@@ -40,6 +40,7 @@ public class PlayerStamina : MonoBehaviour
     {
         currStamina--;
     }
+
 
     // Method to increase stamina 
     public void IncreaseStamina()
@@ -60,6 +61,11 @@ public class PlayerStamina : MonoBehaviour
         {
             currStamina = maxStamina;
         }
+
+        if(currStamina <= 0)
+        {
+            currStamina = 0;
+        }
     }
 
     // Method that starts coroutine to increase stamina by n over s seconds
@@ -70,6 +76,7 @@ public class PlayerStamina : MonoBehaviour
 
     private IEnumerator IncreaseStaminaOverTimeCoroutine(int stamina, float seconds)
     {
+        Debug.LogWarning("This class is running");
         float timePassed = 0f;
         float interval = 0.5f;
 

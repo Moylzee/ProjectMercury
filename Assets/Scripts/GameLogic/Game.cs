@@ -59,5 +59,13 @@ public class Game : MonoBehaviour
         item.SetOnGround(true);
 
         ConsumableItemLoader.CreateConsumableItem(new Vector2(-140, -50), item);
+
+
+        ConsumableItem item2 = new();
+        item2.Clone(ConsumableItemLoader.GetItem("Energy Drink"));
+
+        item2.SetOnGround(true);
+
+        ConsumableItemLoader.CreateConsumableItem(new Vector2(-150, -30), item2);
     }
 }

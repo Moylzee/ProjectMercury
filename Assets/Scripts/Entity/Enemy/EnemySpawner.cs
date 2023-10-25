@@ -7,11 +7,27 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab; // The enemy prefab with the spawn animation.
     public Tilemap tilemap;
-    private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to store spawned enemies.
+    private List<GameObject> spawnedEnemies = new(); // List to store spawned enemies.
+    private int Level = 1;
 
     void Start()
     {
         SpawnEnemies();
+        InvokeRepeating("CheckEnemies", 0, 5f);
+    }
+
+    void CheckEnemies()
+    {
+        if(spawnedEnemies.Count <= 0)
+        {
+            Level++;
+            for(int i = 0; i < Level; i++)
+            {
+                SpawnEnemies();
+            }
+        }
+
+        Debug.LogWarning("There are "+ spawnedEnemies.Count+ " left on the map");
     }
 
     void SpawnEnemies()
@@ -26,13 +42,13 @@ public class EnemySpawner : MonoBehaviour
             {
                 Vector3 spawnPosition = tilemap.GetCellCenterWorld(tilePosition);
                 GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+                spawnedEnemy.GetComponent<EnemyHealth>().spawnList = spawnedEnemies; // Create reference to spawnedEnemies
                 spawnedEnemies.Add(spawnedEnemy); // Add the spawned enemy to the list.
 
-                // Assuming you have an Animator component on your enemy prefab.
                 Animator animator = spawnedEnemy.GetComponent<Animator>();
                 if (animator != null)
                 {
-                    // Trigger the "Spawn" animation (you should use the actual animation trigger name).
+                    // Trigger the "Spawn" animation.
                     animator.SetTrigger("SpawnTrigger");
                 }
 
@@ -50,7 +66,6 @@ public class EnemySpawner : MonoBehaviour
 
     void EnableEnemyAI()
     {
-        Debug.Log("enabled");
         foreach (GameObject enemy in spawnedEnemies)
         {
             EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();

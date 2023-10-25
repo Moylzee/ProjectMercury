@@ -63,12 +63,12 @@ public class ConsumableItemObjectBehaviour : ItemObjectBehaviour<ConsumableItem>
         PlayerHealth.HealPlayer((int)item.GetHealthChange());
         PlayerStamina.IncreaseStamina((int)item.GetStaminaChange());
 
-        if (item.GetRegeneration() > 0)
+        if (Mathf.Abs(item.GetRegeneration()) > 0)
         {
             PlayerHealth.HealPlayerOverTime((int)item.GetRegeneration(), item.GetRegenerationDurationInSeconds());
         }
 
-        if (item.GetStaminaRegeneration() > 0)
+        if (Mathf.Abs(item.GetStaminaRegeneration()) > 0)
         {
             PlayerStamina.IncreaseStaminaOverTime((int)item.GetStaminaRegeneration(), item.GetStaminaRegenerationDurationInSeconds());
         }
