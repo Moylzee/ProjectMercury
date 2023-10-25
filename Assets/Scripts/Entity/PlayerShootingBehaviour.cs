@@ -7,6 +7,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
     private Camera mainCam;
     private Vector3 mousePos;
     public GameObject bullet;
+    private float bulletLifeSpan = 4f;
     public Transform bulletTransform;
     private bool canFire = true;
     private float timer;
@@ -24,7 +25,6 @@ public class PlayerShootingBehaviour : MonoBehaviour
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
 
-
         if (!canFire)
         {
             timer += Time.deltaTime;
@@ -34,12 +34,21 @@ public class PlayerShootingBehaviour : MonoBehaviour
                 timer = 0;
             }
         }
-
+        // if firing is possible and the LMB is clicked
         if (Input.GetMouseButtonDown(0) && canFire)
         {
             canFire = false;
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            GameObject newBullet = Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            // Call the destroy bullet method after the lifespan
+            StartCoroutine(DestroyBullet(newBullet, bulletLifeSpan));
+        
         }
+    }
 
+    // Method to destroy the bullet after its lifespan
+    private IEnumerator DestroyBullet(GameObject bulletObject, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(bulletObject);
     }
 }

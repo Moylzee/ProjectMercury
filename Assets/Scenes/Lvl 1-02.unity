@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 210986649}
   m_Layer: 8
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: Collision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8975,7 +8975,7 @@ GameObject:
   - component: {fileID: 297178664}
   m_Layer: 8
   m_Name: LootBox
-  m_TagString: Untagged
+  m_TagString: Lootbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9288,9 +9288,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1331974037}
     m_Modifications:
+    - target: {fileID: 683117238389478956, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 683117238389478956, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 575805465}
+    - target: {fileID: 683117238389478956, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetFullscreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 683117238389478956, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3664701464992976066, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
       propertyPath: m_Name
       value: Options Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918526310521418453, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918526310521418453, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 575805465}
+    - target: {fileID: 6918526310521418453, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetQuality
       objectReference: {fileID: 0}
     - target: {fileID: 7375867232822570626, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
       propertyPath: m_Pivot.x
@@ -9383,6 +9411,30 @@ PrefabInstance:
     - target: {fileID: 7418968859490924606, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183265211462071492, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183265211462071492, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 575805465}
+    - target: {fileID: 8183265211462071492, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetRes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923322940855058941, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923322940855058941, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 575805465}
+    - target: {fileID: 8923322940855058941, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetVolume
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8035304017899079876, guid: f7fc52b78063b5c4dbcec0092a747375, type: 3}

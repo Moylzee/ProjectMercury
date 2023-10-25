@@ -28,11 +28,9 @@ public class EnemySpawner : MonoBehaviour
                 GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
                 spawnedEnemies.Add(spawnedEnemy); // Add the spawned enemy to the list.
 
-                // Assuming you have an Animator component on your enemy prefab.
                 Animator animator = spawnedEnemy.GetComponent<Animator>();
                 if (animator != null)
                 {
-                    // Trigger the "Spawn" animation (you should use the actual animation trigger name).
                     animator.SetTrigger("SpawnTrigger");
                 }
 

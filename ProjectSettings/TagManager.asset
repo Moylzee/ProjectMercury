@@ -19,6 +19,7 @@ TagManager:
   - InteractKey_Hint
   - Lootbox
   - LootboxParent
+  - Collision
   layers:
   - Default
   - TransparentFX
