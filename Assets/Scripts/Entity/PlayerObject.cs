@@ -178,8 +178,10 @@ public class PlayerObject : GameEntity
             {
                 BoxOpen();
             }
+        }
 
-
+        if(Input.GetKeyDown(Settings.GetData().GetKey_ReloadWeapon()))
+        {
 
         }
 

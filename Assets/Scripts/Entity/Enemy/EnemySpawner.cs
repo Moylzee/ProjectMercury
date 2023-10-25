@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public Tilemap tilemap;
     private List<GameObject> spawnedEnemies = new(); // List to store spawned enemies.
     private int Level = 1;
+    public GameObject Player;
 
     void Start()
     {
@@ -38,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
         {
             TileBase tile = tilemap.GetTile(tilePosition);
 
-            if (tile != null)
+            if (tile != null && Player.GetComponent<CircleCollider2D>().OverlapPoint(tilemap.GetCellCenterWorld(tilePosition)))
             {
                 Vector3 spawnPosition = tilemap.GetCellCenterWorld(tilePosition);
                 GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);

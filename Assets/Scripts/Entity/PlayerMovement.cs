@@ -54,7 +54,12 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        // If there is stamina available, the player can dash 
+        if (playerStamina.currStamina >= 10)
+        {
+            canDash = true;
+        }
+        rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
     }
     private IEnumerator Dash()
     {
@@ -66,10 +71,6 @@ public class PlayerMovement : MonoBehaviour
         // Dash for set amount of time 
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
-        // If there is stamina available, the player can dash 
-        if (playerStamina.currStamina > 0)
-        {
-            canDash = true;
-        }
+        
     }
 }

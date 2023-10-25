@@ -12,6 +12,16 @@ public class SettingsData
     public string itemSlot2;
     public string itemSlot3;
     public string interactKey;
+    public string reloadWeapon;
+
+    public string GetKey_ReloadWeapon()
+    {
+        if(reloadWeapon == null)
+        {
+            reloadWeapon = "r";
+        }
+        return reloadWeapon;
+    }
 
     public string GetKey_WeaponSlot1()
     {

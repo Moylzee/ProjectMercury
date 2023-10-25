@@ -5,6 +5,7 @@
 	"itemSlot1": "3",
 	"itemSlot2": "4",
 	"itemSlot3": "5",
-	"interactKey": "e"
+	"interactKey": "e",
+	"reloadWeapon": "r"
 		
 }
