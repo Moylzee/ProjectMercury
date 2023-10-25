@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class BulletDamage : MonoBehaviour
@@ -14,7 +15,7 @@ public class BulletDamage : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     public void SetDamage(int dmg)
@@ -29,14 +30,22 @@ public class BulletDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+
+        switch (collision.gameObject.tag)
         {
-            Destroy(gameObject);
-            var healthComponent = enemy.GetComponent<EnemyHealth>();
-            if (healthComponent != null)
-            {
-                healthComponent.DamageEnemy(damage);
-            }
+            case "Enemy":
+                Destroy(gameObject);
+                 var healthComponent = collision.gameObject.GetComponent<EnemyHealth>();
+                if (healthComponent != null)
+                {
+                    healthComponent.DamageEnemy(damage);
+                }
+                break;
+            case "Collision":
+                Destroy(gameObject);
+                break;
+            default:
+                break;
         }
     }
 }

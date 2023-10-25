@@ -7,6 +7,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
 {
     private Vector3 mousePos;
     public GameObject bullet;
+    private float bulletLifeSpan = 4f;
     public Transform bulletTransform;
     public float fireRate;
 
