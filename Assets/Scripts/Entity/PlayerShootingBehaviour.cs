@@ -7,6 +7,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
 {
     private Vector3 mousePos;
     public GameObject bullet;
+    public GameObject mag;
     public Transform bulletTransform;
     public float fireRate;
 
@@ -14,6 +15,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
 
     private GameObject Player;
     private Coroutine reloadCoroutine;
+    private Coroutine reloadAnimationCoroutine;
 
     private void Start()
     {
@@ -67,6 +69,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
             b.GetComponent<BulletDamage>().SetDamage((int)Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetDamageDealtPerBullet());
             Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)(BulletsInMag - 1));
             Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
+
             return;
 
         }
@@ -84,6 +87,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
         uint SpareAmmo = ReloadWeapon.GetSpareAmmo();
         ushort MagSize = ReloadWeapon.GetMagazineSize();
         ushort AmmoLeftInMag = ReloadWeapon.GetBulletsInMag();
+        uint ReloadTime = ReloadWeapon.GetReloadRate();
 
         // Weapon magazine is full; Cannot reload
         if (ReloadWeapon.GetBulletsInMag() >= ReloadWeapon.GetMagazineSize())
@@ -91,7 +95,10 @@ public class PlayerShootingBehaviour : MonoBehaviour
             return;
         }
 
-        reloadCoroutine = StartCoroutine(ReloadDelay(SpareAmmo, MagSize, AmmoLeftInMag));
+        
+
+        // Start reloading routine
+        reloadCoroutine = StartCoroutine(ReloadDelay(SpareAmmo, MagSize, AmmoLeftInMag, ReloadTime));
     }
 
     /*
@@ -104,12 +111,30 @@ public class PlayerShootingBehaviour : MonoBehaviour
             return;
         }
         StopCoroutine(reloadCoroutine);
+        StopCoroutine(reloadAnimationCoroutine);
+    }
+
+    /**
+     * Reload Animation method
+     */
+
+    private IEnumerator ReloadAnimation(uint ReloadTime)
+    {
+        float interval = (float)(ReloadTime / 3f);
+
+        for(float i =0; i < ReloadTime; i +=interval)
+        {
+            var magObject = Instantiate(mag, transform.position, Quaternion.identity);
+            Destroy(magObject, 2);
+        yield return new WaitForSeconds(interval);
+        }
+
     }
 
     /**
      * Reload delay method
      */
-    private IEnumerator ReloadDelay(uint SpareAmmo, ushort MagSize, ushort AmmoLeftInMag)
+    private IEnumerator ReloadDelay(uint SpareAmmo, ushort MagSize, ushort AmmoLeftInMag, uint ReloadTime)
     {
         // if no spare ammo exit
         if(SpareAmmo <= 0)
@@ -117,7 +142,10 @@ public class PlayerShootingBehaviour : MonoBehaviour
             yield return 0;
         }
 
-        yield return new WaitForSeconds(1f); // wait for reload duration
+        // Start reloading animation
+        reloadAnimationCoroutine = StartCoroutine(ReloadAnimation(ReloadTime));
+
+        yield return new WaitForSeconds((float)ReloadTime); // wait for reload duration
 
         // If there is more spare ammo in reserve than necessary
         if (SpareAmmo >= MagSize - AmmoLeftInMag)

@@ -10330,6 +10330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 6193318696061458824, guid: 55036d14cb79e1641bcc660271b0b8e5, type: 3}
+  mag: {fileID: 7351942156089410124, guid: 12f5e14a40b3c2e4196a7f7556505386, type: 3}
   bulletTransform: {fileID: 955566322}
   fireRate: 0.3
 --- !u!1 &955566321
