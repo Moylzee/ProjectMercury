@@ -95,6 +95,7 @@ public class PlayerObject : GameEntity
                 return;
             }
 
+            GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
 
         }
@@ -108,6 +109,7 @@ public class PlayerObject : GameEntity
                 return;
             }
 
+            GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
 
         }
@@ -182,7 +184,12 @@ public class PlayerObject : GameEntity
 
         if(Input.GetKeyDown(Settings.GetData().GetKey_ReloadWeapon()))
         {
+            if(Inventory.getEquippedWeapon() == null)
+            {
+                return;
+            }
 
+            GetComponentInChildren<PlayerShootingBehaviour>().Reload();
         }
 
     }

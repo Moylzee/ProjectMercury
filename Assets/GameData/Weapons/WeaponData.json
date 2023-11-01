@@ -8,7 +8,8 @@
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "AK47",
 			"Rarity": 2,
-			"FireRate": 7
+			"FireRate": 7,
+			"ReloadRate": 2
 		},
 		{
 			"ItemName": "AR15",
@@ -18,7 +19,8 @@
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "AR15",
 			"Rarity": 3,
-			"FireRate": 4.5
+			"FireRate": 4.5,
+			"ReloadRate": 2
 		},
 		{
 			"ItemName": "FAMAS G2",
@@ -28,7 +30,8 @@
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "FAMAS",
 			"Rarity": 3,
-			"FireRate": 5
+			"FireRate": 5,
+			"ReloadRate": 2
 		},
 		{
 			"ItemName": "AUG",
@@ -38,7 +41,8 @@
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "AUG",
 			"Rarity": 3,
-			"FireRate": 7.5
+			"FireRate": 7.5,
+			"ReloadRate": 2
 		},
 		{
 			"ItemName": "Astra Model 900",
@@ -48,7 +52,8 @@
 			"WeaponCategory": "Pistol",
 			"ImageSource": "Astra900",
 			"Rarity": 1,
-			"FireRate": 0.1
+			"FireRate": 0.1,
+			"ReloadRate": 1
 		},
 		{
 			"ItemName": "SCAR-L",
@@ -58,7 +63,8 @@
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "SCAR-L",
 			"Rarity": 3,
-			"FireRate": 8
+			"FireRate": 8,
+			"ReloadRate": 2
 		},
 		{
 			"ItemName": "SCAR-H",
@@ -68,7 +74,8 @@
 			"WeaponCategory": "AssaultRifle",
 			"ImageSource": "SCAR-H",
 			"Rarity": 4,
-			"FireRate": 7.1
+			"FireRate": 7.1,
+			"ReloadRate": 2
 		},
 		{
 			"ItemName": "CheyTac M200",
@@ -78,7 +85,8 @@
 			"WeaponCategory": "SniperRifle",
 			"ImageSource": "M200",
 			"Rarity": 4,
-			"FireRate": 0.1
+			"FireRate": 0.1,
+			"ReloadRate": 4
 		},
 		{
 			"ItemName": "Thompson",
@@ -88,7 +96,8 @@
 			"WeaponCategory": "SMG",
 			"ImageSource": "thompson",
 			"Rarity": 3,
-			"FireRate": 9
+			"FireRate": 9,
+			"ReloadRate": 3
 		}
 	]
 }
