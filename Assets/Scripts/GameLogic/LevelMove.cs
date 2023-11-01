@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +15,7 @@ public class LevelMove : MonoBehaviour
             Debug.LogError("EstatesManager not found in the scene.");
         }
     }
-    /*
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.tag)
@@ -23,13 +24,13 @@ public class LevelMove : MonoBehaviour
             
             // Estates Map
             case "Estates_North":
-                SceneManager.LoadScene(estatesManager.northTextBox.text, LoadSceneMode.Single);
+                SceneManager.LoadScene(estatesManager.northTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
                 break;
             case "Estates_East":
-                SceneManager.LoadScene(estatesManager.eastTextBox.text, LoadSceneMode.Single);
+                SceneManager.LoadScene(estatesManager.eastTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
                 break;
             case "Estates_South":
-                SceneManager.LoadScene(estatesManager.southTextBox.text, LoadSceneMode.Single);
+                SceneManager.LoadScene(estatesManager.southTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
                 break;
             case "House":
                 SceneManager.LoadScene("House", LoadSceneMode.Single);
@@ -50,5 +51,5 @@ public class LevelMove : MonoBehaviour
                 Debug.Log("Unhandled tag: " + other.tag);
                 break;
         }
-    }*/
+    }
 }
