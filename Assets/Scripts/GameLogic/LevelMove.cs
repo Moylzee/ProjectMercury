@@ -1,19 +1,54 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelMove : MonoBehaviour
 {
-    public int sceneIndex;
+    private EstatesManager estatesManager;
+
+    private void Start()
+    {
+        estatesManager = FindObjectOfType<EstatesManager>(); // Find the EstatesManager in the scene
+        if (estatesManager == null)
+        {
+            Debug.LogError("EstatesManager not found in the scene.");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        switch (other.tag)
         {
-            Debug.Log("Switching Scene to " + sceneIndex);
+            // Check which Level to Move to based on which collider is interacted with
 
-            SceneManager.LoadScene(sceneIndex, LoadSceneMode.Single);
+            // Estates Map
+            case "Estates_North":
+                SceneManager.LoadScene(estatesManager.northTextBox.text, LoadSceneMode.Single);
+                break;
+            case "Estates_East":
+                SceneManager.LoadScene(estatesManager.eastTextBox.text, LoadSceneMode.Single);
+                break;
+            case "Estates_South":
+                SceneManager.LoadScene(estatesManager.southTextBox.text, LoadSceneMode.Single);
+                break;
+            case "House":
+                SceneManager.LoadScene("House", LoadSceneMode.Single);
+                break;
+            case "Shop_Door":
+                SceneManager.LoadScene("Shop", LoadSceneMode.Single);
+                break;
+            case "Estates_Building_Exit":
+                SceneManager.LoadScene("Estates", LoadSceneMode.Single);
+                break;
+
+            // Docks Map
+
+
+
+
+            default:
+                Debug.Log("Unhandled tag: " + other.tag);
+                break;
         }
     }
 }

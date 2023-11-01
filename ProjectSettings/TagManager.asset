@@ -21,6 +21,14 @@ TagManager:
   - LootboxParent
   - WeaponDetails
   - Collision
+  - AmmoDetail
+  - Estates_North
+  - ShopDoor
+  - Estates_East
+  - Estates_South
+  - NorthTextBox
+  - EastTextBox
+  - SouthTextBox
   layers:
   - Default
   - TransparentFX
@@ -28,10 +36,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
-  - Bullet
   - Collisions
-  - 
+  - Bullet
+  - Player
+  - LevelMove
   - 
   - 
   - 
@@ -57,4 +65,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: New Layer 1
+    uniqueID: 2559572197
     locked: 0
