@@ -14,13 +14,13 @@ public class LevelMove : MonoBehaviour
             Debug.LogError("EstatesManager not found in the scene.");
         }
     }
-
+    /*
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.tag)
         {
             // Check which Level to Move to based on which collider is interacted with
-
+            
             // Estates Map
             case "Estates_North":
                 SceneManager.LoadScene(estatesManager.northTextBox.text, LoadSceneMode.Single);
@@ -40,7 +40,7 @@ public class LevelMove : MonoBehaviour
             case "Estates_Building_Exit":
                 SceneManager.LoadScene("Estates", LoadSceneMode.Single);
                 break;
-
+                
             // Docks Map
 
 
@@ -50,5 +50,5 @@ public class LevelMove : MonoBehaviour
                 Debug.Log("Unhandled tag: " + other.tag);
                 break;
         }
-    }
+    }*/
 }
