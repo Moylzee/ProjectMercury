@@ -112,21 +112,19 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
             {
                 return;
             }
-            Debug.Log("Item : " + itemInSlot.GetItemName() + " is being removed from slot");
 
 
             itemInSlot.SetPickedUp(true); // Set the item to be picked up
             itemInSlot.SetOffset(Camera.main.ScreenToWorldPoint(transform.position) - Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-            if (itemInSlot.ItemType.Equals("Weapon"))
+
+            if(itemInSlot.GetType() == typeof(Weapon))
             {
-                Weapon w = (Weapon)itemInSlot;
-                WeaponLoader.CreateWeaponObject((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), w);
+                WeaponLoader.CreateWeaponObject((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), (Weapon)itemInSlot);
             }
-            else if (itemInSlot.ItemType.Equals("Consumable"))
+            else if (itemInSlot.GetType() == typeof(ConsumableItem))
             {
-                ConsumableItem i = (ConsumableItem)itemInSlot;
-                ConsumableItemLoader.CreateConsumableItem((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), i);
+                ConsumableItemLoader.CreateConsumableItem((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), (ConsumableItem)itemInSlot);
             }
 
 

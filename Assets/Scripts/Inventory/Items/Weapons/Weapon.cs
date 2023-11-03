@@ -19,9 +19,7 @@ public class Weapon : Item
     public string WeaponCategory;
     public uint FireRate;
     public uint ReloadRate;
-
-
-
+    
     public bool IsReloading = false;
     private ushort BulletsInMag;
 

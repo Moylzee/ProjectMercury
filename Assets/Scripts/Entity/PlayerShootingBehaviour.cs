@@ -10,8 +10,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
     public GameObject mag;
     public Transform bulletTransform;
     public float fireRate;
-
-    private Weapon ReloadWeapon;
+    private PlayerInventory WeaponReference;
 
     private GameObject Player;
     private Coroutine reloadCoroutine;
@@ -82,15 +81,15 @@ public class PlayerShootingBehaviour : MonoBehaviour
     public void Reload()
     {
 
-        // TODO: let the player know that they are recording
-        ReloadWeapon = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon();
-        uint SpareAmmo = ReloadWeapon.GetSpareAmmo();
-        ushort MagSize = ReloadWeapon.GetMagazineSize();
-        ushort AmmoLeftInMag = ReloadWeapon.GetBulletsInMag();
-        uint ReloadTime = ReloadWeapon.GetReloadRate();
+        // TODO: let the player know that they are reloading
+        WeaponReference = Player.GetComponent<PlayerObject>().Inventory;
+        uint SpareAmmo = WeaponReference.GetWeaponSpareAmmoBasedOnCategory();
+        ushort MagSize = WeaponReference.getEquippedWeapon().GetMagazineSize();
+        ushort AmmoLeftInMag = WeaponReference.getEquippedWeapon().GetBulletsInMag();
+        uint ReloadTime = WeaponReference.getEquippedWeapon().GetReloadRate();
 
         // Weapon magazine is full; Cannot reload
-        if (ReloadWeapon.GetBulletsInMag() >= ReloadWeapon.GetMagazineSize())
+        if (WeaponReference.getEquippedWeapon().GetBulletsInMag() >= WeaponReference.getEquippedWeapon().GetMagazineSize())
         {
             return;
         }
@@ -150,14 +149,14 @@ public class PlayerShootingBehaviour : MonoBehaviour
         // If there is more spare ammo in reserve than necessary
         if (SpareAmmo >= MagSize - AmmoLeftInMag)
         {
-            ReloadWeapon.SetBulletsInMag(MagSize);
-            ReloadWeapon.SetSpareAmmo((uint)(SpareAmmo - (MagSize - AmmoLeftInMag)));
+            WeaponReference.getEquippedWeapon().SetBulletsInMag(MagSize);
+            PlayerInventory.SetWeaponSpareAmmoBasedOnCategory(WeaponReference, (uint)(SpareAmmo - (MagSize - AmmoLeftInMag)));
         }
         // When the player can't reload a full mag
         else if (SpareAmmo < MagSize - AmmoLeftInMag)
         {
-            ReloadWeapon.SetBulletsInMag((ushort)(AmmoLeftInMag + SpareAmmo));
-            ReloadWeapon.SetSpareAmmo(0);
+            WeaponReference.getEquippedWeapon().SetBulletsInMag((ushort)(AmmoLeftInMag + SpareAmmo));
+            PlayerInventory.SetWeaponSpareAmmoBasedOnCategory(WeaponReference, 0);
         }
 
         // update the details for the weapon
