@@ -40,6 +40,7 @@ public class Weapon : Item
         SetFireRate(weaponData.GetFireRate());
         SetBulletsInMag(weaponData.GetMagazineSize());
         SetReloadRate(weaponData.GetReloadRate());
+        SetItemRarity(weaponData.GetItemRarity());
     }
 
     // Getters and Setters

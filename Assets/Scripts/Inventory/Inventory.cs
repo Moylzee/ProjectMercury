@@ -69,6 +69,11 @@ public class PlayerInventory : Inventory
     private uint HeavyAmmo = 0;
     private uint ShotgunAmmo = 0;
 
+    /* Weapon tier sprites */
+    private Sprite Sprite_Bronze;
+    private Sprite Sprite_Silver;
+    private Sprite Sprite_Gold;
+    private Sprite Sprite_Diamond;
 
     public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)
     {
@@ -81,6 +86,12 @@ public class PlayerInventory : Inventory
         InventorySlotList.Add(GameObject.FindWithTag("Slot3"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot4"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot5"));
+
+        /* Load Sprites for Weapon tiers*/
+        Sprite_Bronze = Resources.Load<Sprite>("Misc/WeaponTiers/Bronze");
+        Sprite_Silver = Resources.Load<Sprite>("Misc/WeaponTiers/Silver");
+        Sprite_Gold = Resources.Load<Sprite>("Misc/WeaponTiers/Gold");
+        Sprite_Diamond = Resources.Load<Sprite>("Misc/WeaponTiers/Diamond");
 
         WeaponDetails.SetActive(false);
 
@@ -102,11 +113,33 @@ public class PlayerInventory : Inventory
         }
 
         string ammo = getEquippedWeapon().GetBulletsInMag() + " / " + GetWeaponSpareAmmoBasedOnCategory();
-
-       
+        string weaponName = getEquippedWeapon().GetItemName() + " (" + getEquippedWeapon().GetWeaponCategory() + ")";
 
         WeaponDetails.transform.Find("Ammo").GetComponent<TextMeshProUGUI>().text = ammo;
-        WeaponDetails.transform.Find("Weapon").GetComponent<TextMeshProUGUI>().text = getEquippedWeapon().GetItemName();
+        WeaponDetails.transform.Find("Weapon").GetComponent<TextMeshProUGUI>().text = weaponName;
+
+        WeaponDetails.transform.Find("TierImage").GetComponent<Image>().sprite = GetSpriteBasedOnTier();
+        WeaponDetails.transform.Find("Damage").GetComponent<Slider>().value = getEquippedWeapon().GetDamageDealtPerBullet();
+    }
+
+    public Sprite GetSpriteBasedOnTier()
+    {
+        Debug.LogWarning(getEquippedWeapon().GetItemRarity());
+        switch (getEquippedWeapon().GetItemRarity())
+        {
+            case 1:
+                return Sprite_Bronze;
+            case 2:
+                return Sprite_Silver;
+            case 3:
+                return Sprite_Gold;
+            case 4:
+                return Sprite_Diamond;
+            default:
+                Debug.LogError("Could not return sprite for weapon tier");
+                return Sprite_Bronze;
+        }
+
     }
 
     public uint GetWeaponSpareAmmoBasedOnCategory()
@@ -121,6 +154,9 @@ public class PlayerInventory : Inventory
         };
     }
 
+    /* Method to set ammo based on the type of weapon the player has
+     * Static as weapon is a reference
+     */
     public static void SetWeaponSpareAmmoBasedOnCategory(PlayerInventory inven, uint ammo)
     {
         /* Switch statement*/
@@ -141,6 +177,8 @@ public class PlayerInventory : Inventory
                 break;
         }
     }
+
+    /*  Equip weapon */
     public void EquipWeapon(Weapon weapon)
     {
 

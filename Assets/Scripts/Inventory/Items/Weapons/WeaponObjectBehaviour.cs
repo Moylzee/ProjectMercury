@@ -13,8 +13,6 @@ using UnityEngine.UI;
 public class WeaponObjectBehaviour : ItemObjectBehaviour<Weapon>
 {
 
-    private bool BothSlotsEmpty = false;
-
     public override void Update()
     {
 
