@@ -308,7 +308,6 @@ namespace Pathfinding {
 							if (pathNode.G+tmpCost+path.GetTraversalCost(other) < otherPN.G)
 #endif
 							{
-								//Debug.Log ("Path better from " + NodeIndex + " to " + otherPN.node.NodeIndex + " " + (pathNode.G+tmpCost+path.GetTraversalCost(other)) + " < " + otherPN.G);
 								otherPN.cost = tmpCost;
 
 								otherPN.parent = pathNode;

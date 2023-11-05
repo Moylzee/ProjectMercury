@@ -7,50 +7,83 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab; // The enemy prefab with the spawn animation.
     public Tilemap tilemap;
-    private List<GameObject> spawnedEnemies = new(); // List to store spawned enemies.
     private int Level = 1;
     public GameObject Player;
 
-    public const int ENEMEY_LIMIT_WAVE = 15;
+    private int EnemyMaxHealth = 30;
 
-    private int EnemiesToSpawnInLevel;
-    public int EnemiesPerWaveLimit = 15;
-    private int EnemiesLeftToSpawnInLevel;
+    public int ENEMEY_LIMIT_WAVE;
+
+    private int EnemiesLeftToSpawnInLevel = 0;
+    private ObjectPool ObjectPoolInstance;
+    private float EnemeySpawnDelay = 2f;
 
     void Start()
     {
+        ObjectPoolInstance = ObjectPool.SharedInstance;
+        ENEMEY_LIMIT_WAVE = ObjectPoolInstance.ENEMY_LIMIT;
         CalculateEnemiesToSpawn();
-        InvokeRepeating("CheckEnemies", 0, 5f);
+   
+        InvokeRepeating("CheckEnemies", EnemeySpawnDelay, 5f);
+
     }
 
     void CheckEnemies()
     {
-        if(spawnedEnemies.Count <= 0 && EnemiesLeftToSpawnInLevel > 0)
+        if(ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() > 0)
         {
             SpawnEnemies();
-        }else if(spawnedEnemies.Count <=  0 && EnemiesLeftToSpawnInLevel == 0)
+
+        }else if(ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() == 0)
         {
-            // New level
             Level++;
+            Debug.Log("New Round! Round: " + Level);
             CalculateEnemiesToSpawn();
-        }else if(spawnedEnemies.Count > 0 && EnemiesLeftToSpawnInLevel > 0 &&
-               spawnedEnemies.Count < ENEMEY_LIMIT_WAVE)
+            CalculateEnemiesHealth();
+            SpawnEnemies();
+        }else if(ObjectPoolInstance.currentActiveEnemies < ENEMEY_LIMIT_WAVE && GetEnemiesLeftToSpawn() > 0)
         {
             SpawnEnemies();
         }
 
+        Invoke("EnableEnemyAI", 1.5f);
+
     }
 
 
+    void DecreaseEnemiesLeftToSpawn()
+    {
+        this.EnemiesLeftToSpawnInLevel--;
+    }
+
+    int GetEnemiesLeftToSpawn()
+    {
+        return this.EnemiesLeftToSpawnInLevel;
+    }
+
+    /* Function to calculate new health for the enemy after a new round */
+    void CalculateEnemiesHealth()
+    {
+        this.EnemyMaxHealth = (int)(Mathf.Pow(2.4f, Mathf.Log(Level)) + 30);
+    }
+
+    /* Function to calculate how many enemies per round */
     void CalculateEnemiesToSpawn()
     {
-        float Curve = 6;
-        float Steepness = 4;
 
-        EnemiesToSpawnInLevel = (int)(Curve * Mathf.Pow(Steepness, Mathf.Log(Level))); // Formula for spawning enemies according to level
-        EnemiesLeftToSpawnInLevel = EnemiesToSpawnInLevel;
+        if(Level < 20)
+        {
+            this.EnemiesLeftToSpawnInLevel = 5 + (int)Mathf.Pow(6, Mathf.Log10(Level));
+            return;
+        }else if(Level >= 80)
+        {
+            this.EnemiesLeftToSpawnInLevel = 5 * ObjectPoolInstance.amountToPool_Enemy; // 3 waves
+            return;
+        }
+        this.EnemiesLeftToSpawnInLevel = (int)Mathf.Pow(2.2f, Mathf.Pow(Level, 1.8f));
     }
 
+    /* Function to spawn enemies*/
     void SpawnEnemies()
     {
         BoundsInt bounds = tilemap.cellBounds;
@@ -58,22 +91,27 @@ public class EnemySpawner : MonoBehaviour
         foreach (Vector3Int tilePosition in bounds.allPositionsWithin)
         {
 
-           
+            if (ObjectPoolInstance.currentActiveEnemies >= ENEMEY_LIMIT_WAVE || GetEnemiesLeftToSpawn() <= 0)
+            {
+                return;
+            }
 
             TileBase tile = tilemap.GetTile(tilePosition);
 
             if (tile != null && Player.GetComponent<CircleCollider2D>().OverlapPoint(tilemap.GetCellCenterWorld(tilePosition)))
             {
+                Vector3 spawnPosition = tilemap.GetCellCenterWorld(tilePosition);
 
-                EnemiesLeftToSpawnInLevel--;
-                if (spawnedEnemies.Count >= EnemiesPerWaveLimit || EnemiesLeftToSpawnInLevel <= 0)
+                GameObject spawnedEnemy = ObjectPoolInstance.GetPooledObjectEnemy();
+               
+                if(spawnedEnemy == null)
                 {
                     return;
                 }
-                Vector3 spawnPosition = tilemap.GetCellCenterWorld(tilePosition);
-                GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-                spawnedEnemy.GetComponent<EnemyHealth>().spawnList = spawnedEnemies; // Create reference to spawnedEnemies
-                spawnedEnemies.Add(spawnedEnemy); // Add the spawned enemy to the list.
+                DecreaseEnemiesLeftToSpawn();
+                spawnedEnemy.GetComponent<Enemy>().Init(spawnPosition);
+                spawnedEnemy.GetComponent<EnemyHealth>().SetHealth(EnemyMaxHealth);
+                spawnedEnemy.SetActive(true);
 
                 Animator animator = spawnedEnemy.GetComponent<Animator>();
                 if (animator != null)
@@ -88,16 +126,19 @@ public class EnemySpawner : MonoBehaviour
                 {
                     enemyAI.enabled = false;
                 }
-
-                Invoke("EnableEnemyAI", 1.5f);
             }
         }
     }
 
     void EnableEnemyAI()
     {
-        foreach (GameObject enemy in spawnedEnemies)
+        foreach (GameObject enemy in ObjectPoolInstance.pooledObjects_Enemy)
         {
+            if (!enemy.activeInHierarchy)
+            {
+                continue;
+            }
+
             EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
             if (enemyAI != null)
             {

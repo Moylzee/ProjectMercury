@@ -29,6 +29,7 @@ TagManager:
   - NorthTextBox
   - EastTextBox
   - SouthTextBox
+  - Range
   layers:
   - Default
   - TransparentFX

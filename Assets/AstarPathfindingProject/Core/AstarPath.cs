@@ -834,7 +834,6 @@ public class AstarPath : VersionedMonoBehaviour {
 			} else if (path.error) {
 				Debug.LogWarning(debug);
 			} else {
-				Debug.Log(debug);
 			}
 		}
 	}
@@ -1411,9 +1410,6 @@ public class AstarPath : VersionedMonoBehaviour {
 
 		// Return all paths
 		pathReturnQueue.ReturnPaths(false);
-
-		if (logPathResults == PathLog.Heavy)
-			Debug.Log("Destroying Graphs");
 
 
 		// Clean up graph data

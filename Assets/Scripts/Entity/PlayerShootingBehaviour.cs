@@ -22,13 +22,13 @@ public class PlayerShootingBehaviour : MonoBehaviour
     }
 
     void Update()
-    { 
+    {
         // Get the rotation for the bullet
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 rotation = mousePos - transform.position;
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
-        
+
 
     }
 
@@ -62,12 +62,18 @@ public class PlayerShootingBehaviour : MonoBehaviour
         }
 
         ushort BulletsInMag = Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetBulletsInMag();
-        if(BulletsInMag > 0)
+        if (BulletsInMag > 0)
         {
-            GameObject b = Instantiate(bullet, bulletTransform.position, Quaternion.identity);
-            b.GetComponent<BulletDamage>().SetDamage((int)Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetDamageDealtPerBullet());
-            Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)(BulletsInMag - 1));
-            Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
+
+            GameObject b = ObjectPool.SharedInstance.GetPooledObjectBullet();
+            if (b != null)
+            {
+                b.GetComponent<BulletMovement>().Init(bulletTransform.position);
+                b.GetComponent<BulletDamage>().SetDamage((int)Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetDamageDealtPerBullet());
+                b.SetActive(true);
+                Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)(BulletsInMag - 1));
+                Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
+            }
 
             return;
 
@@ -94,7 +100,8 @@ public class PlayerShootingBehaviour : MonoBehaviour
             return;
         }
 
-        
+        WeaponReference.getEquippedWeapon().IsReloading = true;
+
 
         // Start reloading routine
         reloadCoroutine = StartCoroutine(ReloadDelay(SpareAmmo, MagSize, AmmoLeftInMag, ReloadTime));
@@ -105,12 +112,13 @@ public class PlayerShootingBehaviour : MonoBehaviour
      */
     public void StopReloading()
     {
-        if(reloadCoroutine == null)
+        if (reloadCoroutine == null)
         {
             return;
         }
         StopCoroutine(reloadCoroutine);
         StopCoroutine(reloadAnimationCoroutine);
+        WeaponReference.getEquippedWeapon().IsReloading = false;
     }
 
     /**
@@ -121,11 +129,11 @@ public class PlayerShootingBehaviour : MonoBehaviour
     {
         float interval = (float)(ReloadTime / 3f);
 
-        for(float i =0; i < ReloadTime; i +=interval)
+        for (float i = 0; i < ReloadTime; i += interval)
         {
             var magObject = Instantiate(mag, transform.position, Quaternion.identity);
             Destroy(magObject, 2);
-        yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(interval);
         }
 
     }
@@ -136,7 +144,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
     private IEnumerator ReloadDelay(uint SpareAmmo, ushort MagSize, ushort AmmoLeftInMag, uint ReloadTime)
     {
         // if no spare ammo exit
-        if(SpareAmmo <= 0)
+        if (SpareAmmo <= 0)
         {
             yield return 0;
         }
@@ -158,6 +166,8 @@ public class PlayerShootingBehaviour : MonoBehaviour
             WeaponReference.getEquippedWeapon().SetBulletsInMag((ushort)(AmmoLeftInMag + SpareAmmo));
             PlayerInventory.SetWeaponSpareAmmoBasedOnCategory(WeaponReference, 0);
         }
+
+        WeaponReference.getEquippedWeapon().IsReloading = false;
 
         // update the details for the weapon
         Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();

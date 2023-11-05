@@ -5,15 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelMove : MonoBehaviour
 {
-    private EstatesManager estatesManager;
-
     private void Start()
     {
-        estatesManager = FindObjectOfType<EstatesManager>(); // Find the EstatesManager in the scene
-        if (estatesManager == null)
-        {
-            Debug.LogError("EstatesManager not found in the scene.");
-        }
+       
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -24,13 +18,13 @@ public class LevelMove : MonoBehaviour
             
             // Estates Map
             case "Estates_North":
-                SceneManager.LoadScene(estatesManager.northTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
+                SceneManager.LoadScene(FindObjectOfType<EstatesManager>().northTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
                 break;
             case "Estates_East":
-                SceneManager.LoadScene(estatesManager.eastTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
+                SceneManager.LoadScene(FindObjectOfType<EstatesManager>().eastTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
                 break;
             case "Estates_South":
-                SceneManager.LoadScene(estatesManager.southTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
+                SceneManager.LoadScene(FindObjectOfType<EstatesManager>().southTextBox.GetComponentInChildren<TextMeshPro>().text, LoadSceneMode.Single);
                 break;
             case "House":
                 SceneManager.LoadScene("House", LoadSceneMode.Single);

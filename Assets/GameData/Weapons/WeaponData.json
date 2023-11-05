@@ -69,7 +69,7 @@
 		{
 			"ItemName": "SCAR-H",
 			"MagazineSize": 20,
-			"DamageDealtPerBullet": 6,
+			"DamageDealtPerBullet": 8,
 			"SpareAmmo": 80,
 			"WeaponCategory": "AR",
 			"ImageSource": "SCAR-H",

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -26,7 +25,6 @@ public class Inventory : MonoBehaviour
     {
         if (Items.Count >= InventorySize)
         {
-            Debug.Log("Inventory is full!");
             // Prompt the user somehow that the inventory.
             return;
         }
@@ -75,6 +73,12 @@ public class PlayerInventory : Inventory
     private Sprite Sprite_Gold;
     private Sprite Sprite_Diamond;
 
+    /* Ammo Type sprites*/
+    private Sprite Sprite_LightAmmo;
+    private Sprite Sprite_HeavyAmmo;
+    private Sprite Sprite_ShotgunAmmo;
+
+
     public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)
     {
         GameObject InventoryObject = Instantiate(InventoryPrefab);
@@ -92,6 +96,11 @@ public class PlayerInventory : Inventory
         Sprite_Silver = Resources.Load<Sprite>("Misc/WeaponTiers/Silver");
         Sprite_Gold = Resources.Load<Sprite>("Misc/WeaponTiers/Gold");
         Sprite_Diamond = Resources.Load<Sprite>("Misc/WeaponTiers/Diamond");
+
+        /* Load Sprites for Ammo Types */
+        Sprite_LightAmmo = Resources.Load<Sprite>("Misc/WeaponTiers/LightAmmo");
+        Sprite_HeavyAmmo = Resources.Load<Sprite>("Misc/WeaponTiers/HeavyAmmo");
+        Sprite_ShotgunAmmo = Resources.Load<Sprite>("Misc/WeaponTiers/ShotgunAmmo");
 
         WeaponDetails.SetActive(false);
 
@@ -120,11 +129,11 @@ public class PlayerInventory : Inventory
 
         WeaponDetails.transform.Find("TierImage").GetComponent<Image>().sprite = GetSpriteBasedOnTier();
         WeaponDetails.transform.Find("Damage").GetComponent<Slider>().value = getEquippedWeapon().GetDamageDealtPerBullet();
+        WeaponDetails.transform.Find("AmmoImage").GetComponent<Image>().sprite = GetSpriteBasedOnAmmoType();
     }
 
     public Sprite GetSpriteBasedOnTier()
     {
-        Debug.LogWarning(getEquippedWeapon().GetItemRarity());
         switch (getEquippedWeapon().GetItemRarity())
         {
             case 1:
@@ -142,6 +151,23 @@ public class PlayerInventory : Inventory
 
     }
 
+    Sprite GetSpriteBasedOnAmmoType()
+    {
+        switch (getEquippedWeapon().GetWeaponCategory())
+        {
+            case "AR":
+            case "Pistol":
+                return Sprite_LightAmmo;
+            case "Rifle":
+            case "LMG":
+                return Sprite_HeavyAmmo;
+            case "Shotgun":
+                return Sprite_ShotgunAmmo;
+            default:
+                Debug.LogWarning("Using default ammo type image");
+                return Sprite_LightAmmo;
+        }
+    }
     public uint GetWeaponSpareAmmoBasedOnCategory()
     {
         /* Switch statement*/

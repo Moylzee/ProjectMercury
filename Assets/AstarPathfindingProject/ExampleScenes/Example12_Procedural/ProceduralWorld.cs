@@ -197,7 +197,6 @@ namespace Pathfinding.Examples {
 			}
 
 			IEnumerator InternalGenerate () {
-				Debug.Log("Generating tile " + x + ", " + z);
 				int counter = 0;
 
 				float[, ] ditherMap = new float[world.subTiles+2, world.subTiles+2];
@@ -268,7 +267,6 @@ namespace Pathfinding.Examples {
 
 			public void Destroy () {
 				if (root != null) {
-					Debug.Log("Destroying tile " + x + ", " + z);
 					GameObject.Destroy(root.gameObject);
 					root = null;
 				}
