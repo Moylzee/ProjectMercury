@@ -10,24 +10,19 @@ public class PlayerObject : GameEntity
 
     public GameObject InventoryPrefab;
     public GameObject weaponDetailsPrefab;
-    public GameObject InteractPrompt;
     public GameObject BoxNearby;
-    private GameObject ItemNearby;
+    public GameObject ItemNearby;
     public PlayerInventory Inventory { get; set; }
     public bool BOX_OPEN = false;
     public Vector2 InteractHint_Offset = new Vector2(-3f, 5f);
     public float RANGE_OF_PICKUP = 12f;
-    private bool InteractHint_IsVisible;
     private PlayerShootingBehaviour ShootingBehaviour;
-    private CircleCollider2D RangeCollider;
 
     void Start()
     {
 
         Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
-        InteractPrompt = GameObject.FindWithTag("InteractKey_Hint");
-        InteractPrompt.GetComponent<Text>().text = Settings.GetData().GetKey_InteractKey().ToUpper();
-        RangeCollider = GameObject.FindWithTag("Range").GetComponent<CircleCollider2D>();
+        
 
         ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
 
@@ -38,8 +33,6 @@ public class PlayerObject : GameEntity
     {
         this.PlayerShootHandler();
         this.PlayerKeyboardHandler();
-        InvokeRepeating("InteractionHintHandler", 0, 0.2f);
-        this.InteractionHint();
     }
 
     /* Logic for handling player shooting */
@@ -267,56 +260,7 @@ public class PlayerObject : GameEntity
         }
     }
 
-    /* Interaction Hint logic */
-    void InteractionHint()
-    {
-        if (InteractHint_IsVisible)
-        {
-            InteractPrompt.GetComponent<Text>().rectTransform.position =
-                Camera.main.WorldToScreenPoint((Vector2)transform.position + InteractHint_Offset);
-        }
-        else
-        {
-            InteractPrompt.GetComponent<Text>().rectTransform.position = new Vector2(-1500, 1500);
-        }
-    }
 
-    void InteractionHintHandler()
-    {
-
-
-        
-        InteractHint_IsVisible = false;
-        ItemNearby = null;
-        BoxNearby = null;
-
-
-
-        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-        foreach (GameObject item in items)
-        {
-            if (RangeCollider.OverlapPoint(item.transform.position))
-            {
-
-                InteractHint_IsVisible = true;
-                ItemNearby = item;
-
-            }
-        }
-
-        
-        GameObject[] lootboxes = GameObject.FindGameObjectsWithTag("Lootbox");
-        foreach(GameObject box in lootboxes)
-        {
-            if(RangeCollider.OverlapPoint(box.transform.position))
-            {
-                InteractHint_IsVisible = true;
-                BoxNearby = box;
-            }
-        }
-        
-    
-    }
     public PlayerInventory GetPlayerInventory()
     {
         return Inventory;

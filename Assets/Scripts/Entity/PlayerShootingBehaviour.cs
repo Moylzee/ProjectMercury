@@ -118,6 +118,11 @@ public class PlayerShootingBehaviour : MonoBehaviour
         }
         StopCoroutine(reloadCoroutine);
         StopCoroutine(reloadAnimationCoroutine);
+
+        if(WeaponReference == null)
+        {
+            return;
+        }
         WeaponReference.getEquippedWeapon().IsReloading = false;
     }
 
@@ -153,6 +158,12 @@ public class PlayerShootingBehaviour : MonoBehaviour
         reloadAnimationCoroutine = StartCoroutine(ReloadAnimation(ReloadTime));
 
         yield return new WaitForSeconds((float)ReloadTime); // wait for reload duration
+
+        // Weapon reference was lost
+        if(WeaponReference == null)
+        {
+            yield return 0;
+        }
 
         // If there is more spare ammo in reserve than necessary
         if (SpareAmmo >= MagSize - AmmoLeftInMag)

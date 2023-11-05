@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab; // The enemy prefab with the spawn animation.
     public Tilemap tilemap;
-    private int Level = 1;
+    private int Level = 20;
     public GameObject Player;
 
     private int EnemyMaxHealth = 30;
@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
         ObjectPoolInstance = ObjectPool.SharedInstance;
         ENEMEY_LIMIT_WAVE = ObjectPoolInstance.ENEMY_LIMIT;
         CalculateEnemiesToSpawn();
-   
+        Debug.LogWarning(EnemiesLeftToSpawnInLevel);
         InvokeRepeating("CheckEnemies", EnemeySpawnDelay, 5f);
 
     }
@@ -80,7 +80,10 @@ public class EnemySpawner : MonoBehaviour
             this.EnemiesLeftToSpawnInLevel = 5 * ObjectPoolInstance.amountToPool_Enemy; // 3 waves
             return;
         }
-        this.EnemiesLeftToSpawnInLevel = (int)Mathf.Pow(2.2f, Mathf.Pow(Level, 1.8f));
+        else
+        {
+            this.EnemiesLeftToSpawnInLevel = (int)(Mathf.Pow(4, Mathf.Log10(Level*10)) + 11);
+        }
     }
 
     /* Function to spawn enemies*/
