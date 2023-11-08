@@ -17,11 +17,11 @@ public class Weapon : Item
     public uint DamageDealtPerBullet;
     public uint SpareAmmo;
     public string WeaponCategory;
-
-    private ushort BulletsInMag;
-
     public uint FireRate;
-
+    public uint ReloadRate;
+    
+    public bool IsReloading = false;
+    private ushort BulletsInMag;
 
     public Weapon()
     {
@@ -39,10 +39,21 @@ public class Weapon : Item
         SetMagazineSize(weaponData.GetMagazineSize());
         SetFireRate(weaponData.GetFireRate());
         SetBulletsInMag(weaponData.GetMagazineSize());
+        SetReloadRate(weaponData.GetReloadRate());
+        SetItemRarity(weaponData.GetItemRarity());
     }
 
     // Getters and Setters
 
+    public void SetReloadRate(uint reloadRate)
+    {
+        this.ReloadRate = reloadRate;
+    }
+
+    public uint GetReloadRate()
+    {
+        return this.ReloadRate;
+    }
 
     public void SetFireRate(uint fireRate)
     {

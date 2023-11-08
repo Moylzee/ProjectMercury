@@ -50,7 +50,6 @@ public static class ConsumableItemLoader
         SpriteRenderer s_renderer = obj.AddComponent<SpriteRenderer>();
         itemData.SetSpriteRenderer(s_renderer);
         consumableItemBehaviour.item = itemData;
-        consumableItemBehaviour.item.ItemType = "Consumable";
 
         // Sets sprite image, and places in front of Map
         s_renderer.sprite = Resources.Load<Sprite>("Consumables/" + itemData.GetImageSource()) as Sprite;

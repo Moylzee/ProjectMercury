@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +18,7 @@ public class LevelMove : MonoBehaviour
             startingRoomManager = FindObjectOfType<StartingRoomManager>(); 
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (SceneManager.GetActiveScene().name == "Docks")

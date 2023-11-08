@@ -108,7 +108,6 @@ public static class Settings
         string filePath = File.ReadAllText("Assets/GameData/GameSettings/Keyboard.json");
         if(filePath == null || filePath.Equals(""))
         {
-            Debug.LogError("Error reading Settings file");
             return;
         }
         data = JsonUtility.FromJson<SettingsData>(filePath);
@@ -119,10 +118,7 @@ public static class Settings
 
     public static SettingsData GetData()
     {
-        if (data == null)
-        {
-            Debug.LogError("data is null");
-        }
+
         return data;
     }
 

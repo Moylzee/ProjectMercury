@@ -29,6 +29,7 @@ TagManager:
   - NorthTextBox
   - EastTextBox
   - SouthTextBox
+  - Range
   - Gun1
   - Gun2
   - Gun3

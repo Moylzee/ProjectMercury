@@ -177,8 +177,6 @@ namespace Pathfinding {
 			TimeSpan endTime = DateTime.UtcNow - startTime;
 			var output = new System.Text.StringBuilder();
 
-			output.Append("============================\n\t\t\t\tProfile results:\n============================\n");
-
 			int maxLength = 5;
 			foreach (KeyValuePair<string, ProfilePoint> pair in profiles) {
 				maxLength = Math.Max(pair.Key.Length, maxLength);
@@ -198,28 +196,8 @@ namespace Pathfinding {
 
 				string name = pair.Key;
 
-				output.Append("\n").Append(name.PadRight(maxLength)).Append("| ");
-				output.Append(totalTime.ToString("0.0").PadRight(20)).Append("| ");
-				output.Append(totalCalls.ToString().PadRight(20)).Append("| ");
-				output.Append((totalTime / totalCalls).ToString("0.000").PadRight(20));
-				output.Append(AstarMath.FormatBytesBinary((int)pair.Value.totalBytes).PadLeft(10));
-
-				/*output.Append("\nProfile ");
-				 * output.Append(pair.Key);
-				 * output.Append(" took ");
-				 * output.Append(totalTime.ToString("0"));
-				 * output.Append(" ms to complete over ");
-				 * output.Append(totalCalls);
-				 * output.Append(" iteration");
-				 * if (totalCalls != 1) output.Append("s");
-				 * output.Append(", averaging ");
-				 * output.Append((totalTime / totalCalls).ToString("0.0"));
-				 * output.Append(" ms per call");*/
 			}
-			output.Append("\n\n============================\n\t\tTotal runtime: ");
-			output.Append(endTime.TotalSeconds.ToString("F3"));
-			output.Append(" seconds\n============================");
-			Debug.Log(output.ToString());
+		
 		}
 	}
 }

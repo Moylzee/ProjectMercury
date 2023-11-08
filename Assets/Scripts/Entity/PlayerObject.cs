@@ -10,68 +10,51 @@ public class PlayerObject : GameEntity
 
     public GameObject InventoryPrefab;
     public GameObject weaponDetailsPrefab;
-    public GameObject InteractPrompt;
-    public float RANGE_OF_PICKUP = 12f;
-
-    public PlayerInventory Inventory { get; set; }
-
-    public Vector2 InteractHint_Offset = new Vector2(-3f, 5f);
-
-    private bool InteractHint_IsVisible;
-    private GameObject ItemNearby;
     public GameObject BoxNearby;
+    public GameObject ItemNearby;
+    public PlayerInventory Inventory { get; set; }
     public bool BOX_OPEN = false;
-
+    public Vector2 InteractHint_Offset = new Vector2(-3f, 5f);
+    public float RANGE_OF_PICKUP = 12f;
     private PlayerShootingBehaviour ShootingBehaviour;
 
-
-    // Player entry point
     void Start()
     {
 
         Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
-        InteractPrompt = GameObject.FindWithTag("InteractKey_Hint");
-        InteractPrompt.GetComponent<Text>().text = Settings.GetData().GetKey_InteractKey().ToUpper();
-
+        
 
         ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
 
     }
 
-
-    public PlayerInventory GetPlayerInventory()
-    {
-        return Inventory;
-    }
-
+    /* On Update, Checks shooting, keyboard input, and interaction */
     void Update()
     {
-
         this.PlayerShootHandler();
         this.PlayerKeyboardHandler();
-
-        InvokeRepeating("InteractionHintHandler", 0, 0.2f);
-
-        this.InteractionHint();
-
     }
 
+    /* Logic for handling player shooting */
     void PlayerShootHandler()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            // Unable to shoot as in Lootbox
             if (Inventory.IsHoveringOverSlot() != null || BOX_OPEN == true)
             {
                 // unable to shoot atm
                 return;
             }
 
+            // Shoot
             if (Inventory.getEquippedWeapon() != null)
             {
                 ShootingBehaviour.Shoot();
             }
         }
 
+        // Stop shoot
         if(Input.GetMouseButtonUp(0))
         {
             if (Inventory.getEquippedWeapon() != null)
@@ -80,21 +63,21 @@ public class PlayerObject : GameEntity
             }
         }
     }
-
+    /* Keyboard Handler */
     void PlayerKeyboardHandler()
     {
         // Weapons
         if (Input.GetKeyDown(Settings.GetData().GetKey_WeaponSlot1()))
         {
             // Equip primary weapon
-
             Weapon weapon = (Weapon)Inventory.GetSlot("4").GetItemInSlot();
             if (weapon == null)
             {
                 Inventory.UnequipWeapon();
                 return;
             }
-
+            // If weapon in reload state, stop
+            GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
 
         }
@@ -107,7 +90,8 @@ public class PlayerObject : GameEntity
                 Inventory.UnequipWeapon();
                 return;
             }
-
+            // if weapon in reload state, stop
+            GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
 
         }
@@ -180,16 +164,21 @@ public class PlayerObject : GameEntity
             }
         }
 
+        // Reload key
         if(Input.GetKeyDown(Settings.GetData().GetKey_ReloadWeapon()))
         {
-
+            if(Inventory.getEquippedWeapon() == null)
+            {
+                return;
+            }
+            GetComponentInChildren<PlayerShootingBehaviour>().Reload();
         }
-
     }
 
-
+    /*  Open Lootbox */
     void BoxOpen()
     {
+        // Loot box open
         if (!BOX_OPEN)
         {
             BoxNearby.GetComponent<LootboxInteraction>().OpenBox();
@@ -202,7 +191,7 @@ public class PlayerObject : GameEntity
         }
     }
 
-
+    /* Pick item up*/
     void ItemPickUp()
     {
         if (ItemNearby.GetComponent<WeaponObjectBehaviour>() != null)
@@ -232,8 +221,6 @@ public class PlayerObject : GameEntity
                 Inventory.EquipWeapon((Weapon)item);
                 return;
             }
-
-            Debug.Log("Inventory is full!");
             return;
         }
 
@@ -269,58 +256,15 @@ public class PlayerObject : GameEntity
                 ItemNearby = null;
                 return;
             }
-
-            Debug.Log("Inventory is full!");
             return;
         }
     }
 
 
-    void InteractionHint()
+    public PlayerInventory GetPlayerInventory()
     {
-        if (InteractHint_IsVisible)
-        {
-            InteractPrompt.GetComponent<Text>().rectTransform.position =
-                Camera.main.WorldToScreenPoint((Vector2)transform.position + InteractHint_Offset);
-        }
-        else
-        {
-            InteractPrompt.GetComponent<Text>().rectTransform.position = new Vector2(-1500, 1500);
-        }
+        return Inventory;
     }
-
-    void InteractionHintHandler()
-    {
-
-        InteractHint_IsVisible = false;
-        ItemNearby = null;
-        BoxNearby = null;
-
-
-
-        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-        foreach (GameObject item in items)
-        {
-            if (Vector2.Distance(item.transform.position, transform.position) < RANGE_OF_PICKUP)
-            {
-
-                InteractHint_IsVisible = true;
-                ItemNearby = item;
-
-            }
-        }
-
-        GameObject[] lootboxes = GameObject.FindGameObjectsWithTag("Lootbox");
-        foreach (GameObject box in lootboxes)
-        {
-            if (Vector2.Distance(box.transform.position, transform.position) < RANGE_OF_PICKUP * 2f)
-            {
-                InteractHint_IsVisible = true;
-                BoxNearby = box;
-            }
-        }
-    }
-
 
 }
 

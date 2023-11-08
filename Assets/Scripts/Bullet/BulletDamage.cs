@@ -34,15 +34,15 @@ public class BulletDamage : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Enemy":
-                Destroy(gameObject);
-                 var healthComponent = collision.gameObject.GetComponent<EnemyHealth>();
+                gameObject.SetActive(false);
+                var healthComponent = collision.gameObject.GetComponent<EnemyHealth>();
                 if (healthComponent != null)
                 {
                     healthComponent.DamageEnemy(damage);
                 }
                 break;
             case "Collision":
-                Destroy(gameObject);
+                gameObject.SetActive(false);
                 break;
             default:
                 break;

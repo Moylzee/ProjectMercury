@@ -17,7 +17,6 @@ public abstract class Item
     private Vector2 offset;
     private bool Dragging = false;
 
-    public string ItemType { get; set; }
 
     private SpriteRenderer spriteRenderer;
 

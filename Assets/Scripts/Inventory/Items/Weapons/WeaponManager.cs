@@ -60,7 +60,6 @@ public static class WeaponLoader
         SpriteRenderer s_renderer = obj.AddComponent<SpriteRenderer>();
         weaponData.SetSpriteRenderer(s_renderer);
         weaponObjectBehaviour.item = weaponData;
-        weaponObjectBehaviour.item.ItemType = "Weapon";
 
         // Sets sprite image, and places in front of Map
         s_renderer.sprite = Resources.Load<Sprite>("Weapons/" + weaponData.GetImageSource()) as Sprite;
