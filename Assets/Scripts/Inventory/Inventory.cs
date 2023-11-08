@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void AddItem(Item item)
@@ -114,9 +114,9 @@ public class PlayerInventory : Inventory
     }
 
 
-   public void UpdateDetails()
+    public void UpdateDetails()
     {
-        if(getEquippedWeapon() == null)
+        if (getEquippedWeapon() == null)
         {
             return;
         }
@@ -243,7 +243,7 @@ public class PlayerInventory : Inventory
             case "AR":
             case "Pistol":
                 this.AddLightAmmo(this.getEquippedWeapon().GetSpareAmmo());
-                
+
                 break;
             case "Rifle":
             case "LMG":
@@ -312,7 +312,7 @@ public class PlayerInventory : Inventory
         this.ShotgunAmmo = ammo;
     }
 
-    public uint GetLightAmmo() { return this.LightAmmo;  }
+    public uint GetLightAmmo() { return this.LightAmmo; }
     public uint GetHeavyAmmo() { return this.HeavyAmmo; }
     public uint GetShotgunAmmo() { return this.ShotgunAmmo; }
 
@@ -328,5 +328,4 @@ public class PlayerInventory : Inventory
     {
         this.ShotgunAmmo += ammo;
     }
-
 }
