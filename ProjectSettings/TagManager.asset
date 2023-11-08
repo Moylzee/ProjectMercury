@@ -29,6 +29,10 @@ TagManager:
   - NorthTextBox
   - EastTextBox
   - SouthTextBox
+  - Gun1
+  - Gun2
+  - Gun3
+  - FrontDoor
   layers:
   - Default
   - TransparentFX
@@ -66,6 +70,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: New Layer 1
+  - name: Foreground
+    uniqueID: 867712743
+    locked: 0
+  - name: Player
+    uniqueID: 1015121429
+    locked: 0
+  - name: Background
     uniqueID: 2559572197
     locked: 0

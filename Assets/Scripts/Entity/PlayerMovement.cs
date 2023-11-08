@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canDash = true;
     private PlayerStamina playerStamina;
 
+
     [Header("Dash Settings")]
     [SerializeField] float dashSpeed = 20f;
     [SerializeField] float dashDuration = 1f;
