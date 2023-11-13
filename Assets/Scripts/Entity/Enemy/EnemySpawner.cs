@@ -7,9 +7,9 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab; // The enemy prefab with the spawn animation.
     public Tilemap tilemap;
-    private int Level = 20;
+    private int Level = 1;
     public GameObject Player;
-
+     
     private int EnemyMaxHealth = 30;
 
     public int ENEMEY_LIMIT_WAVE;
@@ -30,18 +30,20 @@ public class EnemySpawner : MonoBehaviour
 
     void CheckEnemies()
     {
-        if(ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() > 0)
+        if (ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() > 0)
         {
             SpawnEnemies();
 
-        }else if(ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() == 0)
+        }
+        else if (ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() == 0)
         {
             Level++;
             Debug.Log("New Round! Round: " + Level);
             CalculateEnemiesToSpawn();
             CalculateEnemiesHealth();
             SpawnEnemies();
-        }else if(ObjectPoolInstance.currentActiveEnemies < ENEMEY_LIMIT_WAVE && GetEnemiesLeftToSpawn() > 0)
+        }
+        else if (ObjectPoolInstance.currentActiveEnemies < ENEMEY_LIMIT_WAVE && GetEnemiesLeftToSpawn() > 0)
         {
             SpawnEnemies();
         }
@@ -71,18 +73,19 @@ public class EnemySpawner : MonoBehaviour
     void CalculateEnemiesToSpawn()
     {
 
-        if(Level < 20)
+        if (Level < 20)
         {
             this.EnemiesLeftToSpawnInLevel = 5 + (int)Mathf.Pow(6, Mathf.Log10(Level));
             return;
-        }else if(Level >= 80)
+        }
+        else if (Level >= 80)
         {
             this.EnemiesLeftToSpawnInLevel = 5 * ObjectPoolInstance.amountToPool_Enemy; // 3 waves
             return;
         }
         else
         {
-            this.EnemiesLeftToSpawnInLevel = (int)(Mathf.Pow(4, Mathf.Log10(Level*10)) + 11);
+            this.EnemiesLeftToSpawnInLevel = (int)(Mathf.Pow(4, Mathf.Log10(Level * 10)) + 11);
         }
     }
 
@@ -106,8 +109,8 @@ public class EnemySpawner : MonoBehaviour
                 Vector3 spawnPosition = tilemap.GetCellCenterWorld(tilePosition);
 
                 GameObject spawnedEnemy = ObjectPoolInstance.GetPooledObjectEnemy();
-               
-                if(spawnedEnemy == null)
+
+                if (spawnedEnemy == null)
                 {
                     return;
                 }

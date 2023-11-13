@@ -7,14 +7,11 @@ public class BulletMovement : MonoBehaviour
     private Rigidbody2D rb;
     public float force;
 
+    public static float rotZ;
+
+
+
     Vector2 direction;
-
-    void Start()
-    {
-
-    }
-
-
     public void Init(Vector3 pos)
     {
 
@@ -23,13 +20,9 @@ public class BulletMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
 
-        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        direction = (Vector2)mousePos - (Vector2)transform.position;
-        Vector3 rotation = transform.position - mousePos;
+        transform.rotation = Quaternion.Euler(0, 0, rotZ);
 
-        float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        rb.velocity = direction.normalized * force;
-        transform.rotation = Quaternion.Euler(0, 0, rot);
+
 
         // Destory bullet after n seconds
         Invoke("DeactivateGameObject", 4f);
@@ -42,6 +35,7 @@ public class BulletMovement : MonoBehaviour
 
     void Update()
     {
+
         if (gameObject.activeInHierarchy)
         {
             transform.Translate(-force * Time.deltaTime, 0, 0);

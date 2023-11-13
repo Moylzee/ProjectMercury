@@ -16,6 +16,11 @@ public class PlayerShootingBehaviour : MonoBehaviour
     private Coroutine reloadCoroutine;
     private Coroutine reloadAnimationCoroutine;
 
+    public void OffsetPosition(float x)
+    {
+        transform.position = new Vector3(x, transform.position.y, transform.position.z);
+    }
+
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
@@ -23,13 +28,6 @@ public class PlayerShootingBehaviour : MonoBehaviour
 
     void Update()
     {
-        // Get the rotation for the bullet
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 rotation = mousePos - transform.position;
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rotZ);
-
-
     }
 
     public void Shoot()

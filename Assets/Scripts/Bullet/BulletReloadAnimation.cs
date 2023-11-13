@@ -17,7 +17,7 @@ public class BulletReloadAnimation : MonoBehaviour
         // Store the initial position of the object.
         initialPosition = transform.position;
         dirX = Random.Range(-1, 1);
-        dirY= Random.Range(-1, 1);
+        dirY = Random.Range(-1, 1);
 
     }
 

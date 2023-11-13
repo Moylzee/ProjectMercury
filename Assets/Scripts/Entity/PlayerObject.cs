@@ -22,8 +22,6 @@ public class PlayerObject : GameEntity
     {
 
         Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
-        
-
         ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
 
     }
@@ -74,12 +72,13 @@ public class PlayerObject : GameEntity
             if (weapon == null)
             {
                 Inventory.UnequipWeapon();
+                EquipVisualWeapon();
                 return;
             }
             // If weapon in reload state, stop
             GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
-
+            EquipVisualWeapon();
         }
         else if (Input.GetKeyDown(Settings.GetData().GetKey_WeaponSlot2()))
         {
@@ -88,11 +87,13 @@ public class PlayerObject : GameEntity
             if (weapon == null)
             {
                 Inventory.UnequipWeapon();
+                EquipVisualWeapon();
                 return;
             }
             // if weapon in reload state, stop
             GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
+            EquipVisualWeapon();
 
         }
 
@@ -210,6 +211,7 @@ public class PlayerObject : GameEntity
                 Destroy(ItemNearby);
                 ItemNearby = null;
                 Inventory.EquipWeapon((Weapon)item);
+                EquipVisualWeapon();
                 return;
             }
             slot = Inventory.GetSlot("5");
@@ -219,6 +221,7 @@ public class PlayerObject : GameEntity
                 Destroy(ItemNearby);
                 ItemNearby = null;
                 Inventory.EquipWeapon((Weapon)item);
+                EquipVisualWeapon();
                 return;
             }
             return;
@@ -260,7 +263,24 @@ public class PlayerObject : GameEntity
         }
     }
 
+    /* Method to visually equip the weapon */
+    void EquipVisualWeapon()
+    {
+        var image = transform.Find("RotatePoint").transform.Find("Equipped").GetComponent<SpriteRenderer>();
+        if(image == null)
+        {
+            Debug.LogError("SpriteRenderer not found in RotatePoint/Equipped!");
+        }
 
+        // if no weapon is in hand, clear image sprite
+        if(Inventory.getEquippedWeapon() == null)
+        {
+            image.sprite = null;
+            return;
+        }
+        // weapon is in hand, set weapon to the image of weapon
+        image.sprite = Resources.Load<Sprite>("Weapons/" + Inventory.getEquippedWeapon().GetImageSource());
+    }
     public PlayerInventory GetPlayerInventory()
     {
         return Inventory;
