@@ -433,9 +433,6 @@ PrefabInstance:
       addedObject: {fileID: 158042839}
     - targetCorrespondingSourceObject: {fileID: 272014252005242711, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 158042838}
-    - targetCorrespondingSourceObject: {fileID: 272014252005242711, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 158042837}
     - targetCorrespondingSourceObject: {fileID: 272014252005242711, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       insertIndex: -1
@@ -525,18 +522,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currStamina: 0
   maxStamina: 30
---- !u!114 &158042838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 158042832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1484eec2f191542abb5fdf15195be0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &158042839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,11 +551,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryPrefab: {fileID: 7257033293732290580, guid: 1f3d81d1170cae84085b186b0c2a57e8, type: 3}
   weaponDetailsPrefab: {fileID: 3388876485237543266, guid: 77752fbdb13bd19448de8344d5649809, type: 3}
-  InteractPrompt: {fileID: 0}
-  RANGE_OF_PICKUP: 12
-  InteractHint_Offset: {x: -3, y: 5}
   BoxNearby: {fileID: 0}
+  ItemNearby: {fileID: 0}
   BOX_OPEN: 0
+  InteractHint_Offset: {x: -3, y: 5}
+  RANGE_OF_PICKUP: 12
 --- !u!114 &158042841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,6 +574,7 @@ MonoBehaviour:
   canDash: 1
   dashSpeed: 150
   dashDuration: 0.2
+  dashCost: 10
 --- !u!114 &158042842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628fbd29c1292444e9f77b223be133fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
 --- !u!82 &158042843
 AudioSource:
   m_ObjectHideFlags: 0
@@ -16825,6 +16812,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3186342113084037228, guid: 0b3ef0a12bab87943bd2ea891d137bfe, type: 3}
   tilemap: {fileID: 463361560}
   Player: {fileID: 158042832}
+  ENEMEY_LIMIT_WAVE: 0
 --- !u!4 &1070796660
 Transform:
   m_ObjectHideFlags: 0
@@ -16886,6 +16874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 6193318696061458824, guid: 55036d14cb79e1641bcc660271b0b8e5, type: 3}
+  mag: {fileID: 0}
   bulletTransform: {fileID: 271096123}
   fireRate: 0.3
 --- !u!1001 &1263672524
@@ -38444,8 +38433,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684268620}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7605081, y: -130.01886, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -117.30144, y: -190.80814, z: -726.2839}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

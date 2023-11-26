@@ -1,38 +1,43 @@
 using UnityEngine;
 
+/*
+ * BulletMovement Script
+ * Contains initialisation code for the bullet in order to move in a given direction
+ * 
+ */
 public class BulletMovement : MonoBehaviour
 {
-    private Vector3 mousePos;
-    private Camera mainCamera;
-    private Rigidbody2D rb;
-    public float force;
+    // Constant to determine the longevity of the bullet lifespan
+    private const float LIMIT_LIFETIME = 4f; // in seconds 
 
+    // Bullet attributes
+    public float force;
+    
+    /* rotZ is static as is affected by rotation of player globally */
     public static float rotZ;
 
 
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
-    Vector2 direction;
+    /* Init method, run when activating from object pool */
     public void Init(Vector3 pos)
     {
-
-        transform.position = pos;
-        mainCamera = Camera.main;
-        rb = GetComponent<Rigidbody2D>();
-
-
-        transform.rotation = Quaternion.Euler(0, 0, rotZ);
-
-
+        transform.SetPositionAndRotation(pos, Quaternion.Euler(0, 0, rotZ));
 
         // Destory bullet after n seconds
-        Invoke("DeactivateGameObject", 4f);
+        Invoke("DeactivateGameObject", LIMIT_LIFETIME);
     }
+
 
     void DeactivateGameObject()
     {
         gameObject.SetActive(false);
     }
 
+    // Apply force every update
     void Update()
     {
 

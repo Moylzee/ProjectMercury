@@ -34,6 +34,8 @@ TagManager:
   - Gun2
   - Gun3
   - FrontDoor
+  - PointText
+  - LevelsText
   layers:
   - Default
   - TransparentFX

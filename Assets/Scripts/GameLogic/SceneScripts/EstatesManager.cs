@@ -2,7 +2,7 @@
 public class EstatesManager : ScenesManager
 {
 
-    private void Start()
+    void Awake()
     {
 
         base.Scene = "Estates";

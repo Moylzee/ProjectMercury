@@ -8,15 +8,11 @@ public class LevelMove : MonoBehaviour
     private DocksManager docksManager;
     private StartingRoomManager startingRoomManager;
 
+    private ScenesManager sceneManager;
+
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Docks")
-        {
-            docksManager = FindObjectOfType<DocksManager>();
-        } else if (SceneManager.GetActiveScene().name == "StartingRoom") 
-        {
-            startingRoomManager = FindObjectOfType<StartingRoomManager>(); 
-        }
+        sceneManager = FindObjectOfType<ScenesManager>();
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -36,10 +32,14 @@ public class LevelMove : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "StartingRoom")
         {
-            if (GameObject.FindGameObjectWithTag("FrontDoor"))
+            if (other.gameObject == GameObject.FindGameObjectWithTag("FrontDoor"))
             {
                 SceneManager.LoadScene("Estates", LoadSceneMode.Single);
             }
+        }
+        else
+        {
+            return;
         }
     }
 }

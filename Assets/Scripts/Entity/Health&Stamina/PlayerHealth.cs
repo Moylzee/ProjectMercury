@@ -19,6 +19,7 @@ public class Health : MonoBehaviour
     {
         currHealth -= damage;
 
+        // Player died
         if (currHealth <= 0)
         {
             EndGameManager.GameOver();

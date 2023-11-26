@@ -5,24 +5,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class PlayerObject : GameEntity
+
+/*
+ * PlayerObject Script
+ * Main script for player responsible for 
+ *      * player inventory, 
+ *      * nearby items and lootbox detection,
+ *      * keyboard input
+ */
+public class PlayerObject : MonoBehaviour
 {
 
+    /* Plyaer gameobject references */
     public GameObject InventoryPrefab;
     public GameObject weaponDetailsPrefab;
     public GameObject BoxNearby;
     public GameObject ItemNearby;
     public PlayerInventory Inventory { get; set; }
-    public bool BOX_OPEN = false;
-    public Vector2 InteractHint_Offset = new Vector2(-3f, 5f);
-    public float RANGE_OF_PICKUP = 12f;
     private PlayerShootingBehaviour ShootingBehaviour;
+
+
+    public bool BOX_OPEN = false;
+    public Vector2 InteractHint_Offset = new(-3f, 5f);
+    
+    public float RANGE_OF_PICKUP = 12f;
+
+    private const int ENEMY_DAMAGE_POINTS = 10;
+    private const int ENEMY_KILL_POINTS = 100;
+
+    private int Level = 1;
+
 
     void Start()
     {
-
+        DontDestroyOnLoad(this.gameObject);
         Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
         ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
+
+        // Set default values
+        PlayerPrefs.SetInt("Score", 0);
+        PlayerPrefs.SetInt("ENEMY_DAMAGE_POINTS", ENEMY_DAMAGE_POINTS);
+        PlayerPrefs.SetInt("ENEMY_KILL_POINTS", ENEMY_KILL_POINTS);
+        PlayerPrefs.SetInt("Level", Level);
 
     }
 

@@ -125,6 +125,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void WeaponRotation()
     {
+
+        if(WeaponInHandRenderer == null)
+        {
+            return;
+        }
+
         Vector3 rotation = Camera.main.ScreenToWorldPoint(Input.mousePosition) - GetComponentInChildren<PlayerShootingBehaviour>().transform.position;
         int offset = 3;
         float rotZ = (Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg) - offset;
