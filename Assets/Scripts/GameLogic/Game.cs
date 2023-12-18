@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
 {
     void Start()
     {
-
+/*
         Weapon weapon1 = new();
         Weapon weapon2 = new();
         Weapon weapon3 = new();
@@ -67,5 +67,5 @@ public class Game : MonoBehaviour
         item2.SetOnGround(true);
 
         ConsumableItemLoader.CreateConsumableItem(new Vector2(-150, -30), item2);
-    }
+   */ }
 }

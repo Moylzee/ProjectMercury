@@ -48,6 +48,23 @@ public class PlayerObject : MonoBehaviour
         PlayerPrefs.SetInt("ENEMY_KILL_POINTS", ENEMY_KILL_POINTS);
         PlayerPrefs.SetInt("Level", Level);
 
+
+        // If there is a static inventory reference
+        if (PlayerInventory.StaticInventoryWeapon.Count > 0)
+        {
+            // Update current inventory with saved items,
+            Inventory.GetSlot("1").InsertItemInSlot(PlayerInventory.GetNextConsumableItem());
+            Inventory.GetSlot("2").InsertItemInSlot(PlayerInventory.GetNextConsumableItem());
+            Inventory.GetSlot("3").InsertItemInSlot(PlayerInventory.GetNextConsumableItem());
+
+            Inventory.GetSlot("4").InsertItemInSlot(PlayerInventory.GetNextWeapon());
+            Inventory.GetSlot("5").InsertItemInSlot(PlayerInventory.GetNextWeapon());
+
+            // Clear the static references
+            PlayerInventory.StaticInventoryConsumable.Clear();
+            PlayerInventory.StaticInventoryWeapon.Clear();
+        }
+
     }
 
     /* On Update, Checks shooting, keyboard input, and interaction */
@@ -88,6 +105,8 @@ public class PlayerObject : MonoBehaviour
     /* Keyboard Handler */
     void PlayerKeyboardHandler()
     {
+
+
         // Weapons
         if (Input.GetKeyDown(Settings.GetData().GetKey_WeaponSlot1()))
         {
@@ -221,7 +240,8 @@ public class PlayerObject : MonoBehaviour
     {
         if (ItemNearby.GetComponent<WeaponObjectBehaviour>() != null)
         {
-            Item item = ItemNearby.GetComponent<WeaponObjectBehaviour>().item;
+            Weapon item = ItemNearby.GetComponent<WeaponObjectBehaviour>().item;
+
             if (!item.IsOnGround())
             {
                 return;
@@ -234,7 +254,7 @@ public class PlayerObject : MonoBehaviour
                 slot.InsertItemInSlot(item);
                 Destroy(ItemNearby);
                 ItemNearby = null;
-                Inventory.EquipWeapon((Weapon)item);
+                Inventory.EquipWeapon(item);
                 EquipVisualWeapon();
                 return;
             }
@@ -244,7 +264,7 @@ public class PlayerObject : MonoBehaviour
                 slot.InsertItemInSlot(item);
                 Destroy(ItemNearby);
                 ItemNearby = null;
-                Inventory.EquipWeapon((Weapon)item);
+                Inventory.EquipWeapon(item);
                 EquipVisualWeapon();
                 return;
             }

@@ -61,6 +61,10 @@ public static class WeaponLoader
         weaponData.SetSpriteRenderer(s_renderer);
         weaponObjectBehaviour.item = weaponData;
 
+        Debug.Log("From the create weapon object << weapon manager.cs");
+        weaponObjectBehaviour.item.PrintItem();
+        Debug.Log("\n\n\n\n");
+
         // Sets sprite image, and places in front of Map
         s_renderer.sprite = Resources.Load<Sprite>("Weapons/" + weaponData.GetImageSource());
         s_renderer.sortingOrder = 3;
@@ -103,6 +107,8 @@ public static class WeaponLoader
             return null;
         }
     }
+
+
 
     public static Weapon GetRandomWeapon()
     {

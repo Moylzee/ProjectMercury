@@ -18,6 +18,7 @@ public abstract class Item
     private bool Dragging = false;
 
 
+
     private SpriteRenderer spriteRenderer;
 
     public Item()
@@ -25,6 +26,14 @@ public abstract class Item
 
     }
 
+    public Item DeepCopyWeapon(Weapon weapon)
+    {
+        Weapon copiedWeapon = new Weapon();
+        copiedWeapon.ReadWeapon(weapon);
+        return copiedWeapon;
+    }
+
+    
     protected void setUID()
     {
         this.UID = Guid.NewGuid().ToString();
@@ -130,6 +139,13 @@ public abstract class Item
     public Vector2 GetOffset()
     {
         return offset;
+    }
+
+    public virtual void PrintItem()
+    {
+        Debug.Log("Item Name: " + ItemName);
+        Debug.Log("Item Sprite Renderer " + spriteRenderer);
+        Debug.Log("Item Image: " + ImageSource);
     }
 
 }

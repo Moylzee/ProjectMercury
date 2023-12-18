@@ -41,6 +41,28 @@ public class Weapon : Item
         SetBulletsInMag(weaponData.GetMagazineSize());
         SetReloadRate(weaponData.GetReloadRate());
         SetItemRarity(weaponData.GetItemRarity());
+
+        if(weaponData.GetSpriteRenderer() != null) 
+        {
+            SetSpriteRenderer(weaponData.GetSpriteRenderer());
+        }
+        
+        
+    }
+
+    // DEBUG
+
+    public override void PrintItem()
+    {
+        Debug.Log(" === Item details ===");
+        Debug.Log("Item Name: " + ItemName);
+        Debug.Log("Item Sprite Renderer " + GetSpriteRenderer());
+        Debug.Log("Item Image: " + ImageSource);
+        Debug.Log("Item spare ammo: " + SpareAmmo);
+        Debug.Log("Item weapon category: " + WeaponCategory);
+        Debug.Log("Item damage per bullet: " + DamageDealtPerBullet);
+        Debug.Log("Item mag size: " + MagazineSize);
+        Debug.Log("=======================================");
     }
 
     // Getters and Setters

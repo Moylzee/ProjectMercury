@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class SlotItem : MonoBehaviour, IPointerDownHandler
 {
-    private Button slotButton;
+
     private Image buttonImage;
 
-    public bool HoveringOverSlot = false;
+    public bool hoveringOverSlot = false;
 
-    private Item itemInSlot;
+    private Weapon weaponInSlot;
+    private ConsumableItem consumableInSlot;
 
     void Awake()
     {
-        slotButton = GetComponent<Button>();
         buttonImage = GetComponent<Image>();
 
         EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -31,103 +30,164 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
         eventTrigger.triggers.Add(exitEntry);
     }
 
-
-    void OnPointerEnter(PointerEventData eventData)
+    /* hovering over the slot */
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        HoveringOverSlot = true;
+        hoveringOverSlot = true;
+    }
+   
+    /* hover exit from slot */
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        hoveringOverSlot = false;
     }
 
-    void OnPointerExit(PointerEventData eventData)
+    /* Clicking on the slot */
+    public void OnPointerDown(PointerEventData eventData)
     {
-        HoveringOverSlot = false;
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            // No item in slot
+            if(weaponInSlot == null && consumableInSlot == null)
+            {
+                return;
+            }
+
+            // Pick up weapon
+            if(weaponInSlot != null)
+            {
+                PickUpWeapon();
+                return;
+            }
+            PickUpConsumable();
+            return;
+        }
     }
 
-
-    public bool IsHoveringOverSlot() { return HoveringOverSlot; }
-
-    public Button GetButtonComponent()
+    /* Pick up weapon item from inventory */
+    private void PickUpWeapon()
     {
-        return slotButton;
+        weaponInSlot.SetPickedUp(true);
+        weaponInSlot.SetOffset(Camera.main.ScreenToWorldPoint(transform.position) - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
+        WeaponLoader.CreateWeaponObject((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), weaponInSlot);
+        RemoveItemFromSlot();
     }
 
+    /* Pick up consumable item from inventory */
+    private void PickUpConsumable()
+    {
+        consumableInSlot.SetPickedUp(true);
+        consumableInSlot.SetOffset(Camera.main.ScreenToWorldPoint(transform.position) - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
+        ConsumableItemLoader.CreateConsumableItem((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), consumableInSlot);
+        RemoveItemFromSlot();
+    }
+
+    public bool IsHoveringOverSlot() { return hoveringOverSlot; }
+
+    /* Inserts item into slot */
     public void InsertItemInSlot(Item item)
     {
         if (item == null)
-        {
-            Debug.LogError("Item inserted into slot is null");
             return;
+
+
+        SetSlotColorOnInsert();
+
+        // Check if item is weapon or consumable
+        if(item is Weapon weapon)
+        {
+            InsertWeaponIntoSlot(weapon);
+        }else if (item is ConsumableItem consumable)
+        {
+            InsertConsumableIntoSlot(consumable);
         }
 
-        // Set the Color of button
+    }
+
+
+    /* Sets the slot colour to non-transparent */
+    private void SetSlotColorOnInsert()
+    {
         Color btnColor = buttonImage.color;
         btnColor.a = 255;
         buttonImage.color = btnColor;
-
-        itemInSlot = item; // Assign weapon to slot
-
-        buttonImage.sprite = item.GetSpriteRenderer().sprite;
-        slotButton.onClick.AddListener(() => func());
-
-
     }
 
-    void func()
+    /* Sets the slot colour to transparent */
+    private void SetSlotColorOnRemove()
     {
-
-    }
-
-
-    public void RemoveItemFromSlot()
-    {
-        buttonImage.sprite = null; // Remove image from slot
-
-        itemInSlot = null; // remove item from slot
-        slotButton.onClick.RemoveAllListeners();
-        // Set the Color of button
         Color btnColor = buttonImage.color;
         btnColor.a = 0;
         buttonImage.color = btnColor;
     }
 
-    public Item GetItemInSlot()
+    /* Inserts weapon into slot */
+    private void InsertWeaponIntoSlot(Weapon weapon)
     {
-        return itemInSlot;
+        // Create new weapon object and copy details
+        weaponInSlot = new Weapon();
+        weaponInSlot.ReadWeapon(weapon);
+
+        // Set button sprite image
+        if(weaponInSlot.GetSpriteRenderer() != null)
+        {
+            buttonImage.sprite = weaponInSlot.GetSpriteRenderer().sprite;
+        }
+        else
+        {
+            buttonImage.sprite = Resources.Load<Sprite>("Weapons/" + weaponInSlot.GetImageSource());
+        }
     }
 
+    /* Inserts consumable item into slot*/
+    private void InsertConsumableIntoSlot(ConsumableItem consumable)
+    {
+        // Create new consumable item object and copy details
+        consumableInSlot = new ConsumableItem();
+        consumableInSlot.Clone(consumable);
+        // Set button sprite image
+        if(consumableInSlot.GetSpriteRenderer() != null)
+        {
+            buttonImage.sprite = consumableInSlot.GetSpriteRenderer().sprite;
+        }
+        else
+        {
+            buttonImage.sprite = Resources.Load<Sprite>("Consumables/" + consumableInSlot.GetImageSource());
+        }
+    }
+
+    /* Removes item from slot */
+    public void RemoveItemFromSlot()
+    {
+        // Clear button image
+        buttonImage.sprite = null;
+        consumableInSlot = null;
+        weaponInSlot = null;
+        SetSlotColorOnRemove();
+    }
+
+    /* Get the current item in the slot */
+    public Item GetItemInSlot()
+    {
+        if(weaponInSlot != null)
+        {
+            return weaponInSlot;
+        }
+        return consumableInSlot;
+    }
+
+    /* Checks if slot is currently empty*/
     public bool IsSlotEmpty()
     {
-        if (itemInSlot == null)
+        if(weaponInSlot == null && consumableInSlot == null)
         {
             return true;
         }
         return false;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (itemInSlot == null)
-            {
-                return;
-            }
 
 
-            itemInSlot.SetPickedUp(true); // Set the item to be picked up
-            itemInSlot.SetOffset(Camera.main.ScreenToWorldPoint(transform.position) - Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-
-            if(itemInSlot.GetType() == typeof(Weapon))
-            {
-                WeaponLoader.CreateWeaponObject((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), (Weapon)itemInSlot);
-            }
-            else if (itemInSlot.GetType() == typeof(ConsumableItem))
-            {
-                ConsumableItemLoader.CreateConsumableItem((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), (ConsumableItem)itemInSlot);
-            }
-
-
-            RemoveItemFromSlot();
-        }
-    }
 }

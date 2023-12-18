@@ -11,6 +11,12 @@ public class Inventory : MonoBehaviour
 
     protected uint InventorySize { get; set; }
 
+
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     public Inventory()
     {
         Items = new List<Item>();
@@ -56,6 +62,10 @@ public class Inventory : MonoBehaviour
 
 public class PlayerInventory : Inventory
 {
+
+    public static List<ConsumableItem> StaticInventoryConsumable = new();
+    public static List<Weapon> StaticInventoryWeapon = new();
+
     public Weapon EquippedWeapon = null;
     public List<GameObject> InventorySlotList = new();
     public Dictionary<string, SlotItem> Slots = new();
@@ -81,15 +91,24 @@ public class PlayerInventory : Inventory
 
     public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)
     {
+
+        
+
         GameObject InventoryObject = Instantiate(InventoryPrefab);
         WeaponDetails = Instantiate(WeaponDetailsPrefab);
         InventoryObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
         WeaponDetails.transform.SetParent(GameObject.Find("Canvas").transform, false);
+
+       
         InventorySlotList.Add(GameObject.FindWithTag("Slot1"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot2"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot3"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot4"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot5"));
+
+       
+
+
 
         /* Load Sprites for Weapon tiers*/
         Sprite_Bronze = Resources.Load<Sprite>("Misc/WeaponTiers/Bronze");
@@ -107,6 +126,30 @@ public class PlayerInventory : Inventory
         LoadDictionary();
     }
 
+
+    public static Weapon GetNextWeapon()
+    {
+        if(StaticInventoryWeapon.Count == 0)
+        {
+            return null;
+        }
+
+        var weaponRef = StaticInventoryWeapon[0];
+        StaticInventoryWeapon.RemoveAt(0);
+        return weaponRef;
+    }
+
+    public static ConsumableItem GetNextConsumableItem()
+    {
+        if(StaticInventoryConsumable.Count == 0)
+        {
+            return null;
+        }
+
+        var consumableRef = StaticInventoryConsumable[0];
+        StaticInventoryConsumable.RemoveAt(0);
+        return consumableRef;
+    }
 
     public Weapon getEquippedWeapon()
     {

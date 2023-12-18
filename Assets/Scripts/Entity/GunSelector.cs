@@ -1,42 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GunSelector : MonoBehaviour
 {
+    private List<GameObject> weaponList = new();
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Start()
     {
-        if (collision.gameObject.tag == "Gun1")
+        Weapon weapon1 = new();
+        Weapon weaponData1 = WeaponLoader.GetWeapon("Astra Model 900");
+        weapon1.ReadWeapon(weaponData1);
+        weapon1.SetOnGround(true);
+
+        GameObject ob1 = WeaponLoader.CreateWeaponObject(new Vector2(427.1f, 219f),  weapon1);
+        ob1.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+
+        Weapon weapon2 = new();
+        Weapon weaponData2 = WeaponLoader.GetWeapon("AK47");
+        weapon2.ReadWeapon(weaponData2);
+        weapon2.SetOnGround(true);
+
+        GameObject ob2 = WeaponLoader.CreateWeaponObject(new Vector2(520f, 219f),  weapon2);
+        ob2.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+
+        Weapon weapon3 = new();
+        Weapon weaponData3 = WeaponLoader.GetWeapon("Thompson");
+        weapon3.ReadWeapon(weaponData3);
+        weapon3.SetOnGround(true);
+
+        GameObject ob3 = WeaponLoader.CreateWeaponObject(new Vector2(615f, 219f),  weapon3);
+        ob3.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+
+        weaponList.Add(ob1);
+        weaponList.Add(ob2);
+        weaponList.Add(ob3);
+    }
+
+    void Update()
+    {
+        foreach(GameObject ob in weaponList)
         {
-            Debug.Log("gun1");
-            DisableGuns("Gun2", "Gun3");
-        }
-        else if (collision.gameObject.tag == "Gun2")
-        {
-            Debug.Log("gun2");
-            DisableGuns("Gun1", "Gun3");
-        }
-        else if (collision.gameObject.tag == "Gun3")
-        {
-            Debug.Log("gun3");
-            DisableGuns("Gun1","Gun2");
+            if(ob == null) // A Weapon has been picked up
+            {
+                DestroyWeaponList();
+                return;
+            }
         }
     }
 
-    void DisableGuns(string gun1, string gun2)
+    // Destroy other weapons in weapon list once a weapon has been picked up.
+    private void DestroyWeaponList()
     {
-        GameObject g1 = GameObject.FindGameObjectWithTag(gun1);
-        GameObject g2 = GameObject.FindGameObjectWithTag(gun2);
-
-        if (g1 != null && g1.GetComponent<BoxCollider2D>() != null)
+        foreach(GameObject ob in weaponList)
         {
-            g1.GetComponent<BoxCollider2D>().enabled = false;
-        }
-
-        if (g2 != null && g2.GetComponent<BoxCollider2D>() != null)
-        {
-            g2.GetComponent<BoxCollider2D>().enabled = false;
+            if(ob != null)
+            {
+                Destroy(ob);
+            }
+            
         }
     }
 }

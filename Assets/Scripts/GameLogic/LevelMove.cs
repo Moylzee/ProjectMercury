@@ -34,6 +34,7 @@ public class LevelMove : MonoBehaviour
         {
             if (other.gameObject == GameObject.FindGameObjectWithTag("FrontDoor"))
             {
+                SaveInventoryToStatic();
                 SceneManager.LoadScene("Estates", LoadSceneMode.Single);
             }
         }
@@ -41,5 +42,29 @@ public class LevelMove : MonoBehaviour
         {
             return;
         }
+    }
+
+
+    private void SaveInventoryToStatic()
+    {
+        // reference to the player inventory
+        var playerInventory = GameObject.FindWithTag("Player").GetComponent<PlayerObject>().Inventory;
+
+       //TODO: Implement a save to static ref from the player inventory
+
+        foreach(GameObject slot in playerInventory.InventorySlotList)
+        {
+            SlotItem slotRef = slot.GetComponentInChildren<SlotItem>();
+            if(slotRef.GetItemInSlot() is Weapon weapon)
+            {   
+                PlayerInventory.StaticInventoryWeapon.Add(weapon);
+            }
+            else if(slotRef.GetItemInSlot() is ConsumableItem consumable)
+            {
+                PlayerInventory.StaticInventoryConsumable.Add(consumable);
+            }
+        }
+
+
     }
 }
