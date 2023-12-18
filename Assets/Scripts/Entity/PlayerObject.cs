@@ -308,7 +308,7 @@ public class PlayerObject : MonoBehaviour
     }
 
     /* Method to visually equip the weapon */
-    void EquipVisualWeapon()
+    public void EquipVisualWeapon()
     {
         var image = transform.Find("RotatePoint").transform.Find("Equipped").GetComponent<SpriteRenderer>();
         if(image == null)
@@ -325,6 +325,9 @@ public class PlayerObject : MonoBehaviour
         // weapon is in hand, set weapon to the image of weapon
         image.sprite = Resources.Load<Sprite>("Weapons/" + Inventory.getEquippedWeapon().GetImageSource());
     }
+
+
+
     public PlayerInventory GetPlayerInventory()
     {
         return Inventory;

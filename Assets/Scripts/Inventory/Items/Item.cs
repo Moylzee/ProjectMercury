@@ -141,12 +141,6 @@ public abstract class Item
         return offset;
     }
 
-    public virtual void PrintItem()
-    {
-        Debug.Log("Item Name: " + ItemName);
-        Debug.Log("Item Sprite Renderer " + spriteRenderer);
-        Debug.Log("Item Image: " + ImageSource);
-    }
 
 }
 

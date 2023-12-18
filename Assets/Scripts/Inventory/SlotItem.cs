@@ -12,9 +12,11 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
 
     private Weapon weaponInSlot;
     private ConsumableItem consumableInSlot;
+    private PlayerObject playerObject;
 
     void Awake()
     {
+        playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerObject>();
         buttonImage = GetComponent<Image>();
 
         EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -71,6 +73,8 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
         weaponInSlot.SetOffset(Camera.main.ScreenToWorldPoint(transform.position) - Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
         WeaponLoader.CreateWeaponObject((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), weaponInSlot);
+        playerObject.Inventory.UnequipWeapon();
+        playerObject.EquipVisualWeapon();
         RemoveItemFromSlot();
     }
 
