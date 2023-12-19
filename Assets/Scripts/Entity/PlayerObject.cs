@@ -304,6 +304,10 @@ public class PlayerObject : MonoBehaviour
                 return;
             }
             return;
+        }else if(ItemNearby.GetComponent<ItemBonusObjectBehaviour>() != null)
+        {
+            ItemNearby.GetComponent<ItemBonusObjectBehaviour>().item.UseEffect();
+            Destroy(ItemNearby, 0.1f);
         }
     }
 

@@ -7316,6 +7316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConsumableItemPrefab: {fileID: 429492794747296140, guid: 544ec78f994727144bd971ed85fb87e9, type: 3}
   WeaponItemPrefab: {fileID: 8028057652680645608, guid: e0d1bcce184cd844c804f63eaba74c03, type: 3}
+  ItemBonusPrefab: {fileID: 4695298122939975885, guid: d4709304d4b6e254c99772645d78f72a, type: 3}
 --- !u!4 &1991238408
 Transform:
   m_ObjectHideFlags: 0

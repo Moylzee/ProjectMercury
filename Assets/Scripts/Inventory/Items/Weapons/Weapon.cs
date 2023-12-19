@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System;
+
 
 // Used to load Weapons from Json file
 [System.Serializable]

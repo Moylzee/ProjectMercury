@@ -32,7 +32,6 @@ public class BulletDamage : MonoBehaviour
                 gameObject.SetActive(false);
                 break;
             case "Collision":
-                gameObject.SetActive(false);
                 break;
             default:
                 break;

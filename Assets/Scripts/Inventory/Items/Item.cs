@@ -26,12 +26,6 @@ public abstract class Item
 
     }
 
-    public Item DeepCopyWeapon(Weapon weapon)
-    {
-        Weapon copiedWeapon = new Weapon();
-        copiedWeapon.ReadWeapon(weapon);
-        return copiedWeapon;
-    }
 
     
     protected void setUID()

@@ -19,7 +19,7 @@ public static class WeaponLoader
 
     public static GameObject weaponPrefab;
 
-    private static float ItemSize = 15f;
+    private static readonly float ItemSize = 15f;
 
     public static void LoadPrefab(GameObject prefab)
     {

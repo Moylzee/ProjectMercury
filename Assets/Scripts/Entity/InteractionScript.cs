@@ -93,7 +93,7 @@ public class InteractionScript : MonoBehaviour
 
         // Create temp gameobject, and large distance;
         GameObject temp = null;
-        float distance = 999f;
+        float distance = float.MaxValue;
 
         // Loop through every object in the list
         // Compare distance from player to object, and compare against prior shortest distance
