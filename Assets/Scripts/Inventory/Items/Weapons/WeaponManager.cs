@@ -19,7 +19,7 @@ public static class WeaponLoader
 
     public static GameObject weaponPrefab;
 
-    private static float ItemSize = 15f;
+    private static readonly float ItemSize = 15f;
 
     public static void LoadPrefab(GameObject prefab)
     {
@@ -43,7 +43,7 @@ public static class WeaponLoader
         }
 
         WeaponsRead = true;
-        Debug.Log("Finished loading weapons from file!");
+        Debug.Log("Finished loading weapons data from file!");
     }
 
 
@@ -61,8 +61,9 @@ public static class WeaponLoader
         weaponData.SetSpriteRenderer(s_renderer);
         weaponObjectBehaviour.item = weaponData;
 
+
         // Sets sprite image, and places in front of Map
-        s_renderer.sprite = Resources.Load<Sprite>("Weapons/" + weaponData.GetImageSource()) as Sprite;
+        s_renderer.sprite = Resources.Load<Sprite>("Weapons/" + weaponData.GetImageSource());
         s_renderer.sortingOrder = 3;
 
         // Sets scale
@@ -103,6 +104,8 @@ public static class WeaponLoader
             return null;
         }
     }
+
+
 
     public static Weapon GetRandomWeapon()
     {

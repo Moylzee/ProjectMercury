@@ -5,7 +5,7 @@ public class EstatesManager : ScenesManager
 {
     public GameObject player;
 
-    private void Start()
+    void Awake()
     {
         base.Scene = "Estates";
         base.nextScenes = new string[] { "Park","Docks","ShoppingCenter"};

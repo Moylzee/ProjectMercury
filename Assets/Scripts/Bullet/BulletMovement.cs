@@ -1,47 +1,46 @@
 using UnityEngine;
 
+/*
+ * BulletMovement Script
+ * Contains initialisation code for the bullet in order to move in a given direction
+ * 
+ */
 public class BulletMovement : MonoBehaviour
 {
-    private Vector3 mousePos;
-    private Camera mainCamera;
-    private Rigidbody2D rb;
-    public float force;
+    // Constant to determine the longevity of the bullet lifespan
+    private const float LIMIT_LIFETIME = 4f; // in seconds 
 
-    Vector2 direction;
+    // Bullet attributes
+    public float force;
+    
+    /* rotZ is static as is affected by rotation of player globally */
+    public static float rotZ;
+
 
     void Start()
     {
-
+        DontDestroyOnLoad(this.gameObject);
     }
 
-
+    /* Init method, run when activating from object pool */
     public void Init(Vector3 pos)
     {
-
-        transform.position = pos;
-        mainCamera = Camera.main;
-        rb = GetComponent<Rigidbody2D>();
-
-
-        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        direction = (Vector2)mousePos - (Vector2)transform.position;
-        Vector3 rotation = transform.position - mousePos;
-
-        float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        rb.velocity = direction.normalized * force;
-        transform.rotation = Quaternion.Euler(0, 0, rot);
+        transform.SetPositionAndRotation(pos, Quaternion.Euler(0, 0, rotZ));
 
         // Destory bullet after n seconds
-        Invoke("DeactivateGameObject", 4f);
+        Invoke("DeactivateGameObject", LIMIT_LIFETIME);
     }
+
 
     void DeactivateGameObject()
     {
         gameObject.SetActive(false);
     }
 
+    // Apply force every update
     void Update()
     {
+
         if (gameObject.activeInHierarchy)
         {
             transform.Translate(-force * Time.deltaTime, 0, 0);

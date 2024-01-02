@@ -76,7 +76,6 @@ public class PlayerStamina : MonoBehaviour
 
     private IEnumerator IncreaseStaminaOverTimeCoroutine(int stamina, float seconds)
     {
-        Debug.LogWarning("This class is running");
         float timePassed = 0f;
         float interval = 0.5f;
 

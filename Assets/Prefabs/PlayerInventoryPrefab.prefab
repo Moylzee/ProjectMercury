@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: 6542406761561191680}
   - component: {fileID: 1374169635}
   - component: {fileID: 6231155910536440201}
-  - component: {fileID: 3215350952286515477}
   m_Layer: 5
   m_Name: Item3
   m_TagString: Slot3
@@ -320,6 +319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoveringOverSlot: 0
+  itemName: 
+  spareAmmo: 0
 --- !u!61 &1374169635
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -386,19 +387,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &3215350952286515477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091271064738828008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
 --- !u!1 &1600275626388543219
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +403,6 @@ GameObject:
   - component: {fileID: 201766231622568223}
   - component: {fileID: 5367179239532444643}
   - component: {fileID: 1588850026235156929}
-  - component: {fileID: 2745011429715731094}
   m_Layer: 5
   m_Name: Item1
   m_TagString: Slot4
@@ -538,6 +525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoveringOverSlot: 0
+  itemName: 
+  spareAmmo: 0
 --- !u!61 &201766231622568223
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -631,19 +620,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &2745011429715731094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600275626388543219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
 --- !u!1 &2093125965688313111
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +636,6 @@ GameObject:
   - component: {fileID: 6495887269040590767}
   - component: {fileID: 6066510827465409181}
   - component: {fileID: 6617870170920043001}
-  - component: {fileID: 5879652326328279900}
   m_Layer: 5
   m_Name: Item2
   m_TagString: Slot5
@@ -783,6 +758,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoveringOverSlot: 0
+  itemName: 
+  spareAmmo: 0
 --- !u!61 &6495887269040590767
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -876,19 +853,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &5879652326328279900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093125965688313111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
 --- !u!1 &4448225065723350319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1123,7 @@ RectTransform:
   - {fileID: 1396115501918887859}
   - {fileID: 8113771872772901985}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1221,7 +1185,6 @@ GameObject:
   - component: {fileID: 66563046016866041}
   - component: {fileID: 1205332495}
   - component: {fileID: 4855822636169856898}
-  - component: {fileID: 8319231289506840185}
   m_Layer: 5
   m_Name: Item2
   m_TagString: Slot2
@@ -1344,6 +1307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoveringOverSlot: 0
+  itemName: 
+  spareAmmo: 0
 --- !u!61 &1205332495
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1410,19 +1375,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &8319231289506840185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7291782315930677458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
 --- !u!1 &7325589042338028542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,7 +1648,6 @@ GameObject:
   - component: {fileID: 641048067973648357}
   - component: {fileID: 1596400554}
   - component: {fileID: 8192009998197837138}
-  - component: {fileID: 3335687465282227397}
   m_Layer: 5
   m_Name: Item1
   m_TagString: Slot1
@@ -1819,6 +1770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoveringOverSlot: 0
+  itemName: 
+  spareAmmo: 0
 --- !u!61 &1596400554
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1885,19 +1838,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &3335687465282227397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627671167717699634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
 --- !u!1 &9005860189903202964
 GameObject:
   m_ObjectHideFlags: 0

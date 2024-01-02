@@ -5,26 +5,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class PlayerObject : GameEntity
+
+/*
+ * PlayerObject Script
+ * Main script for player responsible for 
+ *      * player inventory, 
+ *      * nearby items and lootbox detection,
+ *      * keyboard input
+ */
+public class PlayerObject : MonoBehaviour
 {
 
+    /* Plyaer gameobject references */
     public GameObject InventoryPrefab;
     public GameObject weaponDetailsPrefab;
     public GameObject BoxNearby;
     public GameObject ItemNearby;
     public PlayerInventory Inventory { get; set; }
-    public bool BOX_OPEN = false;
-    public Vector2 InteractHint_Offset = new Vector2(-3f, 5f);
-    public float RANGE_OF_PICKUP = 12f;
     private PlayerShootingBehaviour ShootingBehaviour;
+
+
+    public bool BOX_OPEN = false;
+    public Vector2 InteractHint_Offset = new(-3f, 5f);
+    
+    public float RANGE_OF_PICKUP = 12f;
+
+    private const int ENEMY_DAMAGE_POINTS = 10;
+    private const int ENEMY_KILL_POINTS = 100;
+
+    private int Level = 1;
+
 
     void Start()
     {
-
+        DontDestroyOnLoad(this.gameObject);
         Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
-        
-
         ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
+
+        // Set default values
+        PlayerPrefs.SetInt("Score", 0);
+        PlayerPrefs.SetInt("ENEMY_DAMAGE_POINTS", ENEMY_DAMAGE_POINTS);
+        PlayerPrefs.SetInt("ENEMY_KILL_POINTS", ENEMY_KILL_POINTS);
+        PlayerPrefs.SetInt("Level", Level);
+
+
+        // If there is a static inventory reference
+        if (PlayerInventory.StaticInventoryWeapon.Count > 0)
+        {
+            // Update current inventory with saved items,
+            Inventory.GetSlot("1").InsertItemInSlot(PlayerInventory.GetNextConsumableItem());
+            Inventory.GetSlot("2").InsertItemInSlot(PlayerInventory.GetNextConsumableItem());
+            Inventory.GetSlot("3").InsertItemInSlot(PlayerInventory.GetNextConsumableItem());
+
+            Inventory.GetSlot("4").InsertItemInSlot(PlayerInventory.GetNextWeapon());
+            Inventory.GetSlot("5").InsertItemInSlot(PlayerInventory.GetNextWeapon());
+
+            // Clear the static references
+            PlayerInventory.StaticInventoryConsumable.Clear();
+            PlayerInventory.StaticInventoryWeapon.Clear();
+        }
 
     }
 
@@ -66,6 +105,8 @@ public class PlayerObject : GameEntity
     /* Keyboard Handler */
     void PlayerKeyboardHandler()
     {
+
+
         // Weapons
         if (Input.GetKeyDown(Settings.GetData().GetKey_WeaponSlot1()))
         {
@@ -74,12 +115,13 @@ public class PlayerObject : GameEntity
             if (weapon == null)
             {
                 Inventory.UnequipWeapon();
+                EquipVisualWeapon();
                 return;
             }
             // If weapon in reload state, stop
             GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
-
+            EquipVisualWeapon();
         }
         else if (Input.GetKeyDown(Settings.GetData().GetKey_WeaponSlot2()))
         {
@@ -88,11 +130,13 @@ public class PlayerObject : GameEntity
             if (weapon == null)
             {
                 Inventory.UnequipWeapon();
+                EquipVisualWeapon();
                 return;
             }
             // if weapon in reload state, stop
             GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
             Inventory.EquipWeapon(weapon);
+            EquipVisualWeapon();
 
         }
 
@@ -196,7 +240,8 @@ public class PlayerObject : GameEntity
     {
         if (ItemNearby.GetComponent<WeaponObjectBehaviour>() != null)
         {
-            Item item = ItemNearby.GetComponent<WeaponObjectBehaviour>().item;
+            Weapon item = ItemNearby.GetComponent<WeaponObjectBehaviour>().item;
+
             if (!item.IsOnGround())
             {
                 return;
@@ -209,7 +254,8 @@ public class PlayerObject : GameEntity
                 slot.InsertItemInSlot(item);
                 Destroy(ItemNearby);
                 ItemNearby = null;
-                Inventory.EquipWeapon((Weapon)item);
+                Inventory.EquipWeapon(item);
+                EquipVisualWeapon();
                 return;
             }
             slot = Inventory.GetSlot("5");
@@ -218,7 +264,8 @@ public class PlayerObject : GameEntity
                 slot.InsertItemInSlot(item);
                 Destroy(ItemNearby);
                 ItemNearby = null;
-                Inventory.EquipWeapon((Weapon)item);
+                Inventory.EquipWeapon(item);
+                EquipVisualWeapon();
                 return;
             }
             return;
@@ -257,8 +304,32 @@ public class PlayerObject : GameEntity
                 return;
             }
             return;
+        }else if(ItemNearby.GetComponent<ItemBonusObjectBehaviour>() != null)
+        {
+            ItemNearby.GetComponent<ItemBonusObjectBehaviour>().item.UseEffect();
+            Destroy(ItemNearby, 0.1f);
         }
     }
+
+    /* Method to visually equip the weapon */
+    public void EquipVisualWeapon()
+    {
+        var image = transform.Find("RotatePoint").transform.Find("Equipped").GetComponent<SpriteRenderer>();
+        if(image == null)
+        {
+            Debug.LogError("SpriteRenderer not found in RotatePoint/Equipped!");
+        }
+
+        // if no weapon is in hand, clear image sprite
+        if(Inventory.getEquippedWeapon() == null)
+        {
+            image.sprite = null;
+            return;
+        }
+        // weapon is in hand, set weapon to the image of weapon
+        image.sprite = Resources.Load<Sprite>("Weapons/" + Inventory.getEquippedWeapon().GetImageSource());
+    }
+
 
 
     public PlayerInventory GetPlayerInventory()

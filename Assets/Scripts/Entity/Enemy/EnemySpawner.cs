@@ -7,46 +7,58 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab; // The enemy prefab with the spawn animation.
     public Tilemap tilemap;
-    private int Level = 20;
     public GameObject Player;
 
+    // Wave Attributes
     private int EnemyMaxHealth = 30;
-
     public int ENEMEY_LIMIT_WAVE;
-
     private int EnemiesLeftToSpawnInLevel = 0;
-    private ObjectPool ObjectPoolInstance;
     private float EnemeySpawnDelay = 2f;
+    private GameLevel gameLevel;
+
+    private const float CHECK_ENEMIES_DELAY = 5f;
+    private const float ENEMIES_AI_DELAY = 1.5f;
+
+    private ObjectPool ObjectPoolInstance;
 
     void Start()
     {
         ObjectPoolInstance = ObjectPool.SharedInstance;
-        ENEMEY_LIMIT_WAVE = ObjectPoolInstance.ENEMY_LIMIT;
-        CalculateEnemiesToSpawn();
-        Debug.LogWarning(EnemiesLeftToSpawnInLevel);
-        InvokeRepeating("CheckEnemies", EnemeySpawnDelay, 5f);
 
+        gameLevel = GameObject.FindWithTag("Player").GetComponent<GameLevel>();
+
+        ENEMEY_LIMIT_WAVE = ObjectPoolInstance.ENEMY_LIMIT;
+
+        CalculateEnemiesToSpawn();
+        InvokeRepeating("CheckEnemies", EnemeySpawnDelay, CHECK_ENEMIES_DELAY);
     }
 
     void CheckEnemies()
     {
-        if(ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() > 0)
+        // If theres no enemies left but theres more to spawn, spawn more
+        if (ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() > 0)
         {
             SpawnEnemies();
 
-        }else if(ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() == 0)
+        }
+        // If there's no enemies left, and no more to spawn, new round
+        else if (ObjectPoolInstance.currentActiveEnemies <= 0 && GetEnemiesLeftToSpawn() == 0)
         {
-            Level++;
-            Debug.Log("New Round! Round: " + Level);
+            PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+            gameLevel.UpdateLevelsText();
+            Debug.Log("New Round! Round: " + PlayerPrefs.GetInt("Level"));
+
             CalculateEnemiesToSpawn();
             CalculateEnemiesHealth();
             SpawnEnemies();
-        }else if(ObjectPoolInstance.currentActiveEnemies < ENEMEY_LIMIT_WAVE && GetEnemiesLeftToSpawn() > 0)
+        }
+        // If theres more zombies to spawn and the max zombies hasn't been reached, spawn more!
+        else if (ObjectPoolInstance.currentActiveEnemies < ENEMEY_LIMIT_WAVE && GetEnemiesLeftToSpawn() > 0)
         {
             SpawnEnemies();
         }
 
-        Invoke("EnableEnemyAI", 1.5f);
+        Invoke("EnableEnemyAI", ENEMIES_AI_DELAY);
 
     }
 
@@ -64,26 +76,27 @@ public class EnemySpawner : MonoBehaviour
     /* Function to calculate new health for the enemy after a new round */
     void CalculateEnemiesHealth()
     {
-        this.EnemyMaxHealth = (int)(Mathf.Pow(2.4f, Mathf.Log(Level)) + 30);
+        this.EnemyMaxHealth = (int)(Mathf.Pow(2.4f, Mathf.Log(PlayerPrefs.GetInt("Level"))) + 30);
     }
 
     /* Function to calculate how many enemies per round */
     void CalculateEnemiesToSpawn()
     {
 
-        if(Level < 20)
+        if (PlayerPrefs.GetInt("Level") < 20)
         {
-            this.EnemiesLeftToSpawnInLevel = 5 + (int)Mathf.Pow(6, Mathf.Log10(Level));
+            this.EnemiesLeftToSpawnInLevel = 5 + (int)Mathf.Pow(6, Mathf.Log10(PlayerPrefs.GetInt("Level")));
             return;
-        }else if(Level >= 80)
+        }
+        else if (PlayerPrefs.GetInt("Level") >= 80)
         {
             this.EnemiesLeftToSpawnInLevel = 5 * ObjectPoolInstance.amountToPool_Enemy; // 3 waves
             return;
         }
-        else
-        {
-            this.EnemiesLeftToSpawnInLevel = (int)(Mathf.Pow(4, Mathf.Log10(Level*10)) + 11);
-        }
+
+
+        this.EnemiesLeftToSpawnInLevel = (int)(Mathf.Pow(4, Mathf.Log10(PlayerPrefs.GetInt("Level") * 10)) + 11);
+        
     }
 
     /* Function to spawn enemies*/
@@ -94,6 +107,7 @@ public class EnemySpawner : MonoBehaviour
         foreach (Vector3Int tilePosition in bounds.allPositionsWithin)
         {
 
+            // If object pool reached return
             if (ObjectPoolInstance.currentActiveEnemies >= ENEMEY_LIMIT_WAVE || GetEnemiesLeftToSpawn() <= 0)
             {
                 return;
@@ -106,11 +120,12 @@ public class EnemySpawner : MonoBehaviour
                 Vector3 spawnPosition = tilemap.GetCellCenterWorld(tilePosition);
 
                 GameObject spawnedEnemy = ObjectPoolInstance.GetPooledObjectEnemy();
-               
-                if(spawnedEnemy == null)
+
+                if (spawnedEnemy == null)
                 {
                     return;
                 }
+
                 DecreaseEnemiesLeftToSpawn();
                 spawnedEnemy.GetComponent<Enemy>().Init(spawnPosition);
                 spawnedEnemy.GetComponent<EnemyHealth>().SetHealth(EnemyMaxHealth);

@@ -18,6 +18,7 @@ public abstract class Item
     private bool Dragging = false;
 
 
+
     private SpriteRenderer spriteRenderer;
 
     public Item()
@@ -25,6 +26,8 @@ public abstract class Item
 
     }
 
+
+    
     protected void setUID()
     {
         this.UID = Guid.NewGuid().ToString();
@@ -131,6 +134,7 @@ public abstract class Item
     {
         return offset;
     }
+
 
 }
 

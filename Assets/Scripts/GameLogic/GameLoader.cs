@@ -11,7 +11,7 @@ public class GameLoader : MonoBehaviour
 
     public GameObject ConsumableItemPrefab;
     public GameObject WeaponItemPrefab;
-
+    public GameObject ItemBonusPrefab;
     
     //Entry point in the game
     void Awake()
@@ -23,6 +23,8 @@ public class GameLoader : MonoBehaviour
 
         ConsumableItemLoader.LoadPrefab(this.ConsumableItemPrefab);
         ConsumableItemLoader.LoadConsumableItemsFromFile();
+
+        ItemBonusLoader.LoadPrefab(ItemBonusPrefab);
 
 
     }

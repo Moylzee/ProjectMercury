@@ -12,6 +12,8 @@ public class LevelMove : MonoBehaviour
     private ParkManager parkManager;
     public static string previousScene;
 
+    private ScenesManager sceneManager;
+
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "Docks")

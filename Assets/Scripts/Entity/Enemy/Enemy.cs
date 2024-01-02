@@ -1,28 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Enemy Script
+ * Main script for enemy
+ */
 public class Enemy : MonoBehaviour
 {
-
+    // Reference to ObjectPool
     private ObjectPool poolInstance;
 
+
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    /* Initialisation of EnemyObject when activating pooled objects */
     public void Init(Vector3 pos)
     {
+       
         transform.position = pos;
         poolInstance = ObjectPool.SharedInstance;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Bullet") && collision.gameObject.activeInHierarchy)
-        {
-
-            DecrementCurrentActiveEnemies();
-            collision.gameObject.SetActive(false);
-            GetComponent<EnemyHealth>().DamageEnemy(collision.gameObject.GetComponent<BulletDamage>().GetDamage());
-        }
-    }
 
     public void DecrementCurrentActiveEnemies()
     {

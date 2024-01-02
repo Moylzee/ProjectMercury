@@ -4,9 +4,10 @@ using UnityEngine.UI;
 
 public class InteractionScript : MonoBehaviour
 {
+    // Interact Prompt Object
     public GameObject InteractPrompt;
 
-    private int triggerCount = 0;
+    // List of game objects within player
     private List<GameObject> ClosestItemToPlayer;
     private GameObject ClosestObject;
 
@@ -20,10 +21,9 @@ public class InteractionScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Item"))
         {
-            triggerCount++;
             ClosestItemToPlayer.Add(collision.gameObject);
 
-            if (triggerCount == 1)
+            if (ClosestItemToPlayer.Count == 1)
             {
                 // Enable Interact Prompt only if this is the first trigger
                 InteractPrompt.SetActive(true);
@@ -31,9 +31,8 @@ public class InteractionScript : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Lootbox"))
         {
-            triggerCount++;
             ClosestItemToPlayer.Add(collision.gameObject);
-            if (triggerCount == 1)
+            if (ClosestItemToPlayer.Count == 1)
             {
                 // Enable Interact Prompt only if this is the first trigger
                 InteractPrompt.SetActive(true);
@@ -41,14 +40,13 @@ public class InteractionScript : MonoBehaviour
         }
 
         FindClosestObject();
-        
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Item"))
         {
-            triggerCount--;
             ClosestItemToPlayer.Remove(collision.gameObject);
 
 
@@ -58,7 +56,7 @@ public class InteractionScript : MonoBehaviour
             }
 
             FindClosestObject();
-            if (triggerCount <= 0)
+            if (ClosestItemToPlayer.Count <= 0)
             {
                 // Disable Interact Prompt when no relevant triggers are left
                 InteractPrompt.SetActive(false);
@@ -67,7 +65,6 @@ public class InteractionScript : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Lootbox"))
         {
-            triggerCount--;
             ClosestItemToPlayer.Remove(collision.gameObject);
 
             if (GetComponentInParent<PlayerObject>().BoxNearby == collision.gameObject)
@@ -76,7 +73,7 @@ public class InteractionScript : MonoBehaviour
             }
 
             FindClosestObject();
-            if (triggerCount <= 0)
+            if (ClosestItemToPlayer.Count <= 0)
             {
                 // Disable Interact Prompt when no relevant triggers are left
                 InteractPrompt.SetActive(false);
@@ -85,18 +82,23 @@ public class InteractionScript : MonoBehaviour
         }
     }
 
-
+    /* Function to find closest object to player, by comparing distance. Time: O(n), Space: O(1) */
     private void FindClosestObject()
     {
-        if(ClosestItemToPlayer.Count <= 0)
+        // If list is empty return
+        if (ClosestItemToPlayer.Count <= 0)
         {
             return;
         }
 
+        // Create temp gameobject, and large distance;
         GameObject temp = null;
-        float distance = 999f;
+        float distance = float.MaxValue;
 
-        foreach(GameObject obj in ClosestItemToPlayer)
+        // Loop through every object in the list
+        // Compare distance from player to object, and compare against prior shortest distance
+        // If shorter, than replace, else continue
+        foreach (GameObject obj in ClosestItemToPlayer)
         {
             float dist = (Vector2.Distance(obj.transform.position, transform.position));
             if (dist < distance)
@@ -106,13 +108,16 @@ public class InteractionScript : MonoBehaviour
             }
         }
 
+        // Assigns closest object;
         ClosestObject = temp;
 
-
+        // If it's already the object that is the closest then return
         if (GetComponentInParent<PlayerObject>().ItemNearby == ClosestObject || GetComponentInParent<PlayerObject>().BoxNearby == ClosestObject)
         {
             return;
         }
+
+        // else check whether object is an Item or Lootbox
         if (ClosestObject != null)
         {
             if (ClosestObject.CompareTag("Item"))

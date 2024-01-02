@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System;
+
 
 // Used to load Weapons from Json file
 [System.Serializable]
@@ -41,6 +40,13 @@ public class Weapon : Item
         SetBulletsInMag(weaponData.GetMagazineSize());
         SetReloadRate(weaponData.GetReloadRate());
         SetItemRarity(weaponData.GetItemRarity());
+
+        if(weaponData.GetSpriteRenderer() != null) 
+        {
+            SetSpriteRenderer(weaponData.GetSpriteRenderer());
+        }
+        
+        
     }
 
     // Getters and Setters

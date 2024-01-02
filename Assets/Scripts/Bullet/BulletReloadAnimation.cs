@@ -1,24 +1,30 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/*
+ * BulletReloadAnimation Script
+ * Spawns little magazines when player reloads
+ */
 public class BulletReloadAnimation : MonoBehaviour
 {
 
-    public float arcHeight = 7.25f; // Adjust the arc height as needed.
-    public float rotationSpeed = 30.0f; // Adjust the rotation speed as needed.
-    public float speed = 4.5f;
+    // Animation parameters
+    private const float arcHeight = 7.25f;
+    private const float rotationSpeed = 30.0f;
+    private const float speed = 4.5f;
     private float time = 0.0f;
-    private Vector3 initialPosition;
-    private bool isMoving = true;
     private int dirX = 1;
     private int dirY = 1;
+
+    private Vector3 initialPosition;
+    private bool isMoving = true;
+    
     void Start()
     {
         // Store the initial position of the object.
         initialPosition = transform.position;
         dirX = Random.Range(-1, 1);
-        dirY= Random.Range(-1, 1);
-
+        dirY = Random.Range(-1, 1);
     }
 
     void Update()
