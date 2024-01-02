@@ -19,4 +19,5 @@ public class GameOveScript : MonoBehaviour
     {
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
+
 }
