@@ -6,8 +6,9 @@
 public class AmmoBoostItem : ItemBonus
 {
 
-    private PlayerObject playerObject;
-    private ushort spareAmmoIncrease = 100;
+    private readonly PlayerObject playerObject;
+    private readonly ushort spareAmmoIncrease = 100;
+
 
 
     public AmmoBoostItem()
@@ -17,7 +18,7 @@ public class AmmoBoostItem : ItemBonus
         // Set item Attributes
         SetItemName("Ammo Boost");
         SetImageSource("maxammo");
-
+        SetTooltip("Boosts ammo for the equipped weapon");
     }
 
     /* UseEffect method applies the items effect to player*/

@@ -1,8 +1,5 @@
 
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-
 /*
  * The item Object Behavior Class is attached to the items Prefab
  * It gives the item class a gameobject bound to the data
@@ -22,7 +19,7 @@ public class WeaponObjectBehaviour : ItemObjectBehaviour<Weapon>
 
     }
 
-
+    /* Inventory logic for Weapons */
     public override void InventoryLogic()
     {
         if (item.IsPickedUp())
@@ -32,6 +29,9 @@ public class WeaponObjectBehaviour : ItemObjectBehaviour<Weapon>
 
         if (Input.GetMouseButtonUp(0) && item.IsPickedUp())
         {
+
+            // Slots 4 and 5 are reserved for weapons
+
             var slot = GameObject.FindWithTag("Slot4").GetComponent<SlotItem>();
             if (slot.IsHoveringOverSlot() && slot.IsSlotEmpty())
             {
@@ -50,9 +50,7 @@ public class WeaponObjectBehaviour : ItemObjectBehaviour<Weapon>
                 return;
             }
 
-
-
-
+ 
             if (PlayerScript.Inventory.getEquippedWeapon() != null && PlayerScript.Inventory.getEquippedWeapon().UID == item.UID)
             {
                 PlayerScript.Inventory.UnequipWeapon();

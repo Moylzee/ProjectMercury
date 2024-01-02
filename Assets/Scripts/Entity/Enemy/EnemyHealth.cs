@@ -56,7 +56,7 @@ public class EnemyHealth : MonoBehaviour
     void DropRandomChance()
     {
         
-        if(Random.Range(1, 100) < 2)
+        if(Random.Range(1, 100) < 5)
         {
             int dropType = Random.Range(0, 3);
 
@@ -69,16 +69,15 @@ public class EnemyHealth : MonoBehaviour
                     WeaponLoader.CreateWeaponObject(transform.position, random1);
                     break;
                 case 1:
+                    // Second case: spawns random consumable item on the ground
                     ConsumableItem random2 = ConsumableItemLoader.GetRandomItem();
                     random2.SetOnGround(true);
                     ConsumableItemLoader.CreateConsumableItem(transform.position, random2);
                     break;
                 case 2:
-                    Debug.Log("Trying to spawn bonus item");
+                    // Third case: spawns an ammo boost on the ground
                     ItemBonus random3 = new AmmoBoostItem();
-                    Debug.Log("Referenced bonus item");
                     ItemBonusLoader.CreateItemBonusObject(transform.position, random3);
-                    Debug.Log("Created game object of bonus item");
                     break;
 
             }

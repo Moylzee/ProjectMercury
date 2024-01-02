@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -90,6 +91,7 @@ public abstract class ItemObjectBehaviour<T> : MonoBehaviour where T : Item, new
     {
         item.TogglePickedUp();
     }
+
 
 
 }

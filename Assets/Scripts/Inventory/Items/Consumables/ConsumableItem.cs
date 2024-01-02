@@ -28,7 +28,7 @@ public class ConsumableItem : Item
 
     public void Clone(ConsumableItem itemData)
     {
-        setUID();
+        SetUID();
         SetItemName(itemData.GetItemName());
         SetImageSource(itemData.GetImageSource());
         SetHealthChange(itemData.GetHealthChange());
@@ -38,6 +38,7 @@ public class ConsumableItem : Item
         SetStaminaChange(itemData.GetStaminaChange());
         SetStaminaRegeneration(itemData.GetStaminaRegeneration());
         SetStaminaRegenerationDurationInSeconds(itemData.GetStaminaRegenerationDurationInSeconds());
+        SetTooltip(itemData.GetTooltip());
     }
 
     public void SetHealthChange(float healthChange) { this.HealthChange = healthChange; }

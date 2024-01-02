@@ -78,15 +78,15 @@ public class PlayerInventory : Inventory
     private uint ShotgunAmmo = 0;
 
     /* Weapon tier sprites */
-    private Sprite Sprite_Bronze;
-    private Sprite Sprite_Silver;
-    private Sprite Sprite_Gold;
-    private Sprite Sprite_Diamond;
+    private readonly Sprite Sprite_Bronze;
+    private readonly Sprite Sprite_Silver;
+    private readonly Sprite Sprite_Gold;
+    private readonly Sprite Sprite_Diamond;
 
     /* Ammo Type sprites*/
-    private Sprite Sprite_LightAmmo;
-    private Sprite Sprite_HeavyAmmo;
-    private Sprite Sprite_ShotgunAmmo;
+    private readonly Sprite Sprite_LightAmmo;
+    private readonly Sprite Sprite_HeavyAmmo;
+    private readonly Sprite Sprite_ShotgunAmmo;
 
 
     public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)

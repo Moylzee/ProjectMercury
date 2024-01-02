@@ -9,7 +9,8 @@
 			"ImageSource": "AK47",
 			"Rarity": 2,
 			"FireRate": 7,
-			"ReloadRate": 2
+			"ReloadRate": 2,
+			"Tooltip": "Light Ammo Assult Rifle"
 		},
 		{
 			"ItemName": "AR15",
@@ -20,7 +21,8 @@
 			"ImageSource": "AR15",
 			"Rarity": 3,
 			"FireRate": 4.5,
-			"ReloadRate": 2
+			"ReloadRate": 2,
+			"Tooltip": "Light Ammo Assult Rifle"
 		},
 		{
 			"ItemName": "FAMAS G2",
@@ -31,7 +33,8 @@
 			"ImageSource": "FAMAS",
 			"Rarity": 3,
 			"FireRate": 5,
-			"ReloadRate": 2
+			"ReloadRate": 2,
+			"Tooltip": "Light Ammo Assult Rifle"
 		},
 		{
 			"ItemName": "AUG",
@@ -42,7 +45,8 @@
 			"ImageSource": "AUG",
 			"Rarity": 3,
 			"FireRate": 7.5,
-			"ReloadRate": 2
+			"ReloadRate": 2,
+			"Tooltip": "Light Ammo Assult Rifle"
 		},
 		{
 			"ItemName": "Astra Model 900",
@@ -53,7 +57,8 @@
 			"ImageSource": "Astra900",
 			"Rarity": 1,
 			"FireRate": 0.1,
-			"ReloadRate": 1
+			"ReloadRate": 1,
+			"Tooltip": "Light Ammo Pistol"
 		},
 		{
 			"ItemName": "SCAR-L",
@@ -64,7 +69,8 @@
 			"ImageSource": "SCAR-L",
 			"Rarity": 3,
 			"FireRate": 8,
-			"ReloadRate": 2
+			"ReloadRate": 2,
+			"Tooltip": "Light Ammo Assult Rifle"
 		},
 		{
 			"ItemName": "SCAR-H",
@@ -75,7 +81,8 @@
 			"ImageSource": "SCAR-H",
 			"Rarity": 4,
 			"FireRate": 7.1,
-			"ReloadRate": 2
+			"ReloadRate": 2,
+			"Tooltip": "Light Ammo Assult Rifle"
 		},
 		{
 			"ItemName": "CheyTac M200",
@@ -86,7 +93,8 @@
 			"ImageSource": "M200",
 			"Rarity": 4,
 			"FireRate": 0.1,
-			"ReloadRate": 4
+			"ReloadRate": 4,
+			"Tooltip": "Heavy Ammo Sniper Rifle"
 		},
 		{
 			"ItemName": "Thompson",
@@ -97,7 +105,8 @@
 			"ImageSource": "thompson",
 			"Rarity": 3,
 			"FireRate": 9,
-			"ReloadRate": 3
+			"ReloadRate": 3,
+			"Tooltip": "Fast shooting Heavy Ammo Rifle"
 		}
 	]
 }

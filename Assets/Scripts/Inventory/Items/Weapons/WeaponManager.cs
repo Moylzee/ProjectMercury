@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour
-{
 
-}
-
+/*
+ * WeaponManager represents the static WeaponLoader class
+ * Reads weapon data from file
+ * Allows for the creation of a weapon object in the world
+ */
 
 public static class WeaponLoader
 {

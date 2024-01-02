@@ -36,6 +36,7 @@ TagManager:
   - FrontDoor
   - PointText
   - LevelsText
+  - ToolTip
   layers:
   - Default
   - TransparentFX

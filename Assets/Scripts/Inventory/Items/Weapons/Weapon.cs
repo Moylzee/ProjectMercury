@@ -1,6 +1,11 @@
 using UnityEngine;
 
 
+/*
+ * Weapon class, represents all weapons in the game
+ * Provides attributes all weapons should have
+ */
+
 // Used to load Weapons from Json file
 [System.Serializable]
 public class WeaponList
@@ -27,9 +32,10 @@ public class Weapon : Item
 
     }
 
+    /* A deep copy of a weapon */
     public void ReadWeapon(Weapon weaponData)
     {
-        setUID(); // Creates a brand new UID for the item
+        SetUID(); // Creates a brand new UID for the item
         SetItemName(weaponData.GetItemName());
         SetImageSource(weaponData.GetImageSource());
         SetSpareAmmo(weaponData.GetSpareAmmo());
@@ -40,6 +46,7 @@ public class Weapon : Item
         SetBulletsInMag(weaponData.GetMagazineSize());
         SetReloadRate(weaponData.GetReloadRate());
         SetItemRarity(weaponData.GetItemRarity());
+        SetTooltip(weaponData.GetTooltip());
 
         if(weaponData.GetSpriteRenderer() != null) 
         {

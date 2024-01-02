@@ -2,20 +2,23 @@
 using UnityEngine;
 using System;
 
+/*
+ * Item Abstract Class, represents an item in the game
+ * and decribes which attributes it needs
+ * Implements Accessor methods for all items
+ */
 public abstract class Item
 {
-
+    // Attributes
     public string UID { get; set; }
 
     public string ItemName;
     public string ImageSource;
     public int Rarity;
-
+    public string Tooltip;
     private bool PickedUp = false;
-    private bool OnGround = false; // If the weapon is on the ground this should be true
-    private bool InSlot = false;
+    private bool OnGround = false; // If the item is on the ground this should be true
     private Vector2 offset;
-    private bool Dragging = false;
 
 
 
@@ -27,12 +30,22 @@ public abstract class Item
     }
 
 
-    
-    protected void setUID()
+    // Creates a new random Unique ID for item
+    protected void SetUID()
     {
         this.UID = Guid.NewGuid().ToString();
     }
 
+
+    public string GetTooltip()
+    {
+        return Tooltip;
+    }
+
+    public void SetTooltip(string Tooltip)
+    {
+        this.Tooltip = Tooltip;
+    }
 
     public int GetItemRarity()
     {
@@ -44,36 +57,11 @@ public abstract class Item
         this.Rarity = Rarity;
     }
 
-    public bool IsDragging()
-    {
-        return Dragging;
-    }
-
-    public void SetDragging(bool dragging)
-    {
-        this.Dragging = dragging;
-    }
-
-    public bool IsInSlot()
-    {
-        return InSlot;
-    }
-
-
-    public void SetInSlot(bool inSlot)
-    {
-        InSlot = inSlot;
-    }
-
     public bool IsOnGround()
     {
         return OnGround;
     }
 
-    public void ToggleOnGround()
-    {
-        OnGround = !OnGround;
-    }
 
     public void SetOnGround(bool onGround)
     {
@@ -135,10 +123,5 @@ public abstract class Item
         return offset;
     }
 
-
-}
-
-public class ItemObject : MonoBehaviour
-{
 
 }
