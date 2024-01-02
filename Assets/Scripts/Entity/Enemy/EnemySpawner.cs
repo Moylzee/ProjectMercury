@@ -160,7 +160,10 @@ public class EnemySpawner : MonoBehaviour
             EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
             if (enemyAI != null)
             {
+                Debug.Log("Enemy AI enabled");
                 enemyAI.enabled = true;
+            }else {
+                Debug.Log("Enemy AI is null");
             }
         }
     }

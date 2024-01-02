@@ -10,12 +10,8 @@ public abstract class ScenesManager : MonoBehaviour
     public GameObject eastTextBox;
     public GameObject southTextBox;
     public GameObject westTextBox;
-
-
     public string[] nextScenes;
     public string[] exits;
-
-
     public string Scene;
 
 
@@ -23,7 +19,7 @@ public abstract class ScenesManager : MonoBehaviour
      * Randomize the scenes to the exists
      * 
      */
-    public void RandomizeScenesToExists()
+    public void RandomizeScenesToExits()
     {
         if(nextScenes.Length <= 0 || exits.Length <= 0)
         {
@@ -70,5 +66,4 @@ public abstract class ScenesManager : MonoBehaviour
             westTextBox.GetComponent<TextMeshPro>().text = $"{PlayerPrefs.GetString(Scene+"_West")}";
         }
     }
-    
 }

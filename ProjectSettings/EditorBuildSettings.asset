@@ -14,7 +14,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Estates.unity
     guid: 1c77114b2d7ebbd4d9d2498c163676cd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Shop.unity
     guid: 5ec2706842a1c6c4c82eb245bb367b7d
+  - enabled: 1
+    path: Assets/Scenes/Shopping Center/ShoppingCenter.unity
+    guid: c11de49f2b8b6454ebe3f8feece785d7
+  - enabled: 1
+    path: Assets/Scenes/Shopping Center/ShoppingCenterInside.unity
+    guid: 05998df54b8e96a4a9612c40ba78bbb9
+  - enabled: 1
+    path: Assets/Scenes/Park.unity
+    guid: 958d15966ea18b148856bf84b73cf085
+  - enabled: 1
+    path: Assets/Scenes/Docks.unity
+    guid: 601bbdc90bd2a934fb15891bf3519899
   m_configObjects: {}

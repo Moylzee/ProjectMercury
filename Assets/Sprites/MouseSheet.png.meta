@@ -110,10 +110,10 @@ TextureImporter:
       name: MouseSheet_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 102
-        width: 14
-        height: 18
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,10 +131,10 @@ TextureImporter:
       name: MouseSheet_1
       rect:
         serializedVersion: 2
-        x: 42
-        y: 103
-        width: 13
-        height: 17
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,10 +152,10 @@ TextureImporter:
       name: MouseSheet_2
       rect:
         serializedVersion: 2
-        x: 73
-        y: 102
-        width: 14
-        height: 18
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,10 +173,10 @@ TextureImporter:
       name: MouseSheet_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 102
-        width: 13
-        height: 17
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +194,10 @@ TextureImporter:
       name: MouseSheet_4
       rect:
         serializedVersion: 2
-        x: 9
-        y: 70
-        width: 14
-        height: 18
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,10 +215,10 @@ TextureImporter:
       name: MouseSheet_5
       rect:
         serializedVersion: 2
-        x: 42
-        y: 71
-        width: 13
-        height: 17
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,10 +236,10 @@ TextureImporter:
       name: MouseSheet_6
       rect:
         serializedVersion: 2
-        x: 73
-        y: 70
-        width: 14
-        height: 18
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,10 +257,10 @@ TextureImporter:
       name: MouseSheet_7
       rect:
         serializedVersion: 2
-        x: 105
-        y: 71
-        width: 13
-        height: 17
+        x: 96
+        y: 64
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,10 +278,10 @@ TextureImporter:
       name: MouseSheet_8
       rect:
         serializedVersion: 2
-        x: 10
-        y: 40
-        width: 12
-        height: 17
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,10 +299,10 @@ TextureImporter:
       name: MouseSheet_9
       rect:
         serializedVersion: 2
-        x: 42
-        y: 41
-        width: 12
-        height: 16
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,10 +320,10 @@ TextureImporter:
       name: MouseSheet_10
       rect:
         serializedVersion: 2
-        x: 74
-        y: 40
-        width: 12
-        height: 17
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,10 +341,10 @@ TextureImporter:
       name: MouseSheet_11
       rect:
         serializedVersion: 2
-        x: 106
-        y: 41
-        width: 12
-        height: 16
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,10 +362,10 @@ TextureImporter:
       name: MouseSheet_12
       rect:
         serializedVersion: 2
-        x: 10
-        y: 8
-        width: 12
-        height: 17
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,10 +383,10 @@ TextureImporter:
       name: MouseSheet_13
       rect:
         serializedVersion: 2
-        x: 42
-        y: 9
-        width: 12
-        height: 16
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -404,10 +404,10 @@ TextureImporter:
       name: MouseSheet_14
       rect:
         serializedVersion: 2
-        x: 74
-        y: 8
-        width: 12
-        height: 17
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -425,10 +425,10 @@ TextureImporter:
       name: MouseSheet_15
       rect:
         serializedVersion: 2
-        x: 106
-        y: 9
-        width: 12
-        height: 16
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

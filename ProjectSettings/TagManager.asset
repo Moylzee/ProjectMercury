@@ -34,6 +34,7 @@ TagManager:
   - Gun2
   - Gun3
   - FrontDoor
+  - LevelMove
   - PointText
   - LevelsText
   - ToolTip
@@ -75,11 +76,5 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Foreground
-    uniqueID: 867712743
-    locked: 0
-  - name: Player
-    uniqueID: 1015121429
-    locked: 0
-  - name: Background
-    uniqueID: 2559572197
+    uniqueID: 1803638725
     locked: 0

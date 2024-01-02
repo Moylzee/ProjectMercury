@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 
@@ -104,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         // If there is stamina available, the player can dash 
-        if (playerStamina.currStamina >= 10)
+        if (playerStamina.currStamina >= 10 && SceneManager.GetActiveScene().name != "StartingRoom")
         {
             canDash = true;
         }

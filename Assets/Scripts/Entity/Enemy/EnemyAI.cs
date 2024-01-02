@@ -1,111 +1,97 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 
 public class EnemyAI : MonoBehaviour
 {
-
+    private Transform target;
+    private float speed = 10f;
+    private float checkDistance = 50f;
     public Animator animator;
-    // Target to chase 
-    public GameObject target;
-    // enemy that will use pathfinding
-    public Transform enemyGFX;
-    public float speed = 8f;
-    public float nextWaypoint = 3f;
-    Path path;
-    int currWaypoint = 0;
-    bool reachedEnd = false;
-    Seeker seeker;
-    Rigidbody2D rb;
-    private bool enabled;
-
+    LayerMask collisions;
+    private float angle = 0;
+    private float maxPathFindingTime = 5f;
+    private float pathScanningInterval = 1f;
+    private float spaceForEnemy = 1f;
     void Start()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
-        // Find the player with tag "Player"
-        target = GameObject.FindWithTag("Player");
-
-        if (target == null)
+        // Find the player GameObject and get its Transform
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        collisions = LayerMask.GetMask("Collisions");
+        if (player != null)
         {
-            Debug.LogError("Player not found with tag 'Player'. Make sure to tag your player GameObject.");
-        }
-
-        InvokeRepeating("UpdatePath", 0f, .5f);
-        enabled = false;
-    }
-
-    public void EnableAI()
-    {
-        enabled = true;
-    }
-
-    void UpdatePath()
-    {
-        if (seeker.IsDone())
-        {
-            seeker.StartPath(rb.position, target.transform.position, OnPathComplete);
+            target = player.transform;
         }
     }
-
-    void OnPathComplete(Path p)
+    void FixedUpdate()
     {
-        if (!p.error)
-        {
-            path = p;
-            currWaypoint = 0;
-
-            // Enable the AI script when the path is complete.
-            EnableAI();
-        }
-    }
-    void Update()
-    {
-        if (path == null)
-        {
-            return;
-        }
-
-        if (currWaypoint >= path.vectorPath.Count)
-        {
-            reachedEnd = true;
-            return;
-        }
-        else
-        {
-            reachedEnd = false;
-        }
-
-        Vector2 targetPosition = path.vectorPath[currWaypoint];
-        Vector2 direction = (targetPosition - rb.position).normalized;
-
-        // Calculate a point ahead of the enemy on the path.
-        float lookAheadDistance = 4f;
-        Vector2 lookAheadPoint = rb.position + direction * lookAheadDistance;
-
-        // Offset the lookAheadPoint to encourage smoother corner navigation.
-        float pathOffset = 1.2f;
-        Vector2 offsetPoint = Vector2.Lerp(rb.position, lookAheadPoint, pathOffset);
-
-        // Calculate the force to steer towards the offsetPoint.
-        Vector2 force = (offsetPoint - rb.position).normalized * speed * Time.deltaTime;
-
-        rb.AddForce(force);
-
-        // Check if the enemy is close enough to the waypoint to move to the next one.
-        float dist = Vector2.Distance(rb.position, targetPosition);
-
-        if (dist < nextWaypoint)
-        {
-            currWaypoint++;
-        }
-
+        Vector2 playerDirection = (target.position - transform.position).normalized;
+        FindPathToTarget(playerDirection);
+        transform.position += (Vector3)playerDirection * speed * Time.deltaTime;
         // For Animations 
-        animator.SetFloat("Horizontal", force.x);
-        animator.SetFloat("Vertical", force.y);
-        animator.SetFloat("Speed", force.sqrMagnitude);
+        // animator.SetFloat("Horizontal", playerDirection.x);
+        // animator.SetFloat("Vertical", playerDirection.y);
+        // animator.SetFloat("Speed", playerDirection.sqrMagnitude);
+    }
+
+    private Vector2 FindPathToTarget(Vector2 toPoint)
+    {
+        //check if there is obstacle in the way
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, target.transform.position, Mathf.Infinity, collisions);
+        //return the point that was passed if there is nothing in the way
+        if (hit.collider != null)
+        {
+            Debug.DrawLine(transform.position, target.transform.position, Color.red); // Line From Enemy to Player 
+            Debug.Log("obstacle");
+            //initialise a left and right point at the point of the collision
+            Vector2 leftPoint = hit.point;
+            Vector2 rightPoint = hit.point;
+            //declare two scanners
+            RaycastHit2D scannerLeft, scannerRight;
+            float elapsedTime = 0f;
+
+            //scan left and right until there is no obstacle or the maximum time is exceeded
+while (elapsedTime < maxPathFindingTime)
+{
+    //move the target of the left and right scanners more left and right
+    leftPoint = new Vector2(leftPoint.x - pathScanningInterval, leftPoint.y);
+    rightPoint = new Vector2(rightPoint.x + pathScanningInterval, rightPoint.y);
+
+    //do a scan to the left and to the right
+    scannerLeft = Physics2D.Raycast(transform.position, leftPoint - (Vector2)transform.position, Vector2.Distance(transform.position, leftPoint), collisions);
+    scannerRight = Physics2D.Raycast(transform.position, rightPoint - (Vector2)transform.position, Vector2.Distance(transform.position, rightPoint), collisions);
+    //if there is a space, check that there is enough space for the enemy, if so return the point
+    if (scannerLeft.collider == null)
+    {
+        Collider2D obstacleNearHit = Physics2D.OverlapCircle(leftPoint, spaceForEnemy, collisions);
+        if (obstacleNearHit == null)
+        {
+            Debug.DrawLine(transform.position, leftPoint, Color.blue);
+            return leftPoint;
+        }
+    }
+    else if (scannerRight.collider == null)
+    {
+        Collider2D obstacleNearHit = Physics2D.OverlapCircle(rightPoint, spaceForEnemy, collisions);
+        if (obstacleNearHit == null)
+        {
+            Debug.DrawLine(transform.position, rightPoint, Color.blue);
+            return rightPoint;
+        }
+    }
+
+    elapsedTime += Time.deltaTime; // increment elapsedTime
+}
+
+// If no path found within maxPathFindingTime, return the original toPoint
+return toPoint;
+
+        }else if (hit.collider == null)
+        {
+            Debug.DrawLine(transform.position, target.transform.position, Color.green);
+            return toPoint;
+        }
+        return transform.position; 
     }
 }
