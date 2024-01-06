@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DocksManager : MonoBehaviour
+public class DocksManager : ScenesManager
 {
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Scene = "Docks";
+        base.nextScenes = new string[] { "Park","Estates","ShoppingCenter"};
+        base.exits = new string[] { Scene + "_North", Scene + "_West", Scene + "_East" };
+        RandomizeScenesToExits();
+        UpdateStreetSigns();
     }
 }

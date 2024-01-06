@@ -4,6 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+/ Script used to handle moving between levels (scenes)
+/ Some scenes require dynamic loading of other scenes based on variable assigment of the level move objects 
+/ This is handled in the switch cases when necessary 
+*/
 public class LevelMove : MonoBehaviour
 {
     private DocksManager docksManager;
@@ -11,7 +16,6 @@ public class LevelMove : MonoBehaviour
     private StartingRoomManager startingRoomManager;
     private ParkManager parkManager;
     public static string previousScene;
-
     private ScenesManager sceneManager;
 
     private PlayerObject playerObject;
@@ -36,7 +40,8 @@ public class LevelMove : MonoBehaviour
             parkManager = FindObjectOfType<ParkManager>();
         } 
     }
-    
+    // Method used to keep track of the scene that the player is leaving 
+    // Used to determine the spawn point in the next scene 
     private void UpdatePreviousScene()
     {
         previousScene = SceneManager.GetActiveScene().name;
@@ -44,8 +49,22 @@ public class LevelMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
+        // Check that the collision is with a level move object 
+        // Prevents moving between levels when colliding with other objects 
+        if (other.gameObject.tag == "LevelMove")
+        {
+        // Update Previous Scene
         UpdatePreviousScene();
+        // Switch statement to determine current scene 
+        switch (SceneManager.GetActiveScene().name)
+        {
+            // Starting Room Level Move Logic
+            case "StartingRoom":
+                if (other.gameObject.name == "FrontDoor")
+                {
+                    SceneManager.LoadScene("Estates", LoadSceneMode.Single);
+                }
+            break;
         if (loadingMap)
         {
             SaveInventory();
@@ -183,59 +202,49 @@ public class LevelMove : MonoBehaviour
                     }
                     break;
 
-                // Docks Level Move Logic
-                case "Docks":
-                    switch (other.gameObject.name)
-                    {
-                        case "Estates":
-                            SceneManager.LoadScene("Estates", LoadSceneMode.Single);
-                            loadingMap = true;
-                            break;
-                        case "Park":
-                            SceneManager.LoadScene("Park", LoadSceneMode.Single);
-                            loadingMap = true;
-                            break;
-                        case "ShoppingCenter":
-                            SceneManager.LoadScene("ShoppingCenter", LoadSceneMode.Single);
-                            loadingMap = true;
-                            break;
-                        default:
-                            Debug.Log("Unhandled Name: " + other.gameObject.name);
-                            break;
-                    }
+            // Docks Level Move Logic
+            case "Docks":
+                switch (other.gameObject.name)
+                {
+                    // North Exit
+                    case "Docks_North":
+                        GameObject northTextBox = GameObject.Find("NorthTextBox");
+                        if (northTextBox != null)
+                        {
+                            String tmp = northTextBox.GetComponent<TextMeshPro>().text;
+                            if (tmp != null)
+                            {
+                                SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                            }
+                        }
                     break;
-                default:
-                    Debug.Log("Unhandled Scene: " + SceneManager.GetActiveScene().name);
+                    // West Exit 
+                    case "Docks_West":
+                        GameObject westTextBox = GameObject.Find("WestTextBox");
+                        if (westTextBox != null)
+                        {
+                            String tmp = westTextBox.GetComponent<TextMeshPro>().text;
+                            if (tmp != null)
+                            {
+                                SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                            }
+                        }
                     break;
-            }
-        }
-
-    }
-
-    /* Saves Inventory to Static reference */
-    private void SaveInventory()
-    {
-        // Loops through each inventory slot, and assigns the object within to static reference
-        foreach(GameObject Slot in playerObject.Inventory.InventorySlotList)
-        {
-            // No item in current slot: skip
-            if(Slot.GetComponent<SlotItem>().GetItemInSlot() == null)
-            {
-                continue;
-            }
-            // Weapon in slot, add to static weapon reference
-            else if(Slot.GetComponent<SlotItem>().GetItemInSlot() is Weapon weapon)
-            {
-                PlayerInventory.StaticInventoryWeapon.Add(weapon);
-                Slot.GetComponent<SlotItem>().RemoveItemFromSlot();
-            }
-            // Consumable item in slot, add to static consumable item reference
-            else if(Slot.GetComponent<SlotItem>().GetItemInSlot() is ConsumableItem item)
-            {
-                Slot.GetComponent<SlotItem>().RemoveItemFromSlot();
-                PlayerInventory.StaticInventoryConsumable.Add(item);
-            }
+                    // East Exit
+                    case "Docks_East":
+                        GameObject eastTextBox = GameObject.Find("EastTextBox");
+                        if (eastTextBox != null)
+                        {
+                            String tmp = eastTextBox.GetComponent<TextMeshPro>().text;
+                            if (tmp != null)
+                            {
+                                SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                            }
+                        }
+                    break;
+                }
+            break;
+            } 
         }
     }
-
 }

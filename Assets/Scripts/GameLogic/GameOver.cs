@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 * Methods are used in the Game over screen UI  
 */
 
-public class GameOveScript : MonoBehaviour
+public class GameOverScript : MonoBehaviour
 {
     // Load the "Menu" scene by its name.
     public void GoToMenu()
@@ -19,5 +19,9 @@ public class GameOveScript : MonoBehaviour
     {
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
-
+    // Quit the Game 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

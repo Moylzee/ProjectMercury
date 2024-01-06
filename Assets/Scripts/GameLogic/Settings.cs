@@ -1,11 +1,9 @@
-
 using UnityEngine;
 using System.IO;
 
 [System.Serializable]
 public class SettingsData
 {
-
     public string weaponSlot1;
     public string weaponSlot2;
     public string itemSlot1;

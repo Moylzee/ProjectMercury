@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/*
+* Script to control the Main Menu of the game.
+* Functions: PlayGame() and QuitGame().
+* PlayGame() loads the StartingRoom Scene.
+* QuitGame() quits the game.
+*/
 public class MainMenu : MonoBehaviour
 {
-
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene("StartingRoom", LoadSceneMode.Single);
     }
-
     public void QuitGame()
     {
-        Debug.Log("QUIT!");
         Application.Quit();
     }
 }

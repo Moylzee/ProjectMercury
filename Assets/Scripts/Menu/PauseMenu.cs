@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+/ Script for the pause menu in the game 
+/ Methods use are for checking the status of the game (Game over, Game paused, etc)
+/ Displays the relevant UI based on status of the game 
+*/
+
 public class PauseMenu : MonoBehaviour
 {
+    // Boolean to track if game is paused 
     public static bool GamePaused = false;
+    // Boolean to track if game is over 
     private static bool isGameOver = false;
+    // Game Over Panel Variable
     public GameObject GameOverPanel;
-    public static bool InventoryOpen = false;
+    // Variable for the pause menu UI
     public GameObject pauseUI;
-    public GameObject inventoryUI;
-    public GameObject weaponsHotbar;
-    public GameObject itemsHotbar;
 
     void Update()
     {
-        // Pause Menu Triggered
+        // Enable/Disable Pause Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GamePaused)
@@ -27,20 +33,6 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-
-        // Inventory Menu Triggered
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (InventoryOpen)
-            {
-                CloseInv();
-            }
-            else
-            {
-                OpenInv();
-            }
-        }
-
         // Game is over, show the pause panel and freeze game elements.
         if (isGameOver)
         {
@@ -52,45 +44,28 @@ public class PauseMenu : MonoBehaviour
             GameOverPanel.SetActive(false);
         }
     }
-
+    // Method to resume the game
     public void Resume()
     {
         pauseUI.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
     }
-
+    // Method to pause the game 
     void Pause()
     {
         pauseUI.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
     }
-
-    void OpenInv() 
-    {
-        inventoryUI.SetActive(true);
-        weaponsHotbar.SetActive(false);
-        itemsHotbar.SetActive(false);
-        InventoryOpen = true;
-    }
-
-    void CloseInv()
-    {
-        inventoryUI.SetActive(false);
-        weaponsHotbar.SetActive(true);
-        itemsHotbar.SetActive(true);
-        InventoryOpen = false;
-    }
-
+    // Method to update the state of the Game 
     public void GameOver()
     {
         isGameOver = true;
     }
-
+    // Method the Quit the Game 
     public void QuitGame()
     {
-        Debug.Log("QUIT!");
         Application.Quit();
     }
 }
