@@ -126,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void WeaponRotation()
     {
-
         if(WeaponInHandRenderer == null)
         {
             return;
@@ -292,11 +291,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isFacing == DirectionFacing.LEFT)
         {
+            //WeaponInHandRenderer.transform.position = new Vector3(WeaponInHandRenderer.transform.position.x - 1, WeaponInHandRenderer.transform.position.y, 0);
             rotZ *= -1;
             if (rotZ > 135 + offset)
             {
                 rotZ -= 180;
                 rotZ *= -1;
+                
             }
             else if (rotZ < -135 - offset)
             {

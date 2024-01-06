@@ -4,6 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+/ Script used to handle moving between levels (scenes)
+/ Some scenes require dynamic loading of other scenes based on variable assigment of the level move objects 
+/ This is handled in the switch cases when necessary 
+*/
 public class LevelMove : MonoBehaviour
 {
     private DocksManager docksManager;
@@ -11,7 +16,6 @@ public class LevelMove : MonoBehaviour
     private StartingRoomManager startingRoomManager;
     private ParkManager parkManager;
     public static string previousScene;
-
     private ScenesManager sceneManager;
 
     private void Start()
@@ -30,7 +34,8 @@ public class LevelMove : MonoBehaviour
             parkManager = FindObjectOfType<ParkManager>();
         } 
     }
-    
+    // Method used to keep track of the scene that the player is leaving 
+    // Used to determine the spawn point in the next scene 
     private void UpdatePreviousScene()
     {
         previousScene = SceneManager.GetActiveScene().name;
@@ -38,8 +43,13 @@ public class LevelMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
+        // Check that the collision is with a level move object 
+        // Prevents moving between levels when colliding with other objects 
+        if (other.gameObject.tag == "LevelMove")
+        {
+        // Update Previous Scene
         UpdatePreviousScene();
+        // Switch statement to determine current scene 
         switch (SceneManager.GetActiveScene().name)
         {
             // Starting Room Level Move Logic
@@ -164,23 +174,45 @@ public class LevelMove : MonoBehaviour
             case "Docks":
                 switch (other.gameObject.name)
                 {
-                    case "Estates":
-                        SceneManager.LoadScene("Estates", LoadSceneMode.Single);
+                    // North Exit
+                    case "Docks_North":
+                        GameObject northTextBox = GameObject.Find("NorthTextBox");
+                        if (northTextBox != null)
+                        {
+                            String tmp = northTextBox.GetComponent<TextMeshPro>().text;
+                            if (tmp != null)
+                            {
+                                SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                            }
+                        }
                     break;
-                    case "Park":
-                        SceneManager.LoadScene("Park", LoadSceneMode.Single);
+                    // West Exit 
+                    case "Docks_West":
+                        GameObject westTextBox = GameObject.Find("WestTextBox");
+                        if (westTextBox != null)
+                        {
+                            String tmp = westTextBox.GetComponent<TextMeshPro>().text;
+                            if (tmp != null)
+                            {
+                                SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                            }
+                        }
                     break;
-                    case "ShoppingCenter":
-                        SceneManager.LoadScene("ShoppingCenter", LoadSceneMode.Single);
-                    break;
-                    default:
-                        Debug.Log("Unhandled Name: " + other.gameObject.name);
+                    // East Exit
+                    case "Docks_East":
+                        GameObject eastTextBox = GameObject.Find("EastTextBox");
+                        if (eastTextBox != null)
+                        {
+                            String tmp = eastTextBox.GetComponent<TextMeshPro>().text;
+                            if (tmp != null)
+                            {
+                                SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                            }
+                        }
                     break;
                 }
             break;
-            default:
-                Debug.Log("Unhandled Scene: " + SceneManager.GetActiveScene().name);
-            break;
-        } 
+            } 
+        }
     }
 }
