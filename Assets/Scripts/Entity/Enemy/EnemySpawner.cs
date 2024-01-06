@@ -144,8 +144,10 @@ public class EnemySpawner : MonoBehaviour
                 {
                     enemyAI.enabled = false;
                 }
+                
             }
         }
+        EnableEnemyAI();
     }
 
     void EnableEnemyAI()

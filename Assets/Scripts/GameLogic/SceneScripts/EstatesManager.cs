@@ -17,12 +17,12 @@ public class EstatesManager : ScenesManager
         if (LevelMove.previousScene == "StartingRoom")
         {
             // Set the player's position to the position of the entrance from the inside
-            player.transform.position = new Vector3(-139, -26, 0);
+            player.transform.position = new Vector3(-138, -41, 0);
         }
         else
         {
             // Set the player's position to the default position
-            player.transform.position = new Vector3(345, -150, 0);
+            player.transform.position = new Vector3(300, 360, 0);
         }
     }
 }

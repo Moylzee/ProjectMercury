@@ -192,6 +192,7 @@ public class PlayerObject : MonoBehaviour
         // Pick up item from ground
         if (Input.GetKeyDown(Settings.GetData().GetKey_InteractKey()))
         {
+
             // No item nearby to pick up
             if (!ItemNearby && !BoxNearby)
             {

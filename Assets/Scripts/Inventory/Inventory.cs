@@ -4,63 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
-{
-
-    private List<Item> Items { get; }
-
-    protected uint InventorySize { get; set; }
 
 
-    private void Start()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
-    public Inventory()
-    {
-        Items = new List<Item>();
-    }
-
-    void Update()
-    {
-
-    }
-
-    public void AddItem(Item item)
-    {
-        if (Items.Count >= InventorySize)
-        {
-            // Prompt the user somehow that the inventory.
-            return;
-        }
-        Items.Add(item);
-    }
-
-    public void RemoveItem(Item item)
-    {
-        if (!Items.Contains(item))
-        {
-            return;
-        }
-        Items.Remove(item);
-    }
-
-    public Item GetItem(int index)
-    {
-
-        if (Items.Count <= 0)
-        {
-            return null;
-        }
-
-        return Items[index];
-    }
-
-}
-
-
-public class PlayerInventory : Inventory
+public class PlayerInventory : MonoBehaviour
 {
 
     public static List<ConsumableItem> StaticInventoryConsumable = new();
@@ -99,7 +45,7 @@ public class PlayerInventory : Inventory
         InventoryObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
         WeaponDetails.transform.SetParent(GameObject.Find("Canvas").transform, false);
 
-       
+        // Adding slots to the inventory
         InventorySlotList.Add(GameObject.FindWithTag("Slot1"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot2"));
         InventorySlotList.Add(GameObject.FindWithTag("Slot3"));
@@ -126,10 +72,11 @@ public class PlayerInventory : Inventory
         LoadDictionary();
     }
 
-
+    /* Returns next weapon from static reference */
     public static Weapon GetNextWeapon()
     {
-        if(StaticInventoryWeapon.Count == 0)
+
+        if(StaticInventoryWeapon.Count <= 0)
         {
             return null;
         }
@@ -139,6 +86,7 @@ public class PlayerInventory : Inventory
         return weaponRef;
     }
 
+    /* Returns next consumable item from static reference */
     public static ConsumableItem GetNextConsumableItem()
     {
         if(StaticInventoryConsumable.Count == 0)
@@ -151,12 +99,13 @@ public class PlayerInventory : Inventory
         return consumableRef;
     }
 
+    /* Returns equipped weapon */
     public Weapon getEquippedWeapon()
     {
         return EquippedWeapon;
     }
 
-
+    /* Updates GUI */
     public void UpdateDetails()
     {
         if (getEquippedWeapon() == null)
@@ -175,6 +124,7 @@ public class PlayerInventory : Inventory
         WeaponDetails.transform.Find("AmmoImage").GetComponent<Image>().sprite = GetSpriteBasedOnAmmoType();
     }
 
+    /* Returns sprite based on equipped weapon type */
     public Sprite GetSpriteBasedOnTier()
     {
         switch (getEquippedWeapon().GetItemRarity())
@@ -194,6 +144,7 @@ public class PlayerInventory : Inventory
 
     }
 
+    /* Returns sprite based on ammo type */
     Sprite GetSpriteBasedOnAmmoType()
     {
         switch (getEquippedWeapon().GetWeaponCategory())
@@ -211,6 +162,8 @@ public class PlayerInventory : Inventory
                 return Sprite_LightAmmo;
         }
     }
+
+    /* Returns spare ammo based on weapon category */ 
     public uint GetWeaponSpareAmmoBasedOnCategory()
     {
         /* Switch statement*/

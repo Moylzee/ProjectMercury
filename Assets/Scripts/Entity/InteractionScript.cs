@@ -13,6 +13,7 @@ public class InteractionScript : MonoBehaviour
 
     private void Start()
     {
+        // Sets the interaction prompt text to text in settings
         InteractPrompt.GetComponent<Text>().text = Settings.GetData().GetKey_InteractKey().ToUpper();
         ClosestItemToPlayer = new List<GameObject>();
     }

@@ -62,26 +62,26 @@ public class PlayerMovement : MonoBehaviour
             /* Weapon rotation when moving*/
             if (movement.x > 0 && isFacing != DirectionFacing.RIGHT)
             {
-                WeaponInHandRenderer.sortingLayerName = "Background";
+                WeaponInHandRenderer.sortingLayerName = "Foreground";
                 WeaponInHandRenderer.flipX = false;
                 isFacing = DirectionFacing.RIGHT;
                 
             }else if(movement.x < 0 && isFacing != DirectionFacing.LEFT)
             {
-                WeaponInHandRenderer.sortingLayerName = "Foreground";
+                WeaponInHandRenderer.sortingLayerName = "Background";
                 WeaponInHandRenderer.flipX = true;
                 isFacing = DirectionFacing.LEFT;
             }
 
             if(movement.y > 0 && isFacing != DirectionFacing.UP)
             {
-                WeaponInHandRenderer.sortingLayerName = "Foreground";
+                WeaponInHandRenderer.sortingLayerName = "Background";
                 WeaponInHandRenderer.flipX = false;
                 isFacing = DirectionFacing.UP;
             }
             else if(movement.y < 0 && isFacing != DirectionFacing.DOWN)
             {
-                WeaponInHandRenderer.sortingLayerName = "Background";
+                WeaponInHandRenderer.sortingLayerName = "Foreground";
 
                 WeaponInHandRenderer.flipX = false;
                 isFacing = DirectionFacing.DOWN;
