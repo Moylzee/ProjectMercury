@@ -60,13 +60,9 @@ public class LevelMove : MonoBehaviour
 
             if (loadingMap)
             {
-                SaveInventory();
             }
             else
             {
-
-
-
                 // Switch statement to determine current scene 
                 switch (SceneManager.GetActiveScene().name)
                 {
@@ -75,6 +71,7 @@ public class LevelMove : MonoBehaviour
                         if (other.gameObject.name == "FrontDoor")
                         {
                             SceneManager.LoadScene("Estates", LoadSceneMode.Single);
+                            SaveInventory();
                         }
                         break;
 
@@ -92,6 +89,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -104,6 +102,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -116,6 +115,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -128,12 +128,15 @@ public class LevelMove : MonoBehaviour
                         {
                             case "Entrance":
                                 SceneManager.LoadScene("ShoppingCenterInside", LoadSceneMode.Single);
+                                SaveInventory();
                                 break;
                             case "Estates":
                                 SceneManager.LoadScene("Estates", LoadSceneMode.Single);
+                                SaveInventory();
                                 break;
                             case "CarPark":
                                 SceneManager.LoadScene("CarPark", LoadSceneMode.Single);
+                                SaveInventory();
                                 break;
                         }
                         break;
@@ -141,6 +144,7 @@ public class LevelMove : MonoBehaviour
                         if (other.gameObject.name == "Exit")
                         {
                             SceneManager.LoadScene("ShoppingCenter", LoadSceneMode.Single);
+                            SaveInventory();
                         }
                         break;
 
@@ -158,6 +162,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -170,6 +175,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -182,6 +188,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -201,6 +208,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -213,6 +221,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
@@ -225,12 +234,14 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveInventory();
                                     }
                                 }
                                 break;
                         }
                         break;
                 }
+
             }
         }
     }
@@ -238,6 +249,8 @@ public class LevelMove : MonoBehaviour
     /* Saves Inventory to Static reference */
     private void SaveInventory()
     {
+        loadingMap = true;
+        Debug.LogWarning("This is running");
         // Loops through each inventory slot, and assigns the object within to static reference
         foreach (GameObject Slot in playerObject.Inventory.InventorySlotList)
         {

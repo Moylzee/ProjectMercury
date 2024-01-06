@@ -4010,6 +4010,24 @@ RectTransform:
   m_AnchoredPosition: {x: -150, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &871857097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1289005721008474830, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
+  m_PrefabInstance: {fileID: 1440954444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &871857100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871857097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38a31124bbdaae48a51bc498bc8e115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractPrompt: {fileID: 978081856}
 --- !u!1001 &877730612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4024,7 +4042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 343856383070331314, guid: 0b0405373428fb64c97c71151da7e548, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1172950663079707271, guid: 0b0405373428fb64c97c71151da7e548, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4516,6 +4534,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!1 &978081856 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4196170816821973664, guid: 0b0405373428fb64c97c71151da7e548, type: 3}
+  m_PrefabInstance: {fileID: 877730612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &980716107
 GameObject:
   m_ObjectHideFlags: 0
@@ -11230,6 +11253,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2971195988403542879, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
     - {fileID: 2610891916292269671, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
+    - {fileID: 4682566267073590727, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -11242,6 +11266,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 272014252005242711, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1440954462}
+    - targetCorrespondingSourceObject: {fileID: 1289005721008474830, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871857100}
   m_SourcePrefab: {fileID: 100100000, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
 --- !u!4 &1440954445 stripped
 Transform:
@@ -13429,7 +13456,7 @@ GameObject:
   - component: {fileID: 2077345025}
   m_Layer: 9
   m_Name: FrontDoor
-  m_TagString: FrontDoor
+  m_TagString: LevelMove
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
