@@ -1,6 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
+
+/*
+ EnemyAI class represents the enemy pathfinding mechanic
+ */
 public class EnemyAI : MonoBehaviour
 {
     private Transform target;
@@ -30,6 +33,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Check if move available
         if(directionToMove != Vector2.zero)
         {
             transform.position += Speed * Time.fixedDeltaTime * (Vector3)directionToMove;

@@ -9959,6 +9959,10 @@ PrefabInstance:
       propertyPath: MinDistance
       value: 0.23820686
       objectReference: {fileID: 0}
+    - target: {fileID: 12184683876573163, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 481cb9033fb7f624fbbfce249277dd96, type: 3}
     - target: {fileID: 69611579981999954, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Enabled
       value: 1

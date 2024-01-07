@@ -109,7 +109,7 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
         if(item is Weapon weapon)
         {
             Weapon weaponCopy = new();
-            if (PlayerInventory.weaponState.ContainsKey(weapon.UID))
+            if (weapon.UID != null && PlayerInventory.weaponState.ContainsKey(weapon.UID))
             {
                 
                 weaponCopy.DeepReadWeapon(weapon);
