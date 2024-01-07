@@ -17,7 +17,7 @@ public class GameOverScript : MonoBehaviour
     // Restart the game 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        SceneManager.LoadScene("StartingRoom", LoadSceneMode.Single);
     }
     // Quit the Game 
     public void QuitGame()

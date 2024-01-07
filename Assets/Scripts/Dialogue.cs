@@ -11,9 +11,11 @@ public class Dialogue : MonoBehaviour
     public float txtSpeed;
     private int index;
     public bool isDialogueActive = false;
+    private AudioSource audioSource;
     private string[] sentences = new string[] {"Date: 29-05-2024\nDays Since Ballylofa was overrun: 225\nDays Since Last Human Sighting: 178\n\nDear Diary,\nI Don't Know How Much Longer I Can Take This.\nI'm Running Out Of Food And Water.\nThe Hordes Are Endless.\nI Will Pick One Of The Guns On My Wall And Leave.\nTodays Goal:\nSURVIVE\n\n(click to exit)"};
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         textDisplay.text = "";
         StartDialogue();
     }
@@ -30,10 +32,15 @@ public class Dialogue : MonoBehaviour
                 textDisplay.text = sentences[index];
             }
         }
+        if (isDialogueActive && textDisplay.text == sentences[sentences.Length - 1])
+        {
+            EndDialogue();
+        }
     }
     // Start the Dialogue
     void StartDialogue()
     {
+        audioSource.Play();
         isDialogueActive = true;
         index = 0;
         StartCoroutine(Type());
@@ -41,6 +48,10 @@ public class Dialogue : MonoBehaviour
     // End the Dialogue
     void EndDialogue() {
         isDialogueActive = false;
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
     }
     // Type the Letters One-by-One
     IEnumerator Type()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -7,7 +8,6 @@ public class Health : MonoBehaviour
 
     public int currHealth = 0;
     public int maxHealth = 100;
-    public PauseMenu EndGameManager;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         // Player died
         if (currHealth <= 0)
         {
-            EndGameManager.GameOver();
+            SceneManager.LoadScene("GameOverScreen", LoadSceneMode.Single);
         }
     }
 

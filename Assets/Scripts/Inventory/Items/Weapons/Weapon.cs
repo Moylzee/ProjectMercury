@@ -23,7 +23,6 @@ public class Weapon : Item
     public string WeaponCategory;
     public uint FireRate;
     public uint ReloadRate;
-    
     public bool IsReloading = false;
     private ushort BulletsInMag;
 
@@ -132,6 +131,4 @@ public class Weapon : Item
     {
         return JsonUtility.FromJson<Weapon>(jsonString);
     }
-
-
 }

@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canDash = true;
     private PlayerStamina playerStamina;
     private SpriteRenderer WeaponInHandRenderer;
-
+    public AudioScript audioScript;
 
     private DirectionFacing isFacing = DirectionFacing.DOWN; 
 
@@ -118,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         // Dash Functionality 
         rb.velocity = new Vector2(movement.x * dashSpeed, movement.y * dashSpeed);
+        audioScript.DashSound();
         // Dash for set amount of time 
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;

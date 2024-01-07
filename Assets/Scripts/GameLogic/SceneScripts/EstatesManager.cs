@@ -22,7 +22,7 @@ public class EstatesManager : ScenesManager
         else
         {
             // Set the player's position to the default position
-            player.transform.position = new Vector3(300, 360, 0);
+            player.transform.position = new Vector3(340, -150, 0);
         }
     }
 }

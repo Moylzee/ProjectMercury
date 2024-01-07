@@ -318,9 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
-  itemName: 
-  spareAmmo: 0
+  hoveringOverSlot: 0
 --- !u!61 &1374169635
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -524,9 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
-  itemName: 
-  spareAmmo: 0
+  hoveringOverSlot: 0
 --- !u!61 &201766231622568223
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -757,9 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
-  itemName: 
-  spareAmmo: 0
+  hoveringOverSlot: 0
 --- !u!61 &6495887269040590767
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1107,7 +1101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3622102450252820983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1306,9 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
-  itemName: 
-  spareAmmo: 0
+  hoveringOverSlot: 0
 --- !u!61 &1205332495
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1769,9 +1761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165c35841732616468d984eac5942054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoveringOverSlot: 0
-  itemName: 
-  spareAmmo: 0
+  hoveringOverSlot: 0
 --- !u!61 &1596400554
 BoxCollider2D:
   m_ObjectHideFlags: 0

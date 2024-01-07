@@ -11,10 +11,11 @@ public class PlayerShootingBehaviour : MonoBehaviour
     public Transform bulletTransform;
     public float fireRate;
     private PlayerInventory WeaponReference;
-
+    private AudioScript audioScript;
     private GameObject Player;
     private Coroutine reloadCoroutine;
     private Coroutine reloadAnimationCoroutine;
+
 
     public void OffsetPosition(float x)
     {
@@ -24,6 +25,11 @@ public class PlayerShootingBehaviour : MonoBehaviour
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
+        audioScript = Player.GetComponent<AudioScript>();
+        if (audioScript == null)
+        {
+            Debug.LogError("AudioScript not found");
+        }
     }
 
     void Update()
@@ -69,6 +75,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
                 b.GetComponent<BulletMovement>().Init(bulletTransform.position);
                 b.GetComponent<BulletDamage>().SetDamage((int)Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().GetDamageDealtPerBullet());
                 b.SetActive(true);
+                audioScript.ShootSound();
                 Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().SetBulletsInMag((ushort)(BulletsInMag - 1));
                 Player.GetComponent<PlayerObject>().Inventory.UpdateDetails();
             }
@@ -135,6 +142,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
         for (float i = 0; i < ReloadTime; i += interval)
         {
             var magObject = Instantiate(mag, transform.position, Quaternion.identity);
+            audioScript.ReloadSound();
             Destroy(magObject, 2);
             yield return new WaitForSeconds(interval);
         }
