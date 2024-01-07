@@ -14,8 +14,14 @@ public class EnemyAI : MonoBehaviour
     private int count = 0;
     private readonly int maxIterations = 400;
     private float angleOffsetIntravel = 20f;
+
+    public Animator animator;
+
+    private float Speed = 15f;
+
     private void Start()
     {
+        animator = GetComponent<Animator>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         target = player.transform;
         collisions = LayerMask.GetMask("Collisions");
@@ -26,8 +32,11 @@ public class EnemyAI : MonoBehaviour
     {
         if(directionToMove != Vector2.zero)
         {
-            Debug.DrawLine(transform.position, new Vector2(directionToMove.x, directionToMove.y), Color.green);
-            transform.position += 15f * Time.fixedDeltaTime * (Vector3)directionToMove;
+            transform.position += Speed * Time.fixedDeltaTime * (Vector3)directionToMove;
+
+            animator.SetFloat("Horizontal", directionToMove.x);
+            animator.SetFloat("Vertical", directionToMove.y);
+            animator.SetFloat("Speed", directionToMove.sqrMagnitude);
         }
         else
         {
@@ -50,7 +59,13 @@ public class EnemyAI : MonoBehaviour
     /* Method to find path to target */
     private Vector2 FindPath()
     {
-        Vector2 directionToTarget = ((Vector2)target.position - (Vector2)transform.position).normalized;
+
+        if(target == null || transform == null)
+        {
+            return Vector2.zero;
+        }
+
+        Vector2 directionToTarget = ((Vector2)target.position + new Vector2(0f, 15f) - (Vector2)transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, Vector2.Distance(target.position, transform.position), collisions);
 
         if(hit.collider == null)
@@ -85,8 +100,6 @@ public class EnemyAI : MonoBehaviour
         RaycastHit2D hitInfo1 = Physics2D.Raycast(fromPosition, adjustedDirection1, maxDistance, collisions);
         RaycastHit2D hitInfo2 = Physics2D.Raycast(fromPosition, adjustedDirection2, maxDistance, collisions);
 
-        Debug.DrawLine(fromPosition, hitInfo1.point, Color.yellow);
-        Debug.DrawLine(fromPosition, hitInfo2.point, Color.yellow);
 
         // If the two rays are similar in distance
         if(hitInfo1.distance + 5f > hitInfo2.distance && hitInfo2.distance + 5f > hitInfo1.distance)
@@ -99,6 +112,12 @@ public class EnemyAI : MonoBehaviour
             return hitInfo1.distance > hitInfo2.distance ? adjustedDirection1 : adjustedDirection2;
         }
 
+    }
+
+
+    public void SetSpeed(float speed)
+    {
+        this.Speed = speed;
     }
 
 }

@@ -66,4 +66,15 @@ public abstract class ScenesManager : MonoBehaviour
             westTextBox.GetComponent<TextMeshPro>().text = $"{PlayerPrefs.GetString(Scene+"_West")}";
         }
     }
+
+    public void UpdateGUI()
+    {
+        GameObject playerRef = GameObject.FindWithTag("Player");
+
+        GameObject.FindWithTag("PointText").GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("Score").ToString();
+        GameLevel gameLevel = playerRef.GetComponent<GameLevel>();
+        gameLevel.Init();
+        gameLevel.UpdateLevelsText();
+
+    }
 }

@@ -32,6 +32,8 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
         eventTrigger.triggers.Add(exitEntry);
     }
 
+
+
     /* hovering over the slot */
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -69,10 +71,13 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
     /* Pick up weapon item from inventory */
     private void PickUpWeapon()
     {
-        weaponInSlot.SetPickedUp(true);
-        weaponInSlot.SetOffset(Camera.main.ScreenToWorldPoint(transform.position) - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Weapon weaponCopy = new();
+        weaponCopy.DeepReadWeapon(weaponInSlot);
+        
+        weaponCopy.SetPickedUp(true);
+        weaponCopy.SetOffset(Camera.main.ScreenToWorldPoint(transform.position) - Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-        WeaponLoader.CreateWeaponObject((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), weaponInSlot);
+        WeaponLoader.CreateWeaponObject((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), weaponCopy);
         playerObject.Inventory.UnequipWeapon();
         playerObject.EquipVisualWeapon();
         RemoveItemFromSlot();
@@ -90,6 +95,7 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
 
     public bool IsHoveringOverSlot() { return hoveringOverSlot; }
 
+
     /* Inserts item into slot */
     public void InsertItemInSlot(Item item)
     {
@@ -102,7 +108,20 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
         // Check if item is weapon or consumable
         if(item is Weapon weapon)
         {
-            InsertWeaponIntoSlot(weapon);
+            Weapon weaponCopy = new();
+            if (PlayerInventory.weaponState.ContainsKey(weapon.UID))
+            {
+                
+                weaponCopy.DeepReadWeapon(weapon);
+                weaponCopy.SetBulletsInMag((ushort)PlayerInventory.weaponState[weapon.UID]);
+            }
+            else
+            {
+                weaponCopy.DeepReadWeapon(weapon);
+            }
+
+            
+            InsertWeaponIntoSlot(weaponCopy);
         }else if (item is ConsumableItem consumable)
         {
             InsertConsumableIntoSlot(consumable);
@@ -128,11 +147,11 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
     }
 
     /* Inserts weapon into slot */
-    private void InsertWeaponIntoSlot(Weapon weapon)
+    private  void InsertWeaponIntoSlot(Weapon weapon)
     {
         // Create new weapon object and copy details
         weaponInSlot = new Weapon();
-        weaponInSlot.ReadWeapon(weapon);
+        weaponInSlot.DeepReadWeapon(weapon);
 
         // Set button sprite image
         if(weaponInSlot.GetSpriteRenderer() != null)
@@ -177,9 +196,13 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
     {
         if(weaponInSlot != null)
         {
+
             return weaponInSlot;
+        }else if(consumableInSlot != null)
+        {
+            return consumableInSlot;
         }
-        return consumableInSlot;
+        return null;
     }
 
     /* Checks if slot is currently empty*/

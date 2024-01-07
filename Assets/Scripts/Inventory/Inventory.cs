@@ -34,11 +34,11 @@ public class PlayerInventory : MonoBehaviour
     private readonly Sprite Sprite_HeavyAmmo;
     private readonly Sprite Sprite_ShotgunAmmo;
 
+    private static List<string> weaponUUIDs = new();
+    public static Dictionary<string, int> weaponState = new();
 
     public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)
     {
-
-        
 
         GameObject InventoryObject = Instantiate(InventoryPrefab);
         WeaponDetails = Instantiate(WeaponDetailsPrefab);
@@ -122,6 +122,8 @@ public class PlayerInventory : MonoBehaviour
         WeaponDetails.transform.Find("TierImage").GetComponent<Image>().sprite = GetSpriteBasedOnTier();
         WeaponDetails.transform.Find("Damage").GetComponent<Slider>().value = getEquippedWeapon().GetDamageDealtPerBullet();
         WeaponDetails.transform.Find("AmmoImage").GetComponent<Image>().sprite = GetSpriteBasedOnAmmoType();
+
+        
     }
 
     /* Returns sprite based on equipped weapon type */
@@ -216,22 +218,55 @@ public class PlayerInventory : MonoBehaviour
 
         WeaponDetails.SetActive(true);
 
+        if (weaponState.ContainsKey(weapon.UID))
+        {
+            this.EquippedWeapon = new();
+            this.EquippedWeapon.DeepReadWeapon(weapon);
+            this.EquippedWeapon.SetBulletsInMag((ushort)weaponState[weapon.UID]);
+        }
+        else
+        {
+            this.EquippedWeapon = new();
+            this.EquippedWeapon.DeepReadWeapon(weapon);
+        }
 
-        this.EquippedWeapon = weapon;
-        AddAmmo();
+        
+
+        AddAmmo(weapon.UID);
         UpdateDetails();
     }
 
     public void UnequipWeapon()
     {
+
+        if(this.EquippedWeapon != null)
+        {
+            
+            if (weaponState.ContainsKey(this.EquippedWeapon.UID))
+            {
+                weaponState[this.EquippedWeapon.UID] = this.EquippedWeapon.GetBulletsInMag();
+            }
+            else
+            {
+                weaponState.Add(this.EquippedWeapon.UID, this.EquippedWeapon.GetBulletsInMag());
+            }
+        }
+
         this.EquippedWeapon = null;
 
         WeaponDetails.SetActive(false);
     }
 
     /* Method to Get the weapon category and add its spare ammo to player ammo type */
-    void AddAmmo()
+    void AddAmmo(string id)
     {
+        
+        if (weaponUUIDs.Contains(id))
+        {
+            return;
+        }
+        weaponUUIDs.Add(id);
+
         string weaponType = this.getEquippedWeapon().GetWeaponCategory();
 
         switch (weaponType)
@@ -252,8 +287,6 @@ public class PlayerInventory : MonoBehaviour
                 Debug.LogWarning("Unknown weapon category tried adding ammo");
                 break;
         }
-
-        this.getEquippedWeapon().SetSpareAmmo(0);
 
     }
 

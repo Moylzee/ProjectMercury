@@ -16,6 +16,7 @@ public class GameLoader : MonoBehaviour
     //Entry point in the game
     void Awake()
     {
+        PlayerPrefs.DeleteAll();
         Settings.LoadSettings(); // Load all settigns into game
 
         WeaponLoader.LoadPrefab(this.WeaponItemPrefab);
@@ -25,6 +26,7 @@ public class GameLoader : MonoBehaviour
         ConsumableItemLoader.LoadConsumableItemsFromFile();
 
         ItemBonusLoader.LoadPrefab(ItemBonusPrefab);
+
 
 
     }

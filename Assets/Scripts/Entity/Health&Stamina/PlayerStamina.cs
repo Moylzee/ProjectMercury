@@ -17,7 +17,15 @@ public class PlayerStamina : MonoBehaviour
 
     void Start()
     {
-        currStamina = maxStamina;
+        if (PlayerPrefs.GetInt("Stamina") == 0)
+        {
+            currStamina = maxStamina;
+            PlayerPrefs.SetInt("Stamina", currStamina);
+        }
+        else
+        {
+            currStamina = PlayerPrefs.GetInt("Stamina");
+        }
     }
 
     void Update()

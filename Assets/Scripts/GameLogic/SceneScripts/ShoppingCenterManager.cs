@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class ShoppingCenterManager : ScenesManager
 {
     public GameObject player;
-    void Start()
+    void Awake()
     {
         base.Scene = "ShoppingCenter";
         base.nextScenes = new string[] { "Estates","Docks","Park"};
@@ -24,5 +24,7 @@ public class ShoppingCenterManager : ScenesManager
             // Set the player's position to the default position
             player.transform.position = new Vector3(0, 0, 0);
         }
+
+        UpdateGUI();
     }
 }

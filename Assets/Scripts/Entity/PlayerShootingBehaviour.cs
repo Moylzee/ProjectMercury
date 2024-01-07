@@ -59,6 +59,12 @@ public class PlayerShootingBehaviour : MonoBehaviour
      */
     void ShootBullet()
     {
+        if(Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon() == null)
+        {
+            return;
+        }
+
+
         if (Player.GetComponent<PlayerObject>().Inventory.getEquippedWeapon().IsReloading)
         {
             // TODO: Let the player know that they can't shoot whilst reloading

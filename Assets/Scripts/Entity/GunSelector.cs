@@ -24,7 +24,7 @@ public class GunSelector : MonoBehaviour
         ob2.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
 
         Weapon weapon3 = new();
-        Weapon weaponData3 = WeaponLoader.GetWeapon("Thompson");
+        Weapon weaponData3 = WeaponLoader.GetWeapon("AR15");
         weapon3.ReadWeapon(weaponData3);
         weapon3.SetOnGround(true);
 

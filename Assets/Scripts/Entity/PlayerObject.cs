@@ -21,7 +21,7 @@ public class PlayerObject : MonoBehaviour
     public GameObject weaponDetailsPrefab;
     public GameObject BoxNearby;
     public GameObject ItemNearby;
-    public PlayerInventory Inventory { get; set; }
+    public PlayerInventory Inventory;
     private PlayerShootingBehaviour ShootingBehaviour;
 
 
@@ -35,6 +35,8 @@ public class PlayerObject : MonoBehaviour
 
     private int Level = 1;
 
+    private static bool loadedDefaults = false;
+
 
     void Start()
     {
@@ -42,11 +44,16 @@ public class PlayerObject : MonoBehaviour
         Inventory = new PlayerInventory(InventoryPrefab, weaponDetailsPrefab);
         ShootingBehaviour = GetComponentInChildren<PlayerShootingBehaviour>();
 
-        // Set default values
-        PlayerPrefs.SetInt("Score", 0);
-        PlayerPrefs.SetInt("ENEMY_DAMAGE_POINTS", ENEMY_DAMAGE_POINTS);
-        PlayerPrefs.SetInt("ENEMY_KILL_POINTS", ENEMY_KILL_POINTS);
-        PlayerPrefs.SetInt("Level", Level);
+        if (!loadedDefaults)
+        {
+            // Set default values
+            PlayerPrefs.SetInt("Score", 0);
+            PlayerPrefs.SetInt("ENEMY_DAMAGE_POINTS", ENEMY_DAMAGE_POINTS);
+            PlayerPrefs.SetInt("ENEMY_KILL_POINTS", ENEMY_KILL_POINTS);
+            PlayerPrefs.SetInt("Level", Level);
+            loadedDefaults = true;
+        }
+        
 
 
         // If there is a static inventory reference
@@ -118,9 +125,15 @@ public class PlayerObject : MonoBehaviour
                 EquipVisualWeapon();
                 return;
             }
+            else if (Inventory.getEquippedWeapon() != null && Inventory.getEquippedWeapon().UID == weapon.UID)
+            {
+                return;
+            }
+            Weapon weaponCopy = new();
+            weaponCopy.DeepReadWeapon(weapon);
             // If weapon in reload state, stop
             GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
-            Inventory.EquipWeapon(weapon);
+            Inventory.EquipWeapon(weaponCopy);
             EquipVisualWeapon();
         }
         else if (Input.GetKeyDown(Settings.GetData().GetKey_WeaponSlot2()))
@@ -132,10 +145,15 @@ public class PlayerObject : MonoBehaviour
                 Inventory.UnequipWeapon();
                 EquipVisualWeapon();
                 return;
+            }else if(Inventory.getEquippedWeapon() != null && Inventory.getEquippedWeapon().UID == weapon.UID)
+            {
+                return;
             }
+            Weapon weaponCopy = new();
+            weaponCopy.DeepReadWeapon(weapon);
             // if weapon in reload state, stop
             GetComponentInChildren<PlayerShootingBehaviour>().StopReloading();
-            Inventory.EquipWeapon(weapon);
+            Inventory.EquipWeapon(weaponCopy);
             EquipVisualWeapon();
 
         }

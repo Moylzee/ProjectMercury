@@ -18,12 +18,18 @@ public class LevelMove : MonoBehaviour
     public static string previousScene;
     private ScenesManager sceneManager;
     private PlayerObject playerObject;
+    private GameObject player;
 
     private bool loadingMap = false;
+    private ObjectPool ObjectPoolInstance;
     private void Start()
     {
 
-        playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerObject>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerObject = player.GetComponent<PlayerObject>();
+
+        ObjectPoolInstance = ObjectPool.SharedInstance;
+
 
         if (SceneManager.GetActiveScene().name == "Docks")
         {
@@ -60,13 +66,9 @@ public class LevelMove : MonoBehaviour
 
             if (loadingMap)
             {
-                SaveInventory();
             }
             else
             {
-
-
-
                 // Switch statement to determine current scene 
                 switch (SceneManager.GetActiveScene().name)
                 {
@@ -75,6 +77,7 @@ public class LevelMove : MonoBehaviour
                         if (other.gameObject.name == "FrontDoor")
                         {
                             SceneManager.LoadScene("Estates", LoadSceneMode.Single);
+                            SaveState();
                         }
                         break;
 
@@ -92,6 +95,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -104,6 +108,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -116,6 +121,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -128,12 +134,43 @@ public class LevelMove : MonoBehaviour
                         {
                             case "Entrance":
                                 SceneManager.LoadScene("ShoppingCenterInside", LoadSceneMode.Single);
+                                SaveState();
                                 break;
-                            case "Estates":
-                                SceneManager.LoadScene("Estates", LoadSceneMode.Single);
+                            case "ShoppingCenter_West":
+                                GameObject westTextBox = GameObject.Find("WestTextBox");
+                                if(westTextBox != null)
+                                {
+                                    String tmp = westTextBox.GetComponent<TextMeshPro>().text;
+                                    if(tmp != null)
+                                    {
+                                        SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
+                                    }
+                                }
                                 break;
-                            case "CarPark":
-                                SceneManager.LoadScene("CarPark", LoadSceneMode.Single);
+                            case "ShoppingCenter_South":
+                                GameObject southTextBox = GameObject.Find("SouthTextBox");
+                                if (southTextBox != null)
+                                {
+                                    String tmp = southTextBox.GetComponent<TextMeshPro>().text;
+                                    if (tmp != null)
+                                    {
+                                        SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
+                                    }
+                                }
+                                break;
+                            case "ShoppingCenter_East":
+                                GameObject eastTextBox = GameObject.Find("EastTextBox");
+                                if (eastTextBox != null)
+                                {
+                                    String tmp = eastTextBox.GetComponent<TextMeshPro>().text;
+                                    if (tmp != null)
+                                    {
+                                        SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
+                                    }
+                                }
                                 break;
                         }
                         break;
@@ -141,6 +178,7 @@ public class LevelMove : MonoBehaviour
                         if (other.gameObject.name == "Exit")
                         {
                             SceneManager.LoadScene("ShoppingCenter", LoadSceneMode.Single);
+                            SaveState();
                         }
                         break;
 
@@ -158,6 +196,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -170,6 +209,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -182,6 +222,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -201,6 +242,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -213,6 +255,7 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
@@ -225,19 +268,30 @@ public class LevelMove : MonoBehaviour
                                     if (tmp != null)
                                     {
                                         SceneManager.LoadScene(tmp, LoadSceneMode.Single);
+                                        SaveState();
                                     }
                                 }
                                 break;
                         }
                         break;
                 }
+
             }
         }
     }
 
-    /* Saves Inventory to Static reference */
-    private void SaveInventory()
+    /* Saves State to Static reference */
+    private void SaveState()
     {
+
+        ObjectPoolInstance.DeactivatePooledObjectEnemy();
+
+        PlayerPrefs.SetInt("Health", player.GetComponent<Health>().currHealth);
+        PlayerPrefs.SetInt("Stamina", player.GetComponent<PlayerStamina>().currStamina);
+        PlayerPrefs.Save();
+
+        
+        loadingMap = true;
         // Loops through each inventory slot, and assigns the object within to static reference
         foreach (GameObject Slot in playerObject.Inventory.InventorySlotList)
         {
@@ -249,14 +303,20 @@ public class LevelMove : MonoBehaviour
             // Weapon in slot, add to static weapon reference
             else if (Slot.GetComponent<SlotItem>().GetItemInSlot() is Weapon weapon)
             {
-                PlayerInventory.StaticInventoryWeapon.Add(weapon);
+                Weapon weaponCopy = new();
+                weaponCopy.ReadWeapon(weapon);
+
+
                 Slot.GetComponent<SlotItem>().RemoveItemFromSlot();
+                PlayerInventory.StaticInventoryWeapon.Add(weaponCopy);
             }
             // Consumable item in slot, add to static consumable item reference
             else if (Slot.GetComponent<SlotItem>().GetItemInSlot() is ConsumableItem item)
             {
+                ConsumableItem itemCopy = new();
+                itemCopy.Clone(item);
                 Slot.GetComponent<SlotItem>().RemoveItemFromSlot();
-                PlayerInventory.StaticInventoryConsumable.Add(item);
+                PlayerInventory.StaticInventoryConsumable.Add(itemCopy);
             }
         }
     }

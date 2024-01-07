@@ -36,6 +36,11 @@ public abstract class Item
         this.UID = Guid.NewGuid().ToString();
     }
 
+    protected void SetUID(string id)
+    {
+        this.UID = id;
+    }
+
 
     public string GetTooltip()
     {

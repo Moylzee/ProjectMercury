@@ -9,6 +9,10 @@ public class EnemyAttackScript : MonoBehaviour
     private bool canEnemyAttack;
     private PlayerObject player;
 
+
+    private bool isAttacking = false;
+    private float timer = 0f;
+
     void Start()
     {
         player = FindObjectOfType<PlayerObject>();
@@ -18,14 +22,24 @@ public class EnemyAttackScript : MonoBehaviour
     {
         // Check can the enemy attack
         // Calls the attack method every 2 seconds 
-        if (canEnemyAttack && !IsInvoking("EnemyAttack"))
+        if (canEnemyAttack && !isAttacking)
         {
-            InvokeRepeating("EnemyAttack", 0f, 2f);
+            EnemyAttack();
+            isAttacking = true;
         }
-        else if (!canEnemyAttack && IsInvoking("EnemyAttack"))
+
+
+        timer += Time.deltaTime;
+
+        if(timer > 2f)
         {
-            CancelInvoke("EnemyAttack");
+            isAttacking = false;
+            timer = 0f;
         }
+
+
+        
+
     }
 
     // Player's box collider touched the enemy.
