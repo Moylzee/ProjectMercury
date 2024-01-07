@@ -13,11 +13,16 @@ public class Dialogue : MonoBehaviour
     public bool isDialogueActive = false;
     private AudioSource audioSource;
     private string[] sentences = new string[] {"Date: 29-05-2024\nDays Since Ballylofa was overrun: 225\nDays Since Last Human Sighting: 178\n\nDear Diary,\nI Don't Know How Much Longer I Can Take This.\nI'm Running Out Of Food And Water.\nThe Hordes Are Endless.\nI Will Pick One Of The Guns On My Wall And Leave.\nTodays Goal:\nSURVIVE\n\n(click to exit)"};
+    private PlayerObject player;
+    
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerObject>();
+
         audioSource = GetComponent<AudioSource>();
         textDisplay.text = "";
         StartDialogue();
+        player.Inventory.InventoryObject.SetActive(false);
     }
 
     void Update()
@@ -48,6 +53,7 @@ public class Dialogue : MonoBehaviour
     // End the Dialogue
     void EndDialogue() {
         isDialogueActive = false;
+        
         if (audioSource != null)
         {
             audioSource.Stop();
@@ -74,6 +80,7 @@ public class Dialogue : MonoBehaviour
             StartCoroutine(Type());
         }else {
             gameObject.SetActive(false);
+            player.Inventory.InventoryObject.SetActive(true);
         }
     }
 }

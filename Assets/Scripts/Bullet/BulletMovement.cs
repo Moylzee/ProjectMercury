@@ -16,7 +16,6 @@ public class BulletMovement : MonoBehaviour
     /* rotZ is static as is affected by rotation of player globally */
     public static float rotZ;
 
-
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);

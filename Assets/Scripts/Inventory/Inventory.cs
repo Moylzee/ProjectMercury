@@ -35,11 +35,12 @@ public class PlayerInventory : MonoBehaviour
 
     private static List<string> weaponUUIDs = new();
     public static Dictionary<string, int> weaponState = new();
+    public GameObject InventoryObject;
 
     public PlayerInventory(GameObject InventoryPrefab, GameObject WeaponDetailsPrefab)
     {
 
-        GameObject InventoryObject = Instantiate(InventoryPrefab);
+        InventoryObject = Instantiate(InventoryPrefab);
         WeaponDetails = Instantiate(WeaponDetailsPrefab);
         InventoryObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
         WeaponDetails.transform.SetParent(GameObject.Find("Canvas").transform, false);
