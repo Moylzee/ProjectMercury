@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     // Reference to ObjectPool
     private ObjectPool poolInstance;
 
-
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);

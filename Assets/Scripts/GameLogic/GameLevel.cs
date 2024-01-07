@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System.Text;
+
+/* GameLevel class updates the Levels text GUI*/
 
 public class GameLevel : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameLevel : MonoBehaviour
         LevelsText = GameObject.FindWithTag("LevelsText").GetComponent<TextMeshProUGUI>();
     }
 
-
+    /* Method to translate numbers to Roman Numerals */
     public void UpdateLevelsText()
     {
         int level = PlayerPrefs.GetInt("Level");

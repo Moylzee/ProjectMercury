@@ -9,14 +9,10 @@ using UnityEngine;
  */
 public class WeaponObjectBehaviour : ItemObjectBehaviour<Weapon>
 {
-
     public override void Update()
     {
-
         base.BaseUpdate();
         this.InventoryLogic();
-
-
     }
 
     /* Inventory logic for Weapons */

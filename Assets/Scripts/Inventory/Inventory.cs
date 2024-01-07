@@ -1,14 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-
+/*PlayerInventory class represents the inventory of the player*/
 public class PlayerInventory : MonoBehaviour
 {
-
+    // Static inventory reference
     public static List<ConsumableItem> StaticInventoryConsumable = new();
     public static List<Weapon> StaticInventoryWeapon = new();
 
@@ -236,6 +235,7 @@ public class PlayerInventory : MonoBehaviour
         UpdateDetails();
     }
 
+    /* Method to unequip weapon gracefully */
     public void UnequipWeapon()
     {
 
@@ -290,6 +290,7 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
+    /* Method to retrieve which inventory slot is being hovered over */
     public GameObject IsHoveringOverSlot()
     {
         if (InventorySlotList.Count <= 0)
@@ -307,6 +308,7 @@ public class PlayerInventory : MonoBehaviour
         return null;
     }
 
+    /* Method to load the dictionary */
     void LoadDictionary()
     {
         for (int i = 0; i < InventorySlotList.Count; i++)
@@ -315,6 +317,9 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    // Accessor methods 
+
+    /* Return Slot */ 
     public SlotItem GetSlot(string slot)
     {
         if (Slots.TryGetValue(slot, out SlotItem item))

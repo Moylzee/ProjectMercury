@@ -9,8 +9,6 @@ public class AmmoBoostItem : ItemBonus
     private readonly PlayerObject playerObject;
     private readonly ushort spareAmmoIncrease = 100;
 
-
-
     public AmmoBoostItem()
     {
         playerObject = GameObject.FindWithTag("Player").GetComponent<PlayerObject>();

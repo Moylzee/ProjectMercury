@@ -82,6 +82,7 @@ public class PlayerStamina : MonoBehaviour
         StartCoroutine(IncreaseStaminaOverTimeCoroutine(stamina, seconds));
     }
 
+    /* Method to increase stamina over a determined amount of time */
     private IEnumerator IncreaseStaminaOverTimeCoroutine(int stamina, float seconds)
     {
         float timePassed = 0f;

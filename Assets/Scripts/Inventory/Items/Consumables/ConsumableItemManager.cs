@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ConsumableItemManager : MonoBehaviour
-{
-
-}
-
+/* ConsumableItemLoader class allows for a consumable item to be loaded in from a JSON file and created into a gameobject */
 public static class ConsumableItemLoader
 {
     public static ConsumableItemList consumableList;
@@ -81,17 +77,19 @@ public static class ConsumableItemLoader
         }
         else
         {
-            Debug.LogError("Item not foind in Consumable Dictionary >> ConsumableItemManger");
+            Debug.LogError("Item not found in Consumable Dictionary >> ConsumableItemManger");
             return null;
         }
     }
 
+    /* Method to get a random item from loaded consumable items */
     public static ConsumableItem GetRandomItem()
     {
         int RandomIndex = Random.Range(0, consumableList.consumables.Length);
         return consumableList.consumables[RandomIndex];
     }
 
+    /* Method to get a random item from loaded consumable items based on bias */
     public static ConsumableItem GetRandomItem_Bias()
     {
         int RandomRange = Random.Range(0, consumableList.consumables.Length);

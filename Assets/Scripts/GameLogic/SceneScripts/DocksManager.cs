@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+
+
+/* DocksManager class used for the Docks Scene */
+
 public class DocksManager : ScenesManager
 {
-    private GameLevel gameLevel;
-    private GameObject player;
-
     void Awake()
     {
-
-        player = GameObject.FindGameObjectWithTag("Player");
 
         base.Scene = "Docks";
         base.nextScenes = new string[] { "Park","Estates","ShoppingCenter"};

@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System;
 
@@ -20,8 +19,6 @@ public abstract class Item
     private bool OnGround = false; // If the item is on the ground this should be true
     private Vector2 offset;
 
-
-
     private SpriteRenderer spriteRenderer;
 
     public Item()
@@ -29,6 +26,8 @@ public abstract class Item
 
     }
 
+
+    // Accessor methods
 
     // Creates a new random Unique ID for item
     protected void SetUID()

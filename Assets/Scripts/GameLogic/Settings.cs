@@ -2,6 +2,9 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
+
+/* SettingsData class represents the customizable keybindings in the game*/
+
 public class SettingsData
 {
     public string weaponSlot1;
@@ -95,7 +98,7 @@ public class SettingsData
 }
 
 
-
+/* Settings class allows the retrieval of keybindings applicationally scoped */
 public static class Settings
 {
 

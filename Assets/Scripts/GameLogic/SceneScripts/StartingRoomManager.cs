@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/* Starting room manager class, represents the starting room scene */
 
 public class StartingRoomManager : MonoBehaviour
 {

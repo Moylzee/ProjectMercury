@@ -31,7 +31,7 @@ public class Weapon : Item
 
     }
 
-    /* A deep copy of a weapon */
+    /* A copy of a weapon with a unique ID */
     public void ReadWeapon(Weapon weaponData)
     {
         SetUID(); // Creates a brand new UID for the item
@@ -55,6 +55,7 @@ public class Weapon : Item
         
     }
 
+    /* A deep copy of a weapon with the same ID */
     public void DeepReadWeapon(Weapon weaponData)
     {
         SetUID(weaponData.UID); // Creates a brand new UID for the item

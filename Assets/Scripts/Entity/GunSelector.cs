@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/*Gun Selector class, represents the guns in the starting room */
 public class GunSelector : MonoBehaviour
 {
     private List<GameObject> weaponList = new();
 
     void Start()
     {
+        // Spawning three weapons in the starting room 
+
         Weapon weapon1 = new();
         Weapon weaponData1 = WeaponLoader.GetWeapon("Astra Model 900");
         weapon1.ReadWeapon(weaponData1);
@@ -38,6 +41,7 @@ public class GunSelector : MonoBehaviour
 
     void Update()
     {
+
         foreach(GameObject ob in weaponList)
         {
             if(ob == null) // A Weapon has been picked up

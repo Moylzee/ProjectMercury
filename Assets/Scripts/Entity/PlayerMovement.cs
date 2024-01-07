@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
-
 enum DirectionFacing
 {
     DOWN = -1,
@@ -125,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    /* Method for weapon rotation */
     private void WeaponRotation()
     {
         if(WeaponInHandRenderer == null)
@@ -200,7 +199,6 @@ public class PlayerMovement : MonoBehaviour
                 }
                 BulletMovement.rotZ = rotZ;
             }
-
         }
 
         if (isFacing == DirectionFacing.UP)
@@ -260,10 +258,7 @@ public class PlayerMovement : MonoBehaviour
                 rotZ *= -1;
                 BulletMovement.rotZ = rotZ;
             }
-
-
         }
-
 
         if (isFacing == DirectionFacing.RIGHT)
         {

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+
+/*ParkManager class used for Park Scene */
 public class ParkManager : ScenesManager
 {
     public GameObject player;
-    private GameLevel gameLevel;
 
     void Start()
     {

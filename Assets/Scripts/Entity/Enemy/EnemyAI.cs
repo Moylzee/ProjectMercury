@@ -38,6 +38,7 @@ public class EnemyAI : MonoBehaviour
         {
             transform.position += Speed * Time.fixedDeltaTime * (Vector3)directionToMove;
 
+            // Animation movements
             animator.SetFloat("Horizontal", directionToMove.x);
             animator.SetFloat("Vertical", directionToMove.y);
             animator.SetFloat("Speed", directionToMove.sqrMagnitude);
@@ -50,7 +51,6 @@ public class EnemyAI : MonoBehaviour
 
         // If time elapsed recheck path
         recheckTimer += Time.fixedDeltaTime;
-
         if (recheckTimer > recheckInterval)
         {
             directionToMove = FindPath();
@@ -63,15 +63,17 @@ public class EnemyAI : MonoBehaviour
     /* Method to find path to target */
     private Vector2 FindPath()
     {
-
+        // If no target or object return no movement
         if(target == null || transform == null)
         {
             return Vector2.zero;
         }
 
+        // Set direction from object to target with offset of positive 15 metres
         Vector2 directionToTarget = ((Vector2)target.position + new Vector2(0f, 15f) - (Vector2)transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, Vector2.Distance(target.position, transform.position), collisions);
 
+        // Ray casy didn't hit anything, direct path to player
         if(hit.collider == null)
         {
             // Direct path exists
@@ -90,17 +92,21 @@ public class EnemyAI : MonoBehaviour
     /* Shoots rays recursively until a suitable ray is found*/
     private Vector2 ShootRays(Vector2 fromPosition, Vector2 direction, float angleOffset)
     {
+        // If max iterations elapsed return 0
         if(count > maxIterations)
         {
-            return Vector2.zero; // may need to change
+            return Vector2.zero;
         }
 
+        // Find new angle
         float angle1 = Mathf.Atan2(direction.y, direction.x) + Mathf.Deg2Rad * angleOffset;
         float angle2 = angle1 - Mathf.Deg2Rad * angleOffset * 2f;
 
+        // Find new vectors
         Vector2 adjustedDirection1 = new Vector2(Mathf.Cos(angle1), Mathf.Sin(angle1));
         Vector2 adjustedDirection2 = new Vector2(Mathf.Cos(angle2), Mathf.Sin(angle2));
 
+        // Shoot two rays
         RaycastHit2D hitInfo1 = Physics2D.Raycast(fromPosition, adjustedDirection1, maxDistance, collisions);
         RaycastHit2D hitInfo2 = Physics2D.Raycast(fromPosition, adjustedDirection2, maxDistance, collisions);
 
@@ -113,12 +119,13 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
+            // The two rays are considerable difference return the longer one
             return hitInfo1.distance > hitInfo2.distance ? adjustedDirection1 : adjustedDirection2;
         }
 
     }
 
-
+    /* Method to set the speed of the enemy */
     public void SetSpeed(float speed)
     {
         this.Speed = speed;

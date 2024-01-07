@@ -40,6 +40,8 @@ public class EnemyHealth : MonoBehaviour
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score")
                 + PlayerPrefs.GetInt("ENEMY_KILL_POINTS"));
 
+            PlayerPrefs.SetInt("ZombiesKilled", PlayerPrefs.GetInt("ZombiesKilled") + 1);
+
             DropRandomChance();
 
         }

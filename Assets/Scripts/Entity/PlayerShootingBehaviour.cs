@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*PlayerShootingBehaviour class represents the shooting behaviour, reloading behavior*/
 public class PlayerShootingBehaviour : MonoBehaviour
 {
-    private Vector3 mousePos;
     public GameObject bullet;
     public GameObject mag;
     public Transform bulletTransform;
@@ -31,11 +31,8 @@ public class PlayerShootingBehaviour : MonoBehaviour
             Debug.LogError("AudioScript not found");
         }
     }
-
-    void Update()
-    {
-    }
-
+    
+    /* Method to shoot a bullet */
     public void Shoot()
     {
         // Get the fire rate of the currently equipped weapon
@@ -75,6 +72,7 @@ public class PlayerShootingBehaviour : MonoBehaviour
         if (BulletsInMag > 0)
         {
 
+            // Create bullet instance and set it
             GameObject b = ObjectPool.SharedInstance.GetPooledObjectBullet();
             if (b != null)
             {
@@ -90,15 +88,12 @@ public class PlayerShootingBehaviour : MonoBehaviour
 
         }
 
-        // TODO: let the player know that a reload is required
         return;
     }
 
-
+    /* Method to reload weapon */
     public void Reload()
     {
-
-        // TODO: let the player know that they are reloading
         WeaponReference = Player.GetComponent<PlayerObject>().Inventory;
         uint SpareAmmo = WeaponReference.GetWeaponSpareAmmoBasedOnCategory();
         ushort MagSize = WeaponReference.getEquippedWeapon().GetMagazineSize();
@@ -112,7 +107,6 @@ public class PlayerShootingBehaviour : MonoBehaviour
         }
 
         WeaponReference.getEquippedWeapon().IsReloading = true;
-
 
         // Start reloading routine
         reloadCoroutine = StartCoroutine(ReloadDelay(SpareAmmo, MagSize, AmmoLeftInMag, ReloadTime));

@@ -23,6 +23,7 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
+        // Create Objects for pooling
         pooledObjects_Bullet = new List<GameObject>();
         pooledObjects_Enemy = new List<GameObject>();
         GameObject temp;
@@ -41,6 +42,7 @@ public class ObjectPool : MonoBehaviour
         
     }
 
+    /* Method to retrieve an enemy object instance */
     public GameObject GetPooledObjectEnemy()
     {
         for(int i = 0; i<amountToPool_Enemy; i++)
@@ -65,6 +67,7 @@ public class ObjectPool : MonoBehaviour
         currentActiveEnemies = 0;
     }
 
+    /* Method to retrieve a bullet  object instance */
     public GameObject GetPooledObjectBullet()
     {
         for (int i = 0; i < amountToPool_Bullet; i++)
@@ -76,6 +79,15 @@ public class ObjectPool : MonoBehaviour
         }
         Debug.LogWarning("Attempt to spawn more objects than pooling allows. Increase Pool count");
         return null;
+    }
+
+    /* Deactive all pooled bullets */
+    public void DeactivatePooledObjectBullet()
+    {
+        foreach (GameObject obj in pooledObjects_Bullet)
+        {
+            obj.SetActive(false);
+        }
     }
 
 

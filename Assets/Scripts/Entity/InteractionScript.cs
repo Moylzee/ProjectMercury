@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/*Interaction Script class, responsible */
 public class InteractionScript : MonoBehaviour
 {
     // Interact Prompt Object
@@ -18,6 +19,7 @@ public class InteractionScript : MonoBehaviour
         ClosestItemToPlayer = new List<GameObject>();
     }
 
+    /* Trigger Enter method, checks if item or lootbox is nearby */
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Item"))
@@ -44,12 +46,12 @@ public class InteractionScript : MonoBehaviour
 
     }
 
+    /* On Trigger Exit method, removes item or lootbox from nearby variable */
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Item"))
         {
             ClosestItemToPlayer.Remove(collision.gameObject);
-
 
             if (GetComponentInParent<PlayerObject>().ItemNearby == collision.gameObject)
             {

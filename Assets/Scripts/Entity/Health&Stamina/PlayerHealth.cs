@@ -1,8 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+/*
+Health class responsible to maintain the player health 
+ */
 public class Health : MonoBehaviour
 {
 
@@ -11,7 +12,7 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-
+        // Load presaved health or define starting health if no definition present
         if(PlayerPrefs.GetInt("Health") == 0)
         {
             currHealth = maxHealth;
@@ -53,6 +54,7 @@ public class Health : MonoBehaviour
         StartCoroutine(HealOverTimeCoroutine(health, seconds));
     }
 
+    /* Method to heal player over a determined time */
     private IEnumerator HealOverTimeCoroutine(int health, float seconds)
     {
         float timePassed = 0f;

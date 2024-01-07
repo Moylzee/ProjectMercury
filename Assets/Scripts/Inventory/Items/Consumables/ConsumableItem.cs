@@ -1,11 +1,12 @@
-using UnityEngine;
-
 
 [System.Serializable]
 public class ConsumableItemList
 {
     public ConsumableItem[] consumables;
 }
+
+
+/* Consumable item class, representing a consumable item */
 
 [System.Serializable]
 public class ConsumableItem : Item
@@ -26,6 +27,7 @@ public class ConsumableItem : Item
 
     }
 
+    /* Method to clone item data*/
     public void Clone(ConsumableItem itemData)
     {
         SetUID();
@@ -40,6 +42,8 @@ public class ConsumableItem : Item
         SetStaminaRegenerationDurationInSeconds(itemData.GetStaminaRegenerationDurationInSeconds());
         SetTooltip(itemData.GetTooltip());
     }
+
+    // Accessor methods
 
     public void SetHealthChange(float healthChange) { this.HealthChange = healthChange; }
     public void SetRegeneration(float regen) { this.Regeneration = regen; }

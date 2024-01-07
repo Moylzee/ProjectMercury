@@ -1,8 +1,5 @@
 
 using UnityEngine;
-using TMPro;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 /*
  * The item Object Behavior Class is attached to the items Prefab
@@ -26,17 +23,8 @@ public abstract class ItemObjectBehaviour<T> : MonoBehaviour where T : Item, new
         PlayerScript = GameObject.FindWithTag("Player").GetComponent<PlayerObject>();
     }
 
-    public virtual void Update()
-    {
-
-    }
-
-    public void BaseUpdate()
-    {
-
-    }
-
-
+    public virtual void Update() {}
+    public void BaseUpdate() {}
     public virtual void KeyboardHandler() { }
     public virtual void InventoryLogic() { }
 
@@ -50,9 +38,6 @@ public abstract class ItemObjectBehaviour<T> : MonoBehaviour where T : Item, new
     {
         item.SetImageSource(imageSource);
     }
-
-
-
     public void SetSpriteRenderer(SpriteRenderer spriteRenderer)
     {
         item.SetSpriteRenderer(spriteRenderer);

@@ -1,19 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/* Lootbox interaction class, represents the interaction for the player with loot boxes */
 public class LootboxInteraction : MonoBehaviour
 {
     public GameObject InventoryPrefab;
-
     private GameObject BoxInventory;
-
     private GameObject Player;
-
-
     private bool Opened = false;
-
     private RarityClass Rarity; // 0 - 1, How good is a given box
-
     private GameObject InventorySlots;
 
     void Start()
@@ -21,11 +16,8 @@ public class LootboxInteraction : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
         transform.SetParent(GameObject.FindWithTag("LootboxParent").transform); // set parent
         BoxInventory = GameObject.Instantiate(InventoryPrefab); // Create inventory prefab
-
         BoxInventory.transform.SetParent(GameObject.Find("Canvas").transform, false);
-
         BoxInventory.SetActive(false); // Disable box inventory until player opens it
-
         Rarity = RaritySelection(); // Rarity of the lootbox
 
     }
@@ -34,6 +26,7 @@ public class LootboxInteraction : MonoBehaviour
     {
         if (BoxInventory.activeSelf)
         {
+            // If a lootbox gets too far close it
             if (Vector2.Distance(transform.position, Player.transform.position) > Player.GetComponent<PlayerObject>().RANGE_OF_PICKUP * 1.8f)
             {
                 CloseBox();
@@ -62,11 +55,7 @@ public class LootboxInteraction : MonoBehaviour
         return RarityClass.LEGENDARY;
     }
 
-    void FillBox()
-    {
-
-    }
-
+    /* Method to open the loot box */
     public void OpenBox()
     {
         if(!Opened)
@@ -78,6 +67,7 @@ public class LootboxInteraction : MonoBehaviour
         BoxInventory.SetActive(true);
     }
 
+    /* Method to close the loot box*/
     public void CloseBox()
     {
         BoxInventory.SetActive(false);
@@ -85,6 +75,7 @@ public class LootboxInteraction : MonoBehaviour
     }
 
 
+    /* Method to load items into the inventory slots of the loot box*/
     void LoadInventorySlots()
     {
         Transform container = BoxInventory.transform.Find("ItemsBackpanel");
@@ -136,7 +127,7 @@ public class LootboxInteraction : MonoBehaviour
 
 }
 
-
+/* Enum class represents lootbox rariety*/
 public enum RarityClass
 {
     COMMON, UNCOMMON, RARE, LEGENDARY

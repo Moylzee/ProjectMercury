@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using TMPro;
 using UnityEngine;
 
+/* Abstract ScenesManager class, represents all scenes in game*/
 public abstract class ScenesManager : MonoBehaviour
 {
-
     public GameObject northTextBox;
     public GameObject eastTextBox;
     public GameObject southTextBox;

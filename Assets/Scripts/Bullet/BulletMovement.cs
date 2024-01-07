@@ -31,7 +31,7 @@ public class BulletMovement : MonoBehaviour
         Invoke("DeactivateGameObject", LIMIT_LIFETIME);
     }
 
-
+    /* Method to deactive bullet gameobject */
     void DeactivateGameObject()
     {
         gameObject.SetActive(false);

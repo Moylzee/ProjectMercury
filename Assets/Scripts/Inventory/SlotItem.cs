@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
+/* Slot Item class represents the individual slots in the inventory */
 public class SlotItem : MonoBehaviour, IPointerDownHandler
 {
 
@@ -19,6 +19,7 @@ public class SlotItem : MonoBehaviour, IPointerDownHandler
         playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerObject>();
         buttonImage = GetComponent<Image>();
 
+        // Event trigger initialization
         EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry enterEntry = new EventTrigger.Entry();
         enterEntry.eventID = EventTriggerType.PointerEnter;

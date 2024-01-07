@@ -284,8 +284,11 @@ public class LevelMove : MonoBehaviour
     private void SaveState()
     {
 
+        // Deactive pooled objects
+        ObjectPoolInstance.DeactivatePooledObjectEnemy();
         ObjectPoolInstance.DeactivatePooledObjectEnemy();
 
+        // Save player health and stamina
         PlayerPrefs.SetInt("Health", player.GetComponent<Health>().currHealth);
         PlayerPrefs.SetInt("Stamina", player.GetComponent<PlayerStamina>().currStamina);
         PlayerPrefs.Save();

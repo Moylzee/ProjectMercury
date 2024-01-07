@@ -1,21 +1,23 @@
 using UnityEngine;
-
+/* Class represents the behaviour of a consumable item */
 public class ConsumableItemObjectBehaviour : ItemObjectBehaviour<ConsumableItem>
 {
-    public AudioScript audioScript;
     public override void Update()
     {
         base.Update();
         InventoryLogic();
     }
 
-
+    /* Override of Inventory logic for consumable items */
     public override void InventoryLogic()
     {
         if (item.IsPickedUp())
         {
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) + item.GetOffset();
         }
+
+
+        // Slots 1, 2, and 3, are reserved for Consumable items only
 
         if (Input.GetMouseButtonUp(0) && item.IsPickedUp())
         {
@@ -62,7 +64,7 @@ public class ConsumableItemObjectBehaviour : ItemObjectBehaviour<ConsumableItem>
 
         PlayerHealth.HealPlayer((int)item.GetHealthChange());
         PlayerStamina.IncreaseStamina((int)item.GetStaminaChange());
-        audioScript.Drink();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<AudioScript>().Drink();
         if (Mathf.Abs(item.GetRegeneration()) > 0)
         {
             PlayerHealth.HealPlayerOverTime((int)item.GetRegeneration(), item.GetRegenerationDurationInSeconds());

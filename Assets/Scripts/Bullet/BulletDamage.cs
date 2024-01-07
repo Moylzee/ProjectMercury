@@ -1,13 +1,10 @@
-
 using UnityEngine;
-
 
 /*
  * Bullet Damage Script
  * Script responsible for damanging entities (i.e. Enemeies)
  * and deactivating the bullet game object upon collision
  */
-
 public class BulletDamage : MonoBehaviour
 {
 

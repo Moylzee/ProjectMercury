@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
+/* ShoppingCenterManager class represents the Inside and outside shopping center scenes */
 public class ShoppingCenterManager : ScenesManager
 {
     public GameObject player;

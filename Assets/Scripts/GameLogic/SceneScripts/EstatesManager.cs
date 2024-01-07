@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+
+/* EstatesManager class used for Estates Scene */
 public class EstatesManager : ScenesManager
 {
     public GameObject player;
