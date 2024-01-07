@@ -12,10 +12,6 @@ public class PauseMenu : MonoBehaviour
 {
     // Boolean to track if game is paused 
     public static bool GamePaused = false;
-    // Boolean to track if game is over 
-    private static bool isGameOver = false;
-    // Game Over Panel Variable
-    public GameObject GameOverPanel;
     // Variable for the pause menu UI
     public GameObject pauseUI;
 
@@ -33,16 +29,6 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-        // Game is over, show the pause panel and freeze game elements.
-        if (isGameOver)
-        {
-            Time.timeScale = 0;
-            GameOverPanel.SetActive(true);
-        }
-        else
-        {
-            GameOverPanel.SetActive(false);
-        }
     }
     // Method to resume the game
     public void Resume()
@@ -58,11 +44,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GamePaused = true;
     }
-    // Method to update the state of the Game 
-    public void GameOver()
-    {
-        isGameOver = true;
-    }
+
     // Method the Quit the Game 
     public void QuitGame()
     {

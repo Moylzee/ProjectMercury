@@ -8,6 +8,7 @@ public class AudioScript : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip reloadSound;
     public AudioClip dashSound;
+    public AudioClip drinkSound;
     public void ReloadSound(){
         audioSource.PlayOneShot(reloadSound);
     }
@@ -18,5 +19,9 @@ public class AudioScript : MonoBehaviour
 
     public void DashSound() {
         audioSource.PlayOneShot(dashSound);
+    }
+
+    public void Drink() {
+        audioSource.PlayOneShot(drinkSound);
     }
 }

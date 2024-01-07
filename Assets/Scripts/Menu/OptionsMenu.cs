@@ -40,7 +40,7 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.value = currRes;
         resolutionDropdown.RefreshShownValue();
     }
-    // Method to set thevolume of the game 
+    // Method to set the volume of the game 
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("Volume", volume);
