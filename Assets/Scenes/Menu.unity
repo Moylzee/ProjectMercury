@@ -654,7 +654,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331627623}
-  - component: {fileID: 331627625}
   m_Layer: 5
   m_Name: Options Menu
   m_TagString: Untagged
@@ -683,20 +682,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0011815, y: -18}
   m_SizeDelta: {x: 1920, y: 1199.6}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &331627625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331627622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f04b3e7bd5c89a4d95bb28f73f8e72d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 306afc994017363408ee4d44ea03d82c, type: 2}
-  resolutionDropdown: {fileID: 2009054911}
 --- !u!1 &338114588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,6 +1015,7 @@ GameObject:
   - component: {fileID: 490959690}
   - component: {fileID: 490959689}
   - component: {fileID: 490959693}
+  - component: {fileID: 490959694}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1220,6 +1206,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &490959694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490959688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f04b3e7bd5c89a4d95bb28f73f8e72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 306afc994017363408ee4d44ea03d82c, type: 2}
+  resolutionDropdown: {fileID: 2009054911}
 --- !u!1 &549498785
 GameObject:
   m_ObjectHideFlags: 0
@@ -3726,10 +3726,10 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 331627625}
+      - m_Target: {fileID: 490959694}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4170,10 +4170,10 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 331627625}
+      - m_Target: {fileID: 490959694}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetFullscreen
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4418,14 +4418,14 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 331627625}
+      - m_Target: {fileID: 490959694}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetQuality
-        m_Mode: 3
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5571,10 +5571,10 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 331627625}
+      - m_Target: {fileID: 490959694}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetRes
-        m_Mode: 3
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

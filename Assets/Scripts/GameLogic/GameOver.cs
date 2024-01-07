@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /* Script used to handle the Game over screen
 * Once the player has died, this screen will display
@@ -8,6 +9,14 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScript : MonoBehaviour
 {
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI levelScoreText;
+    public TextMeshProUGUI zombiesKilledText;
+    void Start() {
+        scoreText.text = PlayerPrefs.GetInt("Score").ToString();
+        levelScoreText.text = PlayerPrefs.GetInt("Level").ToString();
+        zombiesKilledText.text = PlayerPrefs.GetInt("ZombiesKilled").ToString();
+    }
     // Load the "Menu" scene by its name.
     public void GoToMenu()
     {
