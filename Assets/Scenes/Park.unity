@@ -15885,6 +15885,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3466642605705116282, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
+      propertyPath: audioScript
+      value: 
+      objectReference: {fileID: 1161545124}
     - target: {fileID: 3768897767972618117, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Sprite
       value: 
