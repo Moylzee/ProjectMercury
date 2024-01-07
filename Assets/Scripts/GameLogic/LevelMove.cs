@@ -283,16 +283,18 @@ public class LevelMove : MonoBehaviour
     /* Saves State to Static reference */
     private void SaveState()
     {
-
+        // Deactive all pooled objects
         ObjectPoolInstance.DeactivatePooledObjectEnemy();
+        ObjectPoolInstance.DeactivatePooledObjectBullet();
 
+        // Save player health and stamina
         PlayerPrefs.SetInt("Health", player.GetComponent<Health>().currHealth);
         PlayerPrefs.SetInt("Stamina", player.GetComponent<PlayerStamina>().currStamina);
         PlayerPrefs.Save();
 
-        
         loadingMap = true;
-        // Loops through each inventory slot, and assigns the object within to static reference
+
+        // Loop through each inventory slot, and assigns the object within to static reference
         foreach (GameObject Slot in playerObject.Inventory.InventorySlotList)
         {
             // No item in current slot: skip
@@ -305,8 +307,6 @@ public class LevelMove : MonoBehaviour
             {
                 Weapon weaponCopy = new();
                 weaponCopy.ReadWeapon(weapon);
-
-
                 Slot.GetComponent<SlotItem>().RemoveItemFromSlot();
                 PlayerInventory.StaticInventoryWeapon.Add(weaponCopy);
             }

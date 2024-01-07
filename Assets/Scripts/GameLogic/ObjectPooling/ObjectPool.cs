@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+ ObjectPool class, handles enemy and bullet objects
+ */
+
 public class ObjectPool : MonoBehaviour
 {
 
@@ -17,12 +22,14 @@ public class ObjectPool : MonoBehaviour
 
     void Awake()
     {
+        // Creates the shared instance
         SharedInstance = this;
         ENEMY_LIMIT = amountToPool_Enemy;
     }
 
     void Start()
     {
+        // Initializes all gameobjects needed.
         pooledObjects_Bullet = new List<GameObject>();
         pooledObjects_Enemy = new List<GameObject>();
         GameObject temp;
@@ -41,6 +48,7 @@ public class ObjectPool : MonoBehaviour
         
     }
 
+    /* Method to retrieve an enemy object from pool */
     public GameObject GetPooledObjectEnemy()
     {
         for(int i = 0; i<amountToPool_Enemy; i++)
@@ -65,6 +73,16 @@ public class ObjectPool : MonoBehaviour
         currentActiveEnemies = 0;
     }
 
+    /* Deactive all pooled bullets */
+    public void DeactivatePooledObjectBullet()
+    {
+        foreach(GameObject obj in pooledObjects_Bullet)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    /* Method to retrieve bullet from bullet pool */
     public GameObject GetPooledObjectBullet()
     {
         for (int i = 0; i < amountToPool_Bullet; i++)
