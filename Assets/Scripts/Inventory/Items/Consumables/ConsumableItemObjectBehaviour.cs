@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ConsumableItemObjectBehaviour : ItemObjectBehaviour<ConsumableItem>
 {
-    public AudioScript audioScript;
     public override void Update()
     {
         base.Update();
@@ -62,7 +61,7 @@ public class ConsumableItemObjectBehaviour : ItemObjectBehaviour<ConsumableItem>
 
         PlayerHealth.HealPlayer((int)item.GetHealthChange());
         PlayerStamina.IncreaseStamina((int)item.GetStaminaChange());
-        audioScript.Drink();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<AudioScript>().Drink();
         if (Mathf.Abs(item.GetRegeneration()) > 0)
         {
             PlayerHealth.HealPlayerOverTime((int)item.GetRegeneration(), item.GetRegenerationDurationInSeconds());

@@ -8502,7 +8502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c701d916e785ed47bfb9bcf7e00e83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStamina: {fileID: 0}
+  playerStamina: {fileID: 832852215}
   fillImage: {fileID: 749043728}
 --- !u!114 &341778541
 MonoBehaviour:
@@ -9957,7 +9957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 12184683876573163, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: MinDistance
-      value: 0.23820686
+      value: 0.030662537
       objectReference: {fileID: 0}
     - target: {fileID: 12184683876573163, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_audioClip
@@ -9985,7 +9985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Size.y
-      value: 0.096689865
+      value: 0.13222462
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Enabled
@@ -9993,11 +9993,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Offset.x
-      value: -0.0025139302
+      value: -0.002513945
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Offset.y
-      value: 0.034652114
+      value: 0.4373798
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_IsTrigger
@@ -10093,7 +10093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338293193891211117, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 92
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6338293193891211117, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10229,8 +10229,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008456993, y: 0.55309695}
-  m_Size: {x: 1.1286786, y: 1.5897316}
+  m_Offset: {x: 0.008456993, y: 0.5769931}
+  m_Size: {x: 1.1286786, y: 1.6375239}
   m_Direction: 0
 --- !u!114 &832852214
 MonoBehaviour:
@@ -10246,6 +10246,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionTilemap: {fileID: 1917308881}
   player: {fileID: 832852212}
+--- !u!114 &832852215 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9118495671320037596, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
+  m_PrefabInstance: {fileID: 832852210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832852212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c4291104620194b8ebe2dbbc10df8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &832852216 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 69611579981999954, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
@@ -12551,7 +12562,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 7.5, y: 7.5, z: 0}
   m_MaxChunkCount: 16
@@ -14695,7 +14706,7 @@ GameObject:
   - component: {fileID: 1917308882}
   m_Layer: 6
   m_Name: Collision
-  m_TagString: Collision
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14755,7 +14766,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -5
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 7.5, y: 7.5, z: 0}
   m_MaxChunkCount: 16

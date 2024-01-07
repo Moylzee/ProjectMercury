@@ -32982,7 +32982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Size.y
-      value: 0.096689865
+      value: 0.115671545
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Enabled
@@ -32990,11 +32990,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Offset.x
-      value: -0.0025139302
+      value: -0.002513945
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Offset.y
-      value: 0.034652114
+      value: 0.43643063
       objectReference: {fileID: 0}
     - target: {fileID: 381994414253648174, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_IsTrigger
@@ -33044,6 +33044,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 3466642605705116282, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
+      propertyPath: audioScript
+      value: 
+      objectReference: {fileID: 1732469401}
     - target: {fileID: 3768897767972618117, guid: a6680eac985621f45a3394f2bd9f1318, type: 3}
       propertyPath: m_Sprite
       value: 

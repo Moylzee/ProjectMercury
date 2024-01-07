@@ -17,12 +17,12 @@ public class ShoppingCenterManager : ScenesManager
         if (LevelMove.previousScene == "ShoppingCenterInside")
         {
             // Set the player's position to the position of the entrance from the inside
-            player.transform.position = new Vector3(160, 100, 0);
+            player.transform.position = new Vector3(160, 80, 0);
         }
         else
         {
             // Set the player's position to the default position
-            player.transform.position = new Vector3(0, 0, 0);
+            player.transform.position = new Vector3(160, 0, 0);
         }
 
         UpdateGUI();
