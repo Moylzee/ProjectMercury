@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 public class EstatesManager : ScenesManager
 {
     public GameObject player;
@@ -22,7 +23,9 @@ public class EstatesManager : ScenesManager
         else
         {
             // Set the player's position to the default position
-            player.transform.position = new Vector3(300, 360, 0);
+            player.transform.position = new Vector3(-138, -41, 0);
         }
+
+        UpdateGUI();
     }
 }

@@ -56,6 +56,27 @@ public class Weapon : Item
         
     }
 
+    public void DeepReadWeapon(Weapon weaponData)
+    {
+        SetUID(weaponData.UID); // Creates a brand new UID for the item
+        SetItemName(weaponData.GetItemName());
+        SetImageSource(weaponData.GetImageSource());
+        SetSpareAmmo(weaponData.GetSpareAmmo());
+        SetWeaponCategory(weaponData.GetWeaponCategory());
+        SetDamageDealtPerBullet(weaponData.GetDamageDealtPerBullet());
+        SetMagazineSize(weaponData.GetMagazineSize());
+        SetFireRate(weaponData.GetFireRate());
+        SetBulletsInMag(weaponData.GetMagazineSize());
+        SetReloadRate(weaponData.GetReloadRate());
+        SetItemRarity(weaponData.GetItemRarity());
+        SetTooltip(weaponData.GetTooltip());
+
+        if (weaponData.GetSpriteRenderer() != null)
+        {
+            SetSpriteRenderer(weaponData.GetSpriteRenderer());
+        }
+    }
+
     // Getters and Setters
 
     public void SetReloadRate(uint reloadRate)

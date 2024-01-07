@@ -50,6 +50,8 @@ public class EnemyHealth : MonoBehaviour
 
 
         playerScore.UpdatePointText();
+
+        PlayerPrefs.Save();
     }
 
     /* Generates a random chance to drop something */

@@ -55,6 +55,15 @@ public class ObjectPool : MonoBehaviour
         return null;
     }
 
+    /* Deactive all pooled enemies */
+    public void DeactivatePooledObjectEnemy()
+    {
+        foreach(GameObject obj in pooledObjects_Enemy)
+        {
+            obj.SetActive(false);
+        }
+        currentActiveEnemies = 0;
+    }
 
     public GameObject GetPooledObjectBullet()
     {

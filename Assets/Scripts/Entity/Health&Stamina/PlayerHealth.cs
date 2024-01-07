@@ -11,14 +11,24 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        currHealth = maxHealth;
+
+        if(PlayerPrefs.GetInt("Health") == 0)
+        {
+            currHealth = maxHealth;
+            PlayerPrefs.SetInt("Health", currHealth);
+        }
+        else
+        {
+            currHealth = PlayerPrefs.GetInt("Health");
+        }
+
     }
 
     // Method to Damage Player
     public void DamagePlayer(int damage)
     {
-        currHealth -= damage;
 
+        currHealth -= damage;
         // Player died
         if (currHealth <= 0)
         {

@@ -9,7 +9,12 @@ public class GameLevel : MonoBehaviour
     private TextMeshProUGUI LevelsText;
 
     // Use this for initialization
-    void Start()
+    void Awake()
+    {
+        LevelsText = GameObject.FindWithTag("LevelsText").GetComponent<TextMeshProUGUI>();
+    }
+
+    public void Init()
     {
         LevelsText = GameObject.FindWithTag("LevelsText").GetComponent<TextMeshProUGUI>();
     }
@@ -39,5 +44,3 @@ public class GameLevel : MonoBehaviour
         LevelsText.text = romanValue.ToString();
     }
 }
-
-//PointText = GameObject.FindWithTag("PointText").GetComponent<TextMeshProUGUI>();
