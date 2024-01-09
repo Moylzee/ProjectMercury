@@ -62,6 +62,10 @@ public class ObjectPool : MonoBehaviour
     {
         foreach(GameObject obj in pooledObjects_Enemy)
         {
+            if(obj == null)
+            {
+                continue;
+            }
             obj.SetActive(false);
         }
         currentActiveEnemies = 0;
@@ -86,6 +90,10 @@ public class ObjectPool : MonoBehaviour
     {
         foreach (GameObject obj in pooledObjects_Bullet)
         {
+            if (obj == null)
+            {
+                continue;
+            }
             obj.SetActive(false);
         }
     }

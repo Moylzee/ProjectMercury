@@ -25,8 +25,10 @@ public static class ConsumableItemLoader
         {
             Debug.LogWarning("Attempted reading of Consumable Items file twice");
         }
-        string jsonFile = File.ReadAllText("Assets/GameData/Consumables/ConsumableData.json");
-        consumableList = JsonUtility.FromJson<ConsumableItemList>(jsonFile);
+
+
+        TextAsset jsonFile = Resources.Load<TextAsset>("ConsumableData");
+        consumableList = JsonUtility.FromJson<ConsumableItemList>(jsonFile.text);
 
         foreach (ConsumableItem item in consumableList.consumables)
         {

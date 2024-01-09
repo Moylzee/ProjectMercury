@@ -106,12 +106,12 @@ public static class Settings
 
     public static void LoadSettings()
     {
-        string filePath = File.ReadAllText("Assets/GameData/GameSettings/Keyboard.json");
+        TextAsset filePath = Resources.Load<TextAsset>("Keyboard");
         if(filePath == null || filePath.Equals(""))
         {
             return;
         }
-        data = JsonUtility.FromJson<SettingsData>(filePath);
+        data = JsonUtility.FromJson<SettingsData>(filePath.text);
 
         Debug.Log("Settings Loaded");
 

@@ -49,6 +49,12 @@ public class InteractionScript : MonoBehaviour
     /* On Trigger Exit method, removes item or lootbox from nearby variable */
     private void OnTriggerExit2D(Collider2D collision)
     {
+
+        if (InteractPrompt == null)
+        {
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Item"))
         {
             ClosestItemToPlayer.Remove(collision.gameObject);

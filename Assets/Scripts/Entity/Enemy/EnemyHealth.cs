@@ -69,8 +69,12 @@ public class EnemyHealth : MonoBehaviour
                 case 0:
                     // First case: spawns random weapon on the ground
                     Weapon random1 = WeaponLoader.GetRandomWeapon();
-                    random1.SetOnGround(true);
-                    WeaponLoader.CreateWeaponObject(transform.position, random1);
+                    
+
+                    Weapon weaponCopy = new();
+                    weaponCopy.ReadWeapon(random1);
+                    weaponCopy.SetOnGround(true);
+                    WeaponLoader.CreateWeaponObject(transform.position, weaponCopy);
                     break;
                 case 1:
                     // Second case: spawns random consumable item on the ground

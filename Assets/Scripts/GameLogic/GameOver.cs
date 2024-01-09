@@ -16,6 +16,8 @@ public class GameOverScript : MonoBehaviour
         scoreText.text = PlayerPrefs.GetInt("Score").ToString();
         levelScoreText.text = PlayerPrefs.GetInt("Level").ToString();
         zombiesKilledText.text = PlayerPrefs.GetInt("ZombiesKilled").ToString();
+
+        DeactivateAllPooledObjects();
     }
     // Load the "Menu" scene by its name.
     public void GoToMenu()
@@ -33,4 +35,13 @@ public class GameOverScript : MonoBehaviour
     {
         Application.Quit();
     }
+
+    /* Method to deactivate all pooled objects */
+    void DeactivateAllPooledObjects()
+    {
+        ObjectPool objPool = ObjectPool.SharedInstance;
+        objPool.DeactivatePooledObjectEnemy();
+        objPool.DeactivatePooledObjectBullet();
+    }
+
 }

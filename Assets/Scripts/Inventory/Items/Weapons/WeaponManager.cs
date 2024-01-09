@@ -34,8 +34,8 @@ public static class WeaponLoader
             Debug.LogWarning("Attempted reading of Weapon File twice");
             return;
         }
-        string jsonFile = File.ReadAllText("Assets/GameData/Weapons/WeaponData.json");
-        weaponList = JsonUtility.FromJson<WeaponList>(jsonFile);
+        TextAsset jsonFile = Resources.Load<TextAsset>("WeaponData");
+        weaponList = JsonUtility.FromJson<WeaponList>(jsonFile.text);
 
         foreach (Weapon weapon in weaponList.weapons)
         {
